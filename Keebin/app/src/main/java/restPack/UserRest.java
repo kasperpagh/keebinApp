@@ -14,6 +14,7 @@ import java.net.URL;
 
 
 import entity.User;
+import kasper.pagh.keebin.AsyncResponse;
 
 
 /**
@@ -26,6 +27,7 @@ public class UserRest extends AsyncTask<String, Void, String>
 
     private Gson gson;
     private String baseUrl;
+    public AsyncResponse delegate = null;
 
     public UserRest()
     {
@@ -73,9 +75,11 @@ public class UserRest extends AsyncTask<String, Void, String>
         return null;
     }
 
+    //This is the way to get the output/result to the activity!
     @Override
     protected void onPostExecute(String result)
     {
+        delegate.processFinished(result);
 
     }
 
