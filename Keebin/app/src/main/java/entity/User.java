@@ -13,14 +13,15 @@ public class User
     private String firstName;
     private String lastName;
     private String email;
-    private Date birthday;
+    private String birthday;
     private String sex;
     private int roleId;
+    private String password;
 
     private boolean isSubscriber;
     private int subscriberFreeCoffeeLeft;
 
-    public User(int databseId, String firstName, String lastName, String email, Date birthday, String sex, int roleId, boolean isSubscriber)
+    public User(int databseId, String firstName, String lastName, String email, String birthday, String sex, int roleId, boolean isSubscriber, String password)
     {
         this.databseId = databseId;
         this.firstName = firstName;
@@ -30,6 +31,17 @@ public class User
         this.sex = sex;
         this.roleId = roleId;
         this.isSubscriber = isSubscriber;
+        this.password = password;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
     }
 
     private List<LoyaltyCard> loyaltyCards;
@@ -74,12 +86,12 @@ public class User
         this.email = email;
     }
 
-    public Date getBirthday()
+    public String getBirthday()
     {
         return birthday;
     }
 
-    public void setBirthday(Date birthday)
+    public void setBirthday(String birthday)
     {
         this.birthday = birthday;
     }

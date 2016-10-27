@@ -80,7 +80,6 @@ public class UserRest extends AsyncTask<String, Void, String>
     protected void onPostExecute(String result)
     {
         delegate.processFinished(result);
-
     }
 
     //Returns the new representation of the user. METHOD NO 1 CALL WITH FIRST PARAM BEING "1",
