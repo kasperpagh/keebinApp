@@ -20,6 +20,17 @@ public class User
     private boolean isSubscriber;
     private int subscriberFreeCoffeeLeft;
 
+    public User(int databseId, String firstName, String lastName, String email, Date birthday, String sex, int roleId, boolean isSubscriber)
+    {
+        this.databseId = databseId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.birthday = birthday;
+        this.sex = sex;
+        this.roleId = roleId;
+        this.isSubscriber = isSubscriber;
+    }
 
     private List<LoyaltyCard> loyaltyCards;
 
