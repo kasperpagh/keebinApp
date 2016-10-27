@@ -38,7 +38,7 @@ public class UserRest extends AsyncTask<String, Void, String>
     @Override
     protected String doInBackground(String... params)
     {
-        if (params[0] == "1")
+        if (params[0].equals("1"))
         {
             try
             {
@@ -49,7 +49,7 @@ public class UserRest extends AsyncTask<String, Void, String>
             }
 
         }
-        if (params[0] == "2")
+        if (params[0].equals("2"))
         {
             try
             {
@@ -60,11 +60,11 @@ public class UserRest extends AsyncTask<String, Void, String>
             }
 
         }
-        if (params[0] == "3")
+        if (params[0].equals("3"))
         {
 
         }
-        if (params[0] == "4")
+        if (params[0].equals("4"))
         {
 
         }
@@ -79,7 +79,7 @@ public class UserRest extends AsyncTask<String, Void, String>
 
     }
 
-    //Returns the new representation of the user after METHOD NO 1 CALL WITH FIRST PARAM BEING "1",
+    //Returns the new representation of the user. METHOD NO 1 CALL WITH FIRST PARAM BEING "1",
     //THE SECOND BEING THE JSON REPRESENTATION OF THE NEW USER OBJECT AND THE THIRD BEING THE USER EMAIL
     private User putUser(String jsonUserToSave, String userEmail) throws IOException
     {

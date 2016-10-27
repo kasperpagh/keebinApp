@@ -6,7 +6,9 @@ import android.os.Bundle;
 
 import restPack.NetworkChecker;
 
-public class MainActivity extends AppCompatActivity
+
+//All activities that deal with network MUST implement the AsyncResponse interface to get the data from the request. See: http://stackoverflow.com/questions/12575068/how-to-get-the-result-of-onpostexecute-to-main-activity-because-asynctask-is-a
+public class MainActivity extends AppCompatActivity implements AsyncResponse
 {
 
     private static NetworkChecker networkChecker;
@@ -21,5 +23,11 @@ public class MainActivity extends AppCompatActivity
     public static NetworkChecker getNetworkChecker()
     {
         return networkChecker;
+    }
+
+    @Override
+    public void processFinished(String output)
+    {
+
     }
 }
