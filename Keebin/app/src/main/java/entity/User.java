@@ -1,6 +1,5 @@
 package entity;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,13 +14,13 @@ public class User
     private String email;
     private String birthday;
     private String sex;
-    private int roleId;
+    private int role;
     private String password;
 
     private boolean isSubscriber;
     private int subscriberFreeCoffeeLeft;
 
-    public User(int databseId, String firstName, String lastName, String email, String birthday, String sex, int roleId, boolean isSubscriber, String password)
+    public User(int databseId, String firstName, String lastName, String email, String birthday, String sex, int role, boolean isSubscriber, String password)
     {
         this.databseId = databseId;
         this.firstName = firstName;
@@ -29,8 +28,19 @@ public class User
         this.email = email;
         this.birthday = birthday;
         this.sex = sex;
-        this.roleId = roleId;
+        this.role = role;
         this.isSubscriber = isSubscriber;
+        this.password = password;
+    }
+
+    public User(String firstName, String lastName, String email, String birthday, String sex, int role, String password)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.birthday = birthday;
+        this.sex = sex;
+        this.role = role;
         this.password = password;
     }
 
@@ -106,14 +116,14 @@ public class User
         this.sex = sex;
     }
 
-    public int getRoleId()
+    public int getRole()
     {
-        return roleId;
+        return role;
     }
 
-    public void setRoleId(int roleId)
+    public void setRole(int role)
     {
-        this.roleId = roleId;
+        this.role = role;
     }
 
     public boolean isSubscriber()

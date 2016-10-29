@@ -20,9 +20,10 @@ import kasper.pagh.keebin.AsyncResponse;
 
 public class PutUser extends AsyncTask<String, Void, String>
 {
-    private String baseUrl = "http://82.211.198.31:3000/api/";
+
     private String userEmail;
     public AsyncResponse delegate = null;
+    private String baseUrl = "http://82.211.198.31:3000/api/";
 
     public PutUser(String userEmail)
     {
