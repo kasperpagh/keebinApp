@@ -22,10 +22,11 @@ public class PutUser extends AsyncTask<String, Void, String>
 
     private String userEmail;
     public AsyncResponse delegate = null;
-    private String baseUrl = "http://82.211.198.31:3000/api/";
+    private String baseUrl;
 
-    public PutUser(String userEmail, AsyncResponse delegate)
+    public PutUser(String baseUrl, String userEmail, AsyncResponse delegate)
     {
+        this.baseUrl = baseUrl;
         this.userEmail = userEmail;
         this.delegate = delegate;
     }

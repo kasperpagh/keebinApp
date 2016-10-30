@@ -20,7 +20,7 @@ import kasper.pagh.keebin.AsyncResponse;
 public class NewUser extends AsyncTask<String, Void, String>
 {
     public AsyncResponse delegate = null;
-    private String baseUrl = "http://82.211.198.31:3000/api/";
+    private String baseUrl;
     private String userToCreate = null;
     private Gson gson;
 

@@ -18,7 +18,7 @@ import kasper.pagh.keebin.AsyncResponse;
 public class NewRole extends AsyncTask<String, Void, String>
 {
     public AsyncResponse delegate = null;
-    private String baseUrl = "http://82.211.198.31:3000/api/";
+    private String baseUrl;
     private Gson gson;
     private String roleName;
 

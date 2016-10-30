@@ -21,10 +21,11 @@ public class GetLoyaltyCardById  extends AsyncTask<String, Void, String>
 
     private String loyaltyCardId;
     public AsyncResponse delegate = null;
-    private String baseUrl = "http://82.211.198.31:3000/api/";
+    private String baseUrl;
 
-    public GetLoyaltyCardById(String loyaltyCardId, AsyncResponse delegate)
+    public GetLoyaltyCardById(String baseUrl,String loyaltyCardId, AsyncResponse delegate)
     {
+        this.baseUrl = baseUrl;
         this.loyaltyCardId = loyaltyCardId;
         this.delegate = delegate;
     }
