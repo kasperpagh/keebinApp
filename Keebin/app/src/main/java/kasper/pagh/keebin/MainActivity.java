@@ -43,24 +43,27 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
     public void tester(View view)
     {
 
+// KASPERS 
         User postUsr = new User("nyBruger", "numer 1", "new@gmail.com", "2010-09-08 22:00:00", "male", 1, "asdf");
 //        String jsonUsr = gson.toJson(putusr, User.class);
 //        Log.d("her er json user: ", jsonUsr);
-//        tester = new PutBrandByID("lars1@gmail.com");
+//        tester = new PutUser("lars1@gmail.com");
 //        tester.delegate = this;
-//        deleteUser = new DeleteCoffeeShopByEmail(getResources().getString(R.string.baseUrl), "lars2@gmail.com");
+//        deleteUser = new DeleteUser(getResources().getString(R.string.baseUrl), "lars2@gmail.com");
 //        deleteUser.delegate = this;
-//        newUser = new NewShopUser(getResources().getString(R.string.baseUrl), postUsr);
+//        newUser = new NewUser(getResources().getString(R.string.baseUrl), postUsr);
 //        newUser.delegate = this;
 
-//        NewShop nlc = new NewShop(getResources().getString(R.string.baseUrl),1, 4, 3, this);
-//        NewBrand newRole = new NewBrand(getResources().getString(R.string.baseUrl), "jimmy", this);
-//        GetBrandByID gu = new GetBrandByID("new@gmail.com", this);
-//        GetShopByEmail glcbid = new GetShopByEmail("5", this);
-//        PutBrandByID pLC = new PutBrandByID(getResources().getString(R.string.baseUrl),4, 5,1,6,this);
-//        GetAllShops gAR = new GetAllShops(getResources().getString(R.string.baseUrl), this);
-//        GetAllShopUsersByID gALC = new GetAllShopUsersByID(getResources().getString(R.string.baseUrl), this);
-//        GetAllBrands gAU = new GetAllBrands(getResources().getString(R.string.baseUrl), this);
+//        NewLoyaltyCard nlc = new NewLoyaltyCard(getResources().getString(R.string.baseUrl),1, 4, 3, this);
+//        NewRole newRole = new NewRole(getResources().getString(R.string.baseUrl), "jimmy", this);
+//        GetUser gu = new GetUser("new@gmail.com", this);
+//        GetLoyaltyCardById glcbid = new GetLoyaltyCardById("5", this);
+//        PutLoyaltyCard pLC = new PutLoyaltyCard(getResources().getString(R.string.baseUrl),4, 5,1,6,this);
+//        GetAllRoles gAR = new GetAllRoles(getResources().getString(R.string.baseUrl), this);
+//        GetAllLoyaltyCards gALC = new GetAllLoyaltyCards(getResources().getString(R.string.baseUrl), this);
+//        GetAllUsers gAU = new GetAllUsers(getResources().getString(R.string.baseUrl), this);
+
+// SEBASTIANS
 //        DeleteCoffeeShopByEmail dCSBE = new DeleteCoffeeShopByEmail(getResources().getString(R.string.baseUrl), "a@ho.hom", this); // tested -- working
 //        NewBrand nB = new NewBrand(getResources().getString(R.string.baseUrl), "MyBrandName", 10, this); // tested -- working
 //        NewShop nS = new NewShop(getResources().getString(R.string.baseUrl), "myemail@hotmail.com", 3, "myadress 12", 12345678, this); // tested -- working
