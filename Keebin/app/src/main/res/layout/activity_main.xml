@@ -28,6 +28,6 @@
         android:layout_below="@+id/responseText"
         android:layout_centerHorizontal="true"
         android:id="@+id/tester"
-        android:onClick="putUser"/>
+        android:onClick="tester"/>
 
 </RelativeLayout>

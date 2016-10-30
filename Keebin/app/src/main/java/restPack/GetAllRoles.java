@@ -7,53 +7,43 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import entity.User;
 import kasper.pagh.keebin.AsyncResponse;
 
 /**
- * Created by kaspe on 2016-10-27.
+ * Created by kaspe on 2016-10-29.
  */
 
-public class PutUser extends AsyncTask<String, Void, String>
+public class GetAllRoles extends AsyncTask<String, Void, String>
 {
-
-    private String userEmail;
     public AsyncResponse delegate = null;
-    private String baseUrl = "http://82.211.198.31:3000/api/";
+    private String baseUrl;
 
-    public PutUser(String userEmail, AsyncResponse delegate)
+    public GetAllRoles(String baseUrl, AsyncResponse delegate)
     {
-        this.userEmail = userEmail;
+        this.baseUrl = baseUrl;
         this.delegate = delegate;
     }
 
 
-    private String putUser(String jsonUserToSave, String userEmail) throws IOException
+    private String getUser() throws IOException
     {
         InputStream input = null;
-        OutputStream output = null;
         BufferedReader bufferedReader = null;
         StringBuilder sb = null;
 
         try
         {
-            URL url = new URL(baseUrl + "users/user/" + userEmail);
+            URL url = new URL(baseUrl + "users/allroles/");
             Log.d("full url: ", url.toString());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("PUT");
+            connection.setRequestMethod("GET");
             connection.setReadTimeout(10000);
             connection.setConnectTimeout(15000);
-            connection.setDoOutput(true);
             connection.setDoInput(true);
-            connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
-            output = connection.getOutputStream();
-            output.write(jsonUserToSave.getBytes("UTF-8"));
-            output.close();
 
             connection.connect();
 
@@ -81,7 +71,7 @@ public class PutUser extends AsyncTask<String, Void, String>
     {
         try
         {
-            return putUser(params[0], userEmail);
+            return getUser();
         } catch (IOException e)
         {
 

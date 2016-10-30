@@ -4,14 +4,11 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 
 import entity.User;
@@ -21,45 +18,54 @@ import kasper.pagh.keebin.AsyncResponse;
  * Created by kaspe on 2016-10-29.
  */
 
-public class NewUser extends AsyncTask<String, Void, String>
+public class NewLoyaltyCard extends AsyncTask<String, Void, String>
 {
     public AsyncResponse delegate = null;
-    private String baseUrl = "http://82.211.198.31:3000/api/";
-    private String userToCreate = null;
+    private java.lang.String baseUrl;
     private Gson gson;
+    private int userId;
+    private int numberOfCoffeesBought;
+    private int brandName;
 
-    public NewUser(String baseUrl, User newUser, AsyncResponse delegate)
+    //ville anbefale vi lavede backend om til at virke på email og ikke id
+    public NewLoyaltyCard(String baseUrl, int brandId ,int userId, int numberOfCoffeesBought, AsyncResponse delegate)
     {
         this.baseUrl = baseUrl;
         this.gson = new Gson();
-        this.userToCreate = gson.toJson(newUser, User.class);
+        this.numberOfCoffeesBought = numberOfCoffeesBought;
+        this.userId = userId;
         this.delegate = delegate;
-
+        this.brandName = brandId;
     }
+
     @Override
-    protected String doInBackground(String... params)
+    protected java.lang.String doInBackground(java.lang.String... params)
     {
         try
         {
-            return newUser();
+            return newLoyaltyCard();
         } catch (IOException e)
         {
             return "500";
         }
     }
+
     @Override
-    protected void onPostExecute(String result)
+    protected void onPostExecute(java.lang.String result)
     {
         delegate.processFinished(result);
     }
 
 
-    private String newUser() throws IOException
+    private String newLoyaltyCard() throws IOException
     {
+        JsonObject jo = new JsonObject();
+        jo.addProperty("userId", userId);
+        jo.addProperty("numberOfCoffeesBought", numberOfCoffeesBought);
+        jo.addProperty("brandName", brandName);
         OutputStream output = null;
 
-        URL url = new URL(baseUrl + "users/user/new");
-        Log.d("full url: ", url.toString());
+        URL url = new URL(baseUrl + "users/card/new");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setReadTimeout(10000);
@@ -67,11 +73,11 @@ public class NewUser extends AsyncTask<String, Void, String>
         connection.setDoOutput(true);
         connection.setRequestProperty("Content-Type", "application/json");
         output = connection.getOutputStream();
-        output.write(userToCreate.getBytes("UTF-8"));
+        output.write(gson.toJson(jo).getBytes("UTF-8"));
         output.close();
 
         connection.connect();
-        String responseCode = connection.getResponseCode()+"";
+        java.lang.String responseCode = connection.getResponseCode() + "";
         return responseCode;
     }
 }

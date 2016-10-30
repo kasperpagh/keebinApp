@@ -10,8 +10,14 @@ import com.google.gson.Gson;
 
 import entity.User;
 import restPack.DeleteUser;
+import restPack.GetAllRoles;
+import restPack.GetLoyaltyCardById;
+import restPack.GetUser;
 import restPack.NetworkChecker;
+import restPack.NewLoyaltyCard;
+import restPack.NewRole;
 import restPack.NewUser;
+import restPack.PutLoyaltyCard;
 import restPack.PutUser;
 
 
@@ -38,26 +44,38 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 
     }
 
-    public void putUser(View view)
+    public void tester(View view)
     {
 
         User postUsr = new User("nyBruger", "numer 1", "new@gmail.com", "2010-09-08 22:00:00", "male", 1, "asdf");
 //        String jsonUsr = gson.toJson(putusr, User.class);
 //        Log.d("her er json user: ", jsonUsr);
-//        putUser = new PutUser("lars1@gmail.com");
-//        putUser.delegate = this;
+//        tester = new PutUser("lars1@gmail.com");
+//        tester.delegate = this;
 //        deleteUser = new DeleteUser(getResources().getString(R.string.baseUrl), "lars2@gmail.com");
 //        deleteUser.delegate = this;
-        newUser = new NewUser(getResources().getString(R.string.baseUrl), postUsr);
-        newUser.delegate = this;
+//        newUser = new NewUser(getResources().getString(R.string.baseUrl), postUsr);
+//        newUser.delegate = this;
+
+//        NewLoyaltyCard nlc = new NewLoyaltyCard(getResources().getString(R.string.baseUrl),1, 4, 3, this);
+//        NewRole newRole = new NewRole(getResources().getString(R.string.baseUrl), "jimmy", this);
+//        GetUser gu = new GetUser("new@gmail.com", this);
+//        GetLoyaltyCardById glcbid = new GetLoyaltyCardById("5", this);
+//        PutLoyaltyCard pLC = new PutLoyaltyCard(getResources().getString(R.string.baseUrl),4, 5,1,6,this);
+        GetAllRoles gAR = new GetAllRoles(getResources().getString(R.string.baseUrl), this);
 
 
         if (networkChecker.networkChecker())
         {
-//            putUser.execute(jsonUsr);
+//            tester.execute(jsonUsr);
 //            deleteUser.execute();
-            newUser.execute();
-
+//            newUser.execute();
+//            nlc.execute();
+//            newRole.execute();
+//            gu.execute();
+//            glcbid.execute();
+//            pLC.execute();
+            gAR.execute();
         }
 
     }

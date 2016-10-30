@@ -2,38 +2,32 @@ package restPack;
 
 import android.os.AsyncTask;
 import android.util.Log;
-
 import com.google.gson.Gson;
-
-import java.io.BufferedReader;
+import com.google.gson.JsonObject;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 
-import entity.User;
 import kasper.pagh.keebin.AsyncResponse;
 
 /**
  * Created by kaspe on 2016-10-29.
  */
 
-public class NewUser extends AsyncTask<String, Void, String>
+public class NewRole extends AsyncTask<String, Void, String>
 {
     public AsyncResponse delegate = null;
     private String baseUrl = "http://82.211.198.31:3000/api/";
-    private String userToCreate = null;
     private Gson gson;
+    private String roleName;
 
-    public NewUser(String baseUrl, User newUser, AsyncResponse delegate)
+    public NewRole(String baseUrl, String roleName, AsyncResponse delegate)
     {
         this.baseUrl = baseUrl;
         this.gson = new Gson();
-        this.userToCreate = gson.toJson(newUser, User.class);
         this.delegate = delegate;
+        this.roleName = roleName;
 
     }
     @Override
@@ -41,7 +35,7 @@ public class NewUser extends AsyncTask<String, Void, String>
     {
         try
         {
-            return newUser();
+            return newRole();
         } catch (IOException e)
         {
             return "500";
@@ -54,11 +48,13 @@ public class NewUser extends AsyncTask<String, Void, String>
     }
 
 
-    private String newUser() throws IOException
+    private String newRole() throws IOException
     {
+        JsonObject jo = new JsonObject();
+        jo.addProperty("roleName", roleName);
         OutputStream output = null;
 
-        URL url = new URL(baseUrl + "users/user/new");
+        URL url = new URL(baseUrl + "users/role/new");
         Log.d("full url: ", url.toString());
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -67,7 +63,7 @@ public class NewUser extends AsyncTask<String, Void, String>
         connection.setDoOutput(true);
         connection.setRequestProperty("Content-Type", "application/json");
         output = connection.getOutputStream();
-        output.write(userToCreate.getBytes("UTF-8"));
+        output.write(gson.toJson(jo).getBytes("UTF-8"));
         output.close();
 
         connection.connect();

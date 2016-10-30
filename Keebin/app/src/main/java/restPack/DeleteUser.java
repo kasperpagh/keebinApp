@@ -20,10 +20,11 @@ public class DeleteUser extends AsyncTask<String, Void, String>
     public AsyncResponse delegate = null;
     private String baseUrl;
 
-    public DeleteUser(String baseUrl, String userEmail)
+    public DeleteUser(String baseUrl, String userEmail, AsyncResponse delegate)
     {
         this.baseUrl = baseUrl;
         this.userEmail = userEmail;
+        this.delegate = delegate;
     }
     @Override
     protected String doInBackground(String... params)
