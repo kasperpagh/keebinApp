@@ -8,11 +8,10 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import CoffeeRest.rest.PutBrandByID;
+import CoffeeRest.rest.PutShopByEmail;
 import entity.User;
 import userReST.DeleteUser;
-import userReST.GetAllLoyaltyCards;
-import userReST.GetAllRoles;
-import userReST.GetAllUsers;
 import userReST.NetworkChecker;
 import userReST.NewUser;
 import userReST.PutUser;
@@ -47,22 +46,32 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
         User postUsr = new User("nyBruger", "numer 1", "new@gmail.com", "2010-09-08 22:00:00", "male", 1, "asdf");
 //        String jsonUsr = gson.toJson(putusr, User.class);
 //        Log.d("her er json user: ", jsonUsr);
-//        tester = new PutUser("lars1@gmail.com");
+//        tester = new PutBrandByID("lars1@gmail.com");
 //        tester.delegate = this;
-//        deleteUser = new DeleteUser(getResources().getString(R.string.baseUrl), "lars2@gmail.com");
+//        deleteUser = new DeleteCoffeeShopByEmail(getResources().getString(R.string.baseUrl), "lars2@gmail.com");
 //        deleteUser.delegate = this;
-//        newUser = new NewUser(getResources().getString(R.string.baseUrl), postUsr);
+//        newUser = new NewShopUser(getResources().getString(R.string.baseUrl), postUsr);
 //        newUser.delegate = this;
 
-//        NewLoyaltyCard nlc = new NewLoyaltyCard(getResources().getString(R.string.baseUrl),1, 4, 3, this);
-//        NewRole newRole = new NewRole(getResources().getString(R.string.baseUrl), "jimmy", this);
-//        GetUser gu = new GetUser("new@gmail.com", this);
-//        GetLoyaltyCardById glcbid = new GetLoyaltyCardById("5", this);
-//        PutLoyaltyCard pLC = new PutLoyaltyCard(getResources().getString(R.string.baseUrl),4, 5,1,6,this);
-//        GetAllRoles gAR = new GetAllRoles(getResources().getString(R.string.baseUrl), this);
-//        GetAllLoyaltyCards gALC = new GetAllLoyaltyCards(getResources().getString(R.string.baseUrl), this);
-        GetAllUsers gAU = new GetAllUsers(getResources().getString(R.string.baseUrl), this);
-
+//        NewShop nlc = new NewShop(getResources().getString(R.string.baseUrl),1, 4, 3, this);
+//        NewBrand newRole = new NewBrand(getResources().getString(R.string.baseUrl), "jimmy", this);
+//        GetBrandByID gu = new GetBrandByID("new@gmail.com", this);
+//        GetShopByEmail glcbid = new GetShopByEmail("5", this);
+//        PutBrandByID pLC = new PutBrandByID(getResources().getString(R.string.baseUrl),4, 5,1,6,this);
+//        GetAllShops gAR = new GetAllShops(getResources().getString(R.string.baseUrl), this);
+//        GetAllShopUsersByID gALC = new GetAllShopUsersByID(getResources().getString(R.string.baseUrl), this);
+//        GetAllBrands gAU = new GetAllBrands(getResources().getString(R.string.baseUrl), this);
+//        DeleteCoffeeShopByEmail dCSBE = new DeleteCoffeeShopByEmail(getResources().getString(R.string.baseUrl), "a@ho.hom", this); // tested -- working
+//        NewBrand nB = new NewBrand(getResources().getString(R.string.baseUrl), "MyBrandName", 10, this); // tested -- working
+//        NewShop nS = new NewShop(getResources().getString(R.string.baseUrl), "myemail@hotmail.com", 3, "myadress 12", 12345678, this); // tested -- working
+//        NewShopUser nSU = new NewShopUser(getResources().getString(R.string.baseUrl), "john@gmailae.com", "myemail@hotmail.com", this); // tested -- working
+//        GetBrandByID gBBI = new GetBrandByID(getResources().getString(R.string.baseUrl), 2, this); // tested -- working
+//        GetShopByEmail gSBE = new GetShopByEmail(getResources().getString(R.string.baseUrl), "myemail@hotmail.com", this); // tested -- working
+//        GetAllShops gAS = new GetAllShops(getResources().getString(R.string.baseUrl), this); // tested -- working
+//        GetAllBrands gAB = new GetAllBrands(getResources().getString(R.string.baseUrl), this); // tested -- working
+//        GetAllShopUsersByID gASUBI = new GetAllShopUsersByID(getResources().getString(R.string.baseUrl), 7, this); // tested -- working
+//        PutBrandByID pBBI = new PutBrandByID(getResources().getString(R.string.baseUrl), "Hello lars",2,10, this); // tested -- working
+//        PutShopByEmail pSBE = new PutShopByEmail(getResources().getString(R.string.baseUrl), "a@ho.hon", "newshopemail@hotmail.com", 3, "shop address", 12345678, this); // tested -- working
 
         if (networkChecker.networkChecker())
         {
@@ -76,7 +85,20 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 //            pLC.execute();
 //            gAR.execute();
 //            gALC.execute();
-            gAU.execute();
+//            gAU.execute();
+//            nB.execute();
+//            nS.execute();
+//            nSU.execute();
+//            gBBI.execute();
+//            gSBE.execute();
+//            gAS.execute();
+//            gAB.execute();
+//            gASUBI.execute();
+//            pBBI.execute();
+//            pSBE.execute();
+
+
+
         }
 
     }
