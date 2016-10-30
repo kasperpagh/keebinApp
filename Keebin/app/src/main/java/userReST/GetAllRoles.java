@@ -1,4 +1,4 @@
-package restPack;
+package userReST;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -16,16 +16,14 @@ import kasper.pagh.keebin.AsyncResponse;
  * Created by kaspe on 2016-10-29.
  */
 
-public class GetLoyaltyCardById  extends AsyncTask<String, Void, String>
+public class GetAllRoles extends AsyncTask<String, Void, String>
 {
-
-    private String loyaltyCardId;
     public AsyncResponse delegate = null;
-    private String baseUrl = "http://82.211.198.31:3000/api/";
+    private String baseUrl;
 
-    public GetLoyaltyCardById(String loyaltyCardId, AsyncResponse delegate)
+    public GetAllRoles(String baseUrl, AsyncResponse delegate)
     {
-        this.loyaltyCardId = loyaltyCardId;
+        this.baseUrl = baseUrl;
         this.delegate = delegate;
     }
 
@@ -38,7 +36,7 @@ public class GetLoyaltyCardById  extends AsyncTask<String, Void, String>
 
         try
         {
-            URL url = new URL(baseUrl + "users/card/" + loyaltyCardId);
+            URL url = new URL(baseUrl + "users/allroles/");
             Log.d("full url: ", url.toString());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");

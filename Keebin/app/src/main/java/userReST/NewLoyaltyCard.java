@@ -1,7 +1,6 @@
-package restPack;
+package userReST;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -11,7 +10,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import entity.User;
 import kasper.pagh.keebin.AsyncResponse;
 
 /**

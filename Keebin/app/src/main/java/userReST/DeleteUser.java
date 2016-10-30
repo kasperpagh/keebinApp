@@ -1,11 +1,9 @@
-package restPack;
+package userReST;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import kasper.pagh.keebin.AsyncResponse;

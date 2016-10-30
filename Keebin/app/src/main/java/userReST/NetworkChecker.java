@@ -1,10 +1,8 @@
-package restPack;
+package userReST;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-
-import kasper.pagh.keebin.MainActivity;
 
 /**
  * Created by kasper on 2016-10-26.

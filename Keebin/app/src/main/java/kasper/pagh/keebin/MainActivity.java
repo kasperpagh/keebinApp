@@ -9,16 +9,13 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import entity.User;
-import restPack.DeleteUser;
-import restPack.GetAllRoles;
-import restPack.GetLoyaltyCardById;
-import restPack.GetUser;
-import restPack.NetworkChecker;
-import restPack.NewLoyaltyCard;
-import restPack.NewRole;
-import restPack.NewUser;
-import restPack.PutLoyaltyCard;
-import restPack.PutUser;
+import userReST.DeleteUser;
+import userReST.GetAllLoyaltyCards;
+import userReST.GetAllRoles;
+import userReST.GetAllUsers;
+import userReST.NetworkChecker;
+import userReST.NewUser;
+import userReST.PutUser;
 
 
 //All activities that deal with network MUST implement the AsyncResponse interface to get the data from the request. See: http://stackoverflow.com/questions/12575068/how-to-get-the-result-of-onpostexecute-to-main-activity-because-asynctask-is-a
@@ -62,7 +59,9 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 //        GetUser gu = new GetUser("new@gmail.com", this);
 //        GetLoyaltyCardById glcbid = new GetLoyaltyCardById("5", this);
 //        PutLoyaltyCard pLC = new PutLoyaltyCard(getResources().getString(R.string.baseUrl),4, 5,1,6,this);
-        GetAllRoles gAR = new GetAllRoles(getResources().getString(R.string.baseUrl), this);
+//        GetAllRoles gAR = new GetAllRoles(getResources().getString(R.string.baseUrl), this);
+//        GetAllLoyaltyCards gALC = new GetAllLoyaltyCards(getResources().getString(R.string.baseUrl), this);
+        GetAllUsers gAU = new GetAllUsers(getResources().getString(R.string.baseUrl), this);
 
 
         if (networkChecker.networkChecker())
@@ -75,7 +74,9 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 //            gu.execute();
 //            glcbid.execute();
 //            pLC.execute();
-            gAR.execute();
+//            gAR.execute();
+//            gALC.execute();
+            gAU.execute();
         }
 
     }

@@ -1,4 +1,4 @@
-package restPack;
+package userReST;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -17,17 +16,16 @@ import kasper.pagh.keebin.AsyncResponse;
  * Created by kaspe on 2016-10-29.
  */
 
-public class GetUser extends AsyncTask<String, Void, String>
+public class GetLoyaltyCardById  extends AsyncTask<String, Void, String>
 {
 
-    private String userEmail;
+    private String loyaltyCardId;
     public AsyncResponse delegate = null;
-    private String baseUrl;
+    private String baseUrl = "http://82.211.198.31:3000/api/";
 
-    public GetUser(String baseUrl, String userEmail, AsyncResponse delegate)
+    public GetLoyaltyCardById(String loyaltyCardId, AsyncResponse delegate)
     {
-        this.baseUrl = baseUrl;
-        this.userEmail = userEmail;
+        this.loyaltyCardId = loyaltyCardId;
         this.delegate = delegate;
     }
 
@@ -40,7 +38,7 @@ public class GetUser extends AsyncTask<String, Void, String>
 
         try
         {
-            URL url = new URL(baseUrl + "users/user/" + userEmail);
+            URL url = new URL(baseUrl + "users/card/" + loyaltyCardId);
             Log.d("full url: ", url.toString());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");

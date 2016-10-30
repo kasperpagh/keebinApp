@@ -1,74 +1,49 @@
-package restPack;
+package userReST;
 
 import android.os.AsyncTask;
 import android.util.Log;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import kasper.pagh.keebin.AsyncResponse;
 
 /**
- * Created by kaspe on 2016-10-29.
+ * Created by kaspe on 2016-10-30.
  */
 
-public class PutLoyaltyCard  extends AsyncTask<String, Void, String>
+public class GetAllLoyaltyCards extends AsyncTask<String, Void, String>
 {
-
-    private int userId;
-    private int loyaltyCardId;
-    private int brandId;
-    private int numberOfCoffeesBought;
     public AsyncResponse delegate = null;
     private String baseUrl;
-    private Gson gson;
 
-    public PutLoyaltyCard(String baseUrl, int userId,int loyaltyCardId, int brandId,int numberOfCoffeesBought, AsyncResponse delegate)
+    public GetAllLoyaltyCards(String baseUrl, AsyncResponse delegate)
     {
-        this.userId = userId;
-        this.loyaltyCardId = loyaltyCardId;
-        this.brandId = brandId;
-        this.numberOfCoffeesBought = numberOfCoffeesBought;
-        this.delegate = delegate;
         this.baseUrl = baseUrl;
-        gson = new Gson();
+        this.delegate = delegate;
     }
 
 
-    private String putLoyaltyCard() throws IOException
+    private String getUser() throws IOException
     {
-        JsonObject jo = new JsonObject();
-        jo.addProperty("brandName", brandId);
-        jo.addProperty("userId", userId);
-        jo.addProperty("numberOfCoffeesBought", numberOfCoffeesBought);
         InputStream input = null;
-        OutputStream output = null;
         BufferedReader bufferedReader = null;
         StringBuilder sb = null;
 
         try
         {
-            URL url = new URL(baseUrl + "users/card/" + loyaltyCardId);
+            URL url = new URL(baseUrl + "users/allcards/");
             Log.d("full url: ", url.toString());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("PUT");
+            connection.setRequestMethod("GET");
             connection.setReadTimeout(10000);
             connection.setConnectTimeout(15000);
-            connection.setDoOutput(true);
             connection.setDoInput(true);
-            connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
-            output = connection.getOutputStream();
-            output.write(gson.toJson(jo).getBytes("UTF-8"));
-            output.close();
 
             connection.connect();
 
@@ -96,7 +71,7 @@ public class PutLoyaltyCard  extends AsyncTask<String, Void, String>
     {
         try
         {
-            return putLoyaltyCard();
+            return getUser();
         } catch (IOException e)
         {
 

@@ -1,4 +1,4 @@
-package restPack;
+package userReST;
 
 /**
  * Created by kasper on 2016-10-26.
