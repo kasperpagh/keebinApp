@@ -1,5 +1,6 @@
 package kasper.pagh.keebin;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,8 +22,8 @@ import userReST.PutUser;
 public class MainActivity extends AppCompatActivity implements AsyncResponse
 {
 
-
     private static NetworkChecker networkChecker;
+
     private PutUser putUser;
     private DeleteUser deleteUser;
     private NewUser newUser;
@@ -36,8 +37,10 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         networkChecker = new NetworkChecker(this);
-
-
+        if(savedInstanceState == null)
+        {
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment, SearchCoffeeShopsFragment.newInstance()).commit();
+        }
     }
 
     public void tester(View view)
@@ -115,8 +118,8 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
     @Override
     public void processFinished(String output)
     {
-        Log.d("i porc fin", "john");
-        TextView textView = (TextView) this.findViewById(R.id.responseText);
-        textView.setText(output);
+//        Log.d("i porc fin", "john");
+//        TextView textView = (TextView) this.findViewById(R.id.resText);
+//        textView.setText(output);
     }
 }

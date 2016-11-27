@@ -8,6 +8,7 @@ import java.util.List;
 
 public class CoffeeShop
 {
+    private String coffeShopName;
     private String email;
     private String address;
     private String telephone; //Needs to be a String since someone is gonna be dumb enough to give the number as: +45 whatever
@@ -17,12 +18,13 @@ public class CoffeeShop
 
     private List<User> coffeShopUsers;
 
-    public CoffeeShop(String email, String address, String telephone, int coffeeBrandId)
+    public CoffeeShop(String email, String address, String telephone, int coffeeBrandId, String coffeShopName)
     {
         this.email = email;
         this.address = address;
         this.telephone = telephone;
         this.coffeeBrandId = coffeeBrandId;
+        this.coffeShopName = coffeShopName;
     }
 
     public String getEmail()
@@ -93,5 +95,15 @@ public class CoffeeShop
     public void setCoffeShopUsers(List<User> coffeShopUsers)
     {
         this.coffeShopUsers = coffeShopUsers;
+    }
+
+    public String getCoffeShopName()
+    {
+        return coffeShopName;
+    }
+
+    public void setCoffeShopName(String coffeShopName)
+    {
+        this.coffeShopName = coffeShopName;
     }
 }
