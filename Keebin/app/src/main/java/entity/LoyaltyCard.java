@@ -12,6 +12,7 @@ public class LoyaltyCard
     private CoffeeBrand brand;
     private CoffeeShop coffeeShop; //If some brand wants to issue their loyalty cards to ONLY specific branches, otherwise null.
     private int numberOfCoffeesBought;
+    private String numberofBeans;
     private Date dateIssued;
     private boolean isValid;
     private boolean readyForFreeCoffee;
@@ -26,9 +27,17 @@ public class LoyaltyCard
         this.numberOfCoffeesBought = numberOfCoffeesBought;
     }
 
-    public LoyaltyCard(CoffeeBrand brand, int numberOfCoffeesBought){
+    public LoyaltyCard(CoffeeBrand brand, String numberofBeans){
         this.brand = brand;
-        this.numberOfCoffeesBought = numberOfCoffeesBought;
+        this.numberofBeans = numberofBeans;
+    }
+
+    public String getNumberofBeans() {
+        return numberofBeans;
+    }
+
+    public void setNumberofBeans(String numberofBeans) {
+        this.numberofBeans = numberofBeans;
     }
 
     public CoffeeBrand getBrand()

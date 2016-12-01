@@ -9,7 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import entity.CoffeeBrand;
+import entity.LoyaltyCard;
 
 
 public class UsersLoyaltyCards extends Fragment {
@@ -48,44 +55,22 @@ public class UsersLoyaltyCards extends Fragment {
         // Inflate the layout for this fragment
 
 
-        final View view = inflater.inflate(R.layout.loyaltycardrow, container, false);
+        final View view = inflater.inflate(R.layout.users_loyalty_cards, container, false);
 
-        //Her finder vi drawable billede dynamisk!
-        String coffeeBrand = mParam1;
-        String number = "1";
-        String combined = coffeeBrand+number;
+        ListView listview = (ListView) view.findViewById(R.id.listOfUsersLoyaltyCards);
 
+        //her laver vi et kald på den specifikke users loyaltycards og putter dem i en liste.
+        // Den liste putter vi så ind nedenunder.
+        List<LoyaltyCard> loyaltyList = new ArrayList<>();
 
-        int thisCard = getResources().getIdentifier(combined, "drawable", "com.ebookfrenzy.fragmenter");
-        //Find billede dynamisk slut.
+        LoyaltyCard cardForRow = new LoyaltyCard(new CoffeeBrand("baressologo"), "b3");
+        LoyaltyCard cardForRow2 = new LoyaltyCard(new CoffeeBrand("baressologo"), "b3");
+        loyaltyList.add(cardForRow);
+        loyaltyList.add(cardForRow2);
 
-        Integer[] testArray = {thisCard, R.drawable.baresso2, R.drawable.baresso3, R.drawable.baresso4, R.drawable.baresso5,
-                R.drawable.baresso6, R.drawable.baresso7, R.drawable.baresso8, R.drawable.baresso9,
-                R.drawable.baresso10};
+        listview.setAdapter(new UsersLoyaltyCardsArrayAdapter(getActivity(), loyaltyList));
 
-        for (Integer testCard : testArray)
-        {
-
-//        loop som kører igennem array
-
-
-
-
-            LinearLayout rl = (LinearLayout) view.findViewById(R.id.LinearLayout_LoyaltyCards);
-            ImageView iv = new ImageView(getContext());
-
-            iv.setImageDrawable(getContext().getDrawable(testCard));
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 600);
-            lp.setMargins(0, 40, 0, 0);
-            iv.setLayoutParams(lp);
-//            iv.setScaleType(ImageView.ScaleType.FIT_XY);
-
-            rl.addView(iv);
-
-        }
-
-
-        return view;
+       return view;
     }
 
 
