@@ -2,6 +2,7 @@ package kasper.pagh.keebin;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ public class SearchCoffeeShopsFragment extends Fragment implements AsyncResponse
     private TextView textView;
 
     private List<CoffeeShop> coffeeList = new ArrayList<CoffeeShop>();
-
+    private List<CoffeeShop> coffeeList2 = new ArrayList<CoffeeShop>();
 
     public SearchCoffeeShopsFragment()
     {
@@ -43,6 +44,7 @@ public class SearchCoffeeShopsFragment extends Fragment implements AsyncResponse
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        Log.d("her er curUsr ", MainActivity.currentUser.toString());
         final View view = inflater.inflate(R.layout.search_coffee_shops_fragment, container, false);
 
         CoffeeShop coffee1 = new CoffeeShop("bob@bob.dk", "llamavej 12", "12345678", 1, "bubbers kaffebutik");
@@ -58,6 +60,10 @@ public class SearchCoffeeShopsFragment extends Fragment implements AsyncResponse
         coffeeList.add(coffee4);
         coffeeList.add(coffee5);
         coffeeList.add(coffee6);
+
+        coffeeList2.add(coffee4);
+        coffeeList2.add(coffee5);
+        coffeeList2.add(coffee6);
 //        textView = (TextView) view.findViewById(R.id.resText);
 //        GetAllShops getAllShops = new GetAllShops(getResources().getString(R.string.baseUrl),this);
 //        getAllShops.execute();
@@ -66,6 +72,15 @@ public class SearchCoffeeShopsFragment extends Fragment implements AsyncResponse
 
 
         return view;
+    }
+
+//    public View
+
+
+    public void searchTester(View view)
+    {
+        ListView listView = (ListView) view.findViewById(R.id.searchList);
+        listView.setAdapter(new CoffeeShopArrayAdapter(getActivity(), coffeeList));
     }
 
     @Override
