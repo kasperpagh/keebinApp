@@ -26,6 +26,11 @@ public class LoyaltyCard
         this.numberOfCoffeesBought = numberOfCoffeesBought;
     }
 
+    public LoyaltyCard(CoffeeBrand brand, int numberOfCoffeesBought){
+        this.brand = brand;
+        this.numberOfCoffeesBought = numberOfCoffeesBought;
+    }
+
     public CoffeeBrand getBrand()
     {
         return brand;
