@@ -1,6 +1,7 @@
 package kasper.pagh.keebin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,15 +29,25 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
     private DeleteUser deleteUser;
     private NewUser newUser;
     private Gson gson = new Gson();
+    public static User currentUser;
     //You need to declare this for each of the ReST classes you want to use in this activity
 
+
+    public User getCurrentUser()
+    {
+        return currentUser;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         networkChecker = new NetworkChecker(this);
+        Intent intent = getIntent();
+        String unparsedCurrentUser = intent.getStringExtra("unparsedCurrentUser");
+        currentUser = gson.fromJson(unparsedCurrentUser, User.class);
         if(savedInstanceState == null)
         {
             getSupportFragmentManager().beginTransaction().add(R.id.fragment, SearchCoffeeShopsFragment.newInstance()).commit();

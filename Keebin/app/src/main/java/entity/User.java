@@ -8,40 +8,82 @@ import java.util.List;
 
 public class User
 {
-    private int databseId;
+    private int id;
     private String firstName;
     private String lastName;
     private String email;
     private String birthday;
     private String sex;
-    private int role;
+    private int roleId;
     private String password;
+    private LoginData loginData;
+    private String refreshToken;
+
+    @Override
+    public String toString()
+    {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", sex='" + sex + '\'' +
+                ", roleId=" + roleId +
+                ", password='" + password + '\'' +
+                ", loginData=" + loginData +
+                ", refreshToken='" + refreshToken + '\'' +
+                ", isSubscriber=" + isSubscriber +
+                ", subscriberFreeCoffeeLeft=" + subscriberFreeCoffeeLeft +
+                ", loyaltyCards=" + loyaltyCards +
+                '}';
+    }
+
+    public String getRefreshToken()
+    {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken)
+    {
+        this.refreshToken = refreshToken;
+    }
 
     private boolean isSubscriber;
     private int subscriberFreeCoffeeLeft;
 
-    public User(int databseId, String firstName, String lastName, String email, String birthday, String sex, int role, boolean isSubscriber, String password)
+    public User(int id, String firstName, String lastName, String email, String birthday, String sex, int roleId, boolean isSubscriber, String password)
     {
-        this.databseId = databseId;
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.birthday = birthday;
         this.sex = sex;
-        this.role = role;
+        this.roleId = roleId;
         this.isSubscriber = isSubscriber;
         this.password = password;
     }
 
-    public User(String firstName, String lastName, String email, String birthday, String sex, int role, String password)
+    public User(String firstName, String lastName, String email, String birthday, String sex, int roleId, String password)
     {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.birthday = birthday;
         this.sex = sex;
-        this.role = role;
+        this.roleId = roleId;
         this.password = password;
+    }
+
+    public LoginData getLoginData()
+    {
+        return loginData;
+    }
+
+    public void setLoginData(LoginData loginData)
+    {
+        this.loginData = loginData;
     }
 
     public String getPassword()
@@ -56,14 +98,14 @@ public class User
 
     private List<LoyaltyCard> loyaltyCards;
 
-    public int getDatabseId()
+    public int getId()
     {
-        return databseId;
+        return id;
     }
 
-    public void setDatabseId(int databseId)
+    public void setId(int id)
     {
-        this.databseId = databseId;
+        this.id = id;
     }
 
     public String getFirstName()
@@ -116,14 +158,14 @@ public class User
         this.sex = sex;
     }
 
-    public int getRole()
+    public int getRoleId()
     {
-        return role;
+        return roleId;
     }
 
-    public void setRole(int role)
+    public void setRoleId(int roleId)
     {
-        this.role = role;
+        this.roleId = roleId;
     }
 
     public boolean isSubscriber()

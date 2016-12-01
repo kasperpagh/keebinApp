@@ -13,12 +13,15 @@
     android:orientation="vertical"
     android:weightSum="1">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="31dp"></RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="348dp"
         android:id="@+id/fragment"
-        >
+        android:layout_weight="0.80">
 
     </RelativeLayout>
 
