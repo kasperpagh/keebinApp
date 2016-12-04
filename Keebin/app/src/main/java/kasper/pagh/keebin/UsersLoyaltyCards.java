@@ -96,7 +96,7 @@ public class UsersLoyaltyCards extends Fragment implements AsyncResponse{
     @Override
     public void processFinished(String output) {
 
-        Log.d("this is output: ", "her kommer output: " + output);
+        Log.d("this is output: ", "her kommer output fra UsersLoyaltyCards: " + output);
 
 
 
@@ -106,12 +106,6 @@ public class UsersLoyaltyCards extends Fragment implements AsyncResponse{
                 Log.d("her er info: ", "yo2: " + cardForRow.getBrandId() + " and the number: " + cardForRow.getNumberofBeans());
 
         }
-
-
-
-
-
-
 
 
         //hent brandName og beancount(husk at parse to string) og lav nyt loyaltycard på de 2 variabler

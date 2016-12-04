@@ -24,8 +24,18 @@ public class CoffeeBrand
         this.totalCoffeeStampsFromAllBranches = totalCoffeeStampsFromAllBranches;
     }
 
+    public CoffeeBrand(int databaseId, String brandName, int coffeesNeeded) {
+        this.databaseId = databaseId;
+        this.brandName = brandName;
+        this.coffeesNeeded = coffeesNeeded;
+    }
+
     public CoffeeBrand(String brandName){
         this.brandName = brandName;
+    }
+
+    public CoffeeBrand(){
+        //Empty constructor
     }
 
     public int getDatabaseId()
