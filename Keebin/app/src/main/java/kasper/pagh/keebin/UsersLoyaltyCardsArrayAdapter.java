@@ -38,21 +38,21 @@ public class UsersLoyaltyCardsArrayAdapter extends ArrayAdapter<LoyaltyCard>{
 
 //        LoyaltyCard cardForRow = new LoyaltyCard(new CoffeeBrand("baressologo"), 3);
 
-        String coffeeBrand = loyaltyCards.get(position).getBrand().getBrandName();
-        String number = "" + loyaltyCards.get(position).getNumberofBeans();
+//        String coffeeBrand = loyaltyCards.get(position).getBrandId();
+//        String number = "" + loyaltyCards.get(position).getNumberofBeans();
 
 
 
 
-        int cardBrand = context.getResources().getIdentifier(coffeeBrand, "drawable", "kasper.pagh.keebin");
-        int cardNumber = context.getResources().getIdentifier(number, "drawable", "kasper.pagh.keebin");
+//        int cardBrand = context.getResources().getIdentifier(coffeeBrand, "drawable", "kasper.pagh.keebin");
+//        int cardNumber = context.getResources().getIdentifier(number, "drawable", "kasper.pagh.keebin");
         //Find billede dynamisk slut.
 
         ImageView viewLogo = (ImageView) viewRow.findViewById(R.id.logo);
         ImageView viewBean = (ImageView) viewRow.findViewById(R.id.beancounter);
 
-        viewLogo.setImageDrawable(ContextCompat.getDrawable(context, cardBrand));
-        viewBean.setImageDrawable(ContextCompat.getDrawable(context, cardNumber));
+//        viewLogo.setImageDrawable(ContextCompat.getDrawable(context, cardBrand));
+//        viewBean.setImageDrawable(ContextCompat.getDrawable(context, cardNumber));
 
         return viewRow;
 

@@ -36,7 +36,7 @@ public class GetAllLoyaltyCards extends AsyncTask<String, Void, String>
 
         try
         {
-            URL url = new URL(baseUrl + "users/allcards/");
+            URL url = new URL(baseUrl + "users/allcards");
             Log.d("full url: ", url.toString());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -44,13 +44,17 @@ public class GetAllLoyaltyCards extends AsyncTask<String, Void, String>
             connection.setConnectTimeout(15000);
             connection.setDoInput(true);
             connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("refreshToken", "2cc3cab0f-9d48-41b1-a0a3-028ee83fed81");
+            connection.setRequestProperty("accessToken", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InN1YiI6MiwiaXNzIjoid3d3LmtlZWJpbi5kayIsImVtYWlsIjoiYkBnbWFpbC5jb20iLCJyb2xlSWQiOjF9LCJpYXQiOjE0ODA2OTk2NzIsImV4cCI6MTQ4MzI5MTY3Mn0.A8tvRUzG_4Gj12pzZ4UT8v-N2qHuikOhDgE9Wv8xx8U");
 
             connection.connect();
+
 
             input = connection.getInputStream();
             bufferedReader = new BufferedReader(new InputStreamReader(input));
             sb = new StringBuilder();
             String line;
+
             while ((line = bufferedReader.readLine()) != null)
             {
                 sb.append(line + "\n");

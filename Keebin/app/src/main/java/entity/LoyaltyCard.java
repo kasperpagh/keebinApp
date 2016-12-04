@@ -1,6 +1,19 @@
 package entity;
 
+import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.Date;
+
+import CoffeeRest.rest.GetBrandByID;
+import kasper.pagh.keebin.R;
 
 /**
  * Created by kaspe on 2016-10-26.
@@ -16,6 +29,7 @@ public class LoyaltyCard
     private Date dateIssued;
     private boolean isValid;
     private boolean readyForFreeCoffee;
+    private int brandId;
 
     public LoyaltyCard(CoffeeBrand brand, CoffeeShop coffeeShop, Date dateIssued, boolean isValid, boolean readyForFreeCoffee, int numberOfCoffeesBought)
     {
@@ -27,9 +41,18 @@ public class LoyaltyCard
         this.numberOfCoffeesBought = numberOfCoffeesBought;
     }
 
-    public LoyaltyCard(CoffeeBrand brand, String numberofBeans){
-        this.brand = brand;
+    public LoyaltyCard(int brandId, String numberofBeans){
+        this.brandId = brandId;
         this.numberofBeans = numberofBeans;
+    }
+
+
+    public int getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(int brandId) {
+        this.brandId = brandId;
     }
 
     public String getNumberofBeans() {
@@ -40,14 +63,14 @@ public class LoyaltyCard
         this.numberofBeans = numberofBeans;
     }
 
-    public CoffeeBrand getBrand()
-    {
-        return brand;
+    public int getBrand(int brandId) {
+
+        return brandId;
     }
 
-    public void setBrand(CoffeeBrand brand)
+    public void setBrand(int brandId)
     {
-        this.brand = brand;
+        this.brandId = brandId;
     }
 
     public CoffeeShop getCoffeeShop()
