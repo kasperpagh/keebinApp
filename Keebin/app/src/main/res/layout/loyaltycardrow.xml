@@ -2,15 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="127dp"
         android:layout_height="158dp" />
+
     <ImageView
         android:id="@+id/beancounter"
-        android:layout_width="match_parent"
-        android:layout_height="158dp" />
+        android:layout_height="158dp"
+        android:layout_width="250dp" />
 
 </LinearLayout>
