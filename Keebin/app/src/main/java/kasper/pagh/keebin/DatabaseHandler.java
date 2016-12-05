@@ -95,6 +95,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         CoffeeBrand cb = new CoffeeBrand(cursor.getInt(0),
                 cursor.getString(1), cursor.getInt(2), cursor.getInt(3));
+        db.close();
         // return contact
         return cb;
     }
@@ -111,6 +112,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         CoffeeBrand cb = new CoffeeBrand(Integer.parseInt(cursor.getString(0)),
                 cursor.getString(1), cursor.getInt(2), cursor.getInt(3));
+        db.close();
         // return contact
         return cb;
     }
@@ -139,6 +141,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         // return contact list
+        db.close();
         return coffeeBrandList;
     }
 
