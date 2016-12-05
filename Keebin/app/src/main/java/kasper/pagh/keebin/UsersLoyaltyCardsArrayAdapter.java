@@ -36,23 +36,23 @@ public class UsersLoyaltyCardsArrayAdapter extends ArrayAdapter<LoyaltyCard>{
         View viewRow = inflater.inflate(R.layout.loyaltycardrow, parent, false);
 
 
-//        LoyaltyCard cardForRow = new LoyaltyCard(new CoffeeBrand("baressologo"), 3);
+//        LoyaltyCard cardForRow = new LoyaltyCard(new CoffeeBrand("baresso"), 3);
 
-//        String coffeeBrand = loyaltyCards.get(position).getBrandId();
-//        String number = "" + loyaltyCards.get(position).getNumberofBeans();
-
-
+        String coffeeBrand = loyaltyCards.get(position).getNameOfBrand();
+        String number = "" + loyaltyCards.get(position).getNumberofBeans();
 
 
-//        int cardBrand = context.getResources().getIdentifier(coffeeBrand, "drawable", "kasper.pagh.keebin");
-//        int cardNumber = context.getResources().getIdentifier(number, "drawable", "kasper.pagh.keebin");
+
+
+        int cardBrand = context.getResources().getIdentifier(coffeeBrand, "drawable", "kasper.pagh.keebin");
+        int cardNumber = context.getResources().getIdentifier(number, "drawable", "kasper.pagh.keebin");
         //Find billede dynamisk slut.
 
         ImageView viewLogo = (ImageView) viewRow.findViewById(R.id.logo);
         ImageView viewBean = (ImageView) viewRow.findViewById(R.id.beancounter);
 
-//        viewLogo.setImageDrawable(ContextCompat.getDrawable(context, cardBrand));
-//        viewBean.setImageDrawable(ContextCompat.getDrawable(context, cardNumber));
+        viewLogo.setImageDrawable(ContextCompat.getDrawable(context, cardBrand));
+        viewBean.setImageDrawable(ContextCompat.getDrawable(context, cardNumber));
 
         return viewRow;
 

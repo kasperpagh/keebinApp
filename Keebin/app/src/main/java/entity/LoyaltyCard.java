@@ -1,19 +1,6 @@
 package entity;
 
-import android.util.Log;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.Date;
-
-import CoffeeRest.rest.GetBrandByID;
-import kasper.pagh.keebin.R;
 
 /**
  * Created by kaspe on 2016-10-26.
@@ -29,7 +16,9 @@ public class LoyaltyCard
     private Date dateIssued;
     private boolean isValid;
     private boolean readyForFreeCoffee;
-    private int brandId;
+    private int id;
+    private int brandName;
+    private String nameOfBrand;
 
     public LoyaltyCard(CoffeeBrand brand, CoffeeShop coffeeShop, Date dateIssued, boolean isValid, boolean readyForFreeCoffee, int numberOfCoffeesBought)
     {
@@ -41,18 +30,38 @@ public class LoyaltyCard
         this.numberOfCoffeesBought = numberOfCoffeesBought;
     }
 
-    public LoyaltyCard(int brandId, String numberofBeans){
-        this.brandId = brandId;
+    public LoyaltyCard(int brandName, String numberofBeans){
+        this.brandName = brandName;
         this.numberofBeans = numberofBeans;
     }
 
-
-    public int getBrandId() {
-        return brandId;
+    public LoyaltyCard(String nameOfBrand, String numberofBeans){
+        this.nameOfBrand = nameOfBrand;
+        this.numberofBeans = numberofBeans;
     }
 
-    public void setBrandId(int brandId) {
-        this.brandId = brandId;
+    public String getNameOfBrand() {
+        return nameOfBrand;
+    }
+
+    public void setNameOfBrand(String nameOfBrand) {
+        this.nameOfBrand = nameOfBrand;
+    }
+
+    public int getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(int brandName) {
+        this.brandName = brandName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNumberofBeans() {
@@ -63,15 +72,6 @@ public class LoyaltyCard
         this.numberofBeans = numberofBeans;
     }
 
-    public int getBrand(int brandId) {
-
-        return brandId;
-    }
-
-    public void setBrand(int brandId)
-    {
-        this.brandId = brandId;
-    }
 
     public CoffeeShop getCoffeeShop()
     {

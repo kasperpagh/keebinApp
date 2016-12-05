@@ -1,8 +1,6 @@
 package kasper.pagh.keebin;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -11,32 +9,26 @@ import java.util.List;
 
 import CoffeeRest.rest.GetAllBrands;
 import entity.CoffeeBrand;
-import entity.LoyaltyCard;
 
 /**
  * Created by mrlef on 12/4/2016.
  */
 
-public class GetCoffeeBrandsAndSaveToDB extends Activity implements AsyncResponse {
+public class GetCoffeeBrandsAndSaveToDB implements AsyncResponse {
 
     private Gson gson = new Gson();
-    DatabaseHandler dbh = new DatabaseHandler(this);
+    DatabaseHandler dbh;
     Context context;
 
     public GetCoffeeBrandsAndSaveToDB(Context context) {
         this.context = context;
+        dbh = new DatabaseHandler(context);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
-
-    }
-
-    public void getAllCoffeeBrands(){
-        GetAllBrands g = new GetAllBrands("http://192.168.2.105:3000/api/", this);
-    g.execute();
+    public void getAllCoffeeBrands(Context context) {
+        GetAllBrands g = new GetAllBrands(context.getResources().getString(R.string.baseUrl), this);
+        g.execute();
     }
 
     @Override
@@ -45,19 +37,22 @@ public class GetCoffeeBrandsAndSaveToDB extends Activity implements AsyncRespons
 
 
 
+
+
         CoffeeBrand[] cBrand = gson.fromJson(output, CoffeeBrand[].class);
+        Log.d("+++--- ", " " + cBrand[0].getId());
 
         for (CoffeeBrand eachBrand : cBrand) {
-            CoffeeBrand cBrandForDB = new CoffeeBrand(eachBrand.getDatabaseId(), eachBrand.getBrandName(), eachBrand.getCoffeesNeeded());
-            Log.d("her er cBrandForDB", " : " + cBrandForDB.getBrandName() + " and the number: " + cBrandForDB.getCoffeesNeeded());
+            CoffeeBrand cBrandForDB = new CoffeeBrand(eachBrand.getId(), eachBrand.getBrandName(), eachBrand.getNumberOfCoffeeNeeded());
+            Log.d("her er cBrandForDB", " : " + cBrandForDB.getBrandName() + " and the number: " + cBrandForDB.getNumberOfCoffeeNeeded()
+                    + " and the id: " + cBrandForDB.getId());
             dbh.addCoffeeBrand(cBrandForDB);
 
         }
 
         List<CoffeeBrand> brands = dbh.getAllCoffeeBrands();
-
         for (CoffeeBrand cb : brands) {
-            String log = "Id: "+cb.getDatabaseId()+" ,Name: " + cb.getBrandName() + " ,coffeesNeeded: " + cb.getCoffeesNeeded();
+            String log = "Id: " + cb.getId() + " ,Name: " + cb.getBrandName() + " ,coffeesNeeded: " + cb.getNumberOfCoffeeNeeded() + " ,dataBaseId: " + cb.getDataBaseId();
             // Writing CoffeeBrands to log
             Log.d("Name: ", log);
         }

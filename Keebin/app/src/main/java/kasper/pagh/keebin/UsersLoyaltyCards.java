@@ -8,25 +8,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import CoffeeRest.rest.GetBrandByID;
-import entity.CoffeeBrand;
 import entity.LoyaltyCard;
 import userReST.GetAllLoyaltyCards;
 
@@ -78,15 +66,6 @@ public class UsersLoyaltyCards extends Fragment implements AsyncResponse{
 
         ListView listview = (ListView) view.findViewById(R.id.listOfUsersLoyaltyCards);
 
-        //her laver vi et kald på den specifikke users loyaltycards og putter dem i en liste.
-        // Den liste putter vi så ind i viewadapter.
-
-//
-//        LoyaltyCard cardForRow = new LoyaltyCard(new CoffeeBrand("baressologo"), "b3");
-//        LoyaltyCard cardForRow2 = new LoyaltyCard(new CoffeeBrand("baressologo"), "b3");
-//
-//        loyaltyList.add(cardForRow);
-//        loyaltyList.add(cardForRow2);
 
         listview.setAdapter(new UsersLoyaltyCardsArrayAdapter(getActivity(), loyaltyList));
 
@@ -97,14 +76,16 @@ public class UsersLoyaltyCards extends Fragment implements AsyncResponse{
     public void processFinished(String output) {
 
         Log.d("this is output: ", "her kommer output fra UsersLoyaltyCards: " + output);
+        DatabaseHandler dbh = new DatabaseHandler(getContext());
 
 
 
         LoyaltyCard[] card = gson.fromJson(output, LoyaltyCard[].class);
         for (LoyaltyCard eachCard : card) {
-                LoyaltyCard cardForRow = new LoyaltyCard(eachCard.getBrandId(), "b"+eachCard.getNumberOfCoffeesBought());
-                Log.d("her er info: ", "yo2: " + cardForRow.getBrandId() + " and the number: " + cardForRow.getNumberofBeans());
-
+            Log.d("her er brandName", " "+ eachCard.getBrandName());
+                LoyaltyCard cardForRow = new LoyaltyCard(dbh.getBrandbyServerId(eachCard.getBrandName()).getBrandName().toLowerCase(), "b"+eachCard.getNumberOfCoffeesBought());
+                Log.d("her er cardForRow: ", " " + cardForRow.getNameOfBrand() + " and the number: " + cardForRow.getNumberofBeans());
+                loyaltyList.add(cardForRow);
         }
 
 

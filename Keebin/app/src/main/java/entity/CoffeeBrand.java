@@ -8,44 +8,62 @@ import java.util.List;
 
 public class CoffeeBrand
 {
-    private int databaseId;
+    private int id;
+    private int dataBaseId;
     private String brandName;
-    private int coffeesNeeded;
+    private int numberOfCoffeeNeeded;
     private String coffeeBrandCode;
     private List<CoffeeShop> branches;
     private int totalCoffeeStampsFromAllBranches;
 
-    public CoffeeBrand(int databaseId, String brandName, int coffeesNeeded, String coffeeBrandCode, int totalCoffeeStampsFromAllBranches)
+    //For mange input? Brand har ikke coffeeBrandCode, det er kun coffeeshop?
+    public CoffeeBrand(int databaseId, String brandName, int numberOfCoffeeNeeded, String coffeeBrandCode, int totalCoffeeStampsFromAllBranches)
     {
-        this.databaseId = databaseId;
+        this.id = databaseId;
         this.brandName = brandName;
-        this.coffeesNeeded = coffeesNeeded;
+        this.numberOfCoffeeNeeded = numberOfCoffeeNeeded;
         this.coffeeBrandCode = coffeeBrandCode;
         this.totalCoffeeStampsFromAllBranches = totalCoffeeStampsFromAllBranches;
     }
 
-    public CoffeeBrand(int databaseId, String brandName, int coffeesNeeded) {
-        this.databaseId = databaseId;
+    public CoffeeBrand(int id, String brandName, int numberOfCoffeeNeeded) {
+        this.id = id;
         this.brandName = brandName;
-        this.coffeesNeeded = coffeesNeeded;
+        this.numberOfCoffeeNeeded = numberOfCoffeeNeeded;
+
     }
 
-    public CoffeeBrand(String brandName){
+
+
+    public CoffeeBrand(int id, String brandName, int numberOfCoffeeNeeded, int dataBaseId) {
+        this.id = id;
         this.brandName = brandName;
+        this.numberOfCoffeeNeeded = numberOfCoffeeNeeded;
+        this.dataBaseId = dataBaseId;
     }
 
     public CoffeeBrand(){
         //Empty constructor
     }
 
-    public int getDatabaseId()
-    {
-        return databaseId;
+
+
+
+    public int getDataBaseId() {
+        return dataBaseId;
     }
 
-    public void setDatabaseId(int databaseId)
+    public void setDataBaseId(int dataBaseId) {
+        this.dataBaseId = dataBaseId;
+    }
+    public int getId()
     {
-        this.databaseId = databaseId;
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     public String getBrandName()
@@ -58,14 +76,14 @@ public class CoffeeBrand
         this.brandName = brandName;
     }
 
-    public int getCoffeesNeeded()
+    public int getNumberOfCoffeeNeeded()
     {
-        return coffeesNeeded;
+        return numberOfCoffeeNeeded;
     }
 
-    public void setCoffeesNeeded(int coffeesNeeded)
+    public void setNumberOfCoffeeNeeded(int numberOfCoffeeNeeded)
     {
-        this.coffeesNeeded = coffeesNeeded;
+        this.numberOfCoffeeNeeded = numberOfCoffeeNeeded;
     }
 
     public String getCoffeeBrandCode()

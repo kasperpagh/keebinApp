@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
             getSupportFragmentManager().beginTransaction().add(R.id.fragment, UsersLoyaltyCards.newInstance()).commit();
         }
         GetCoffeeBrandsAndSaveToDB yes = new GetCoffeeBrandsAndSaveToDB(getApplicationContext());
-        yes.getAllCoffeeBrands();
+        yes.getAllCoffeeBrands(getApplicationContext());
 
     }
 
