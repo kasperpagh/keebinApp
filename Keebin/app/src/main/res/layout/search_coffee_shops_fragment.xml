@@ -17,15 +17,13 @@
         android:layout_width="274dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="                          SØG"
         android:ems="10"
         android:id="@+id/SearchCoffeeShop"
         android:background="#CDFFFF"
         android:layout_alignBaseline="@+id/searchButton"
         android:layout_alignBottom="@+id/searchButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="searchTester"/>
+        android:layout_alignParentStart="true"/>
 
     <ListView
         android:layout_width="match_parent"
@@ -36,4 +34,13 @@
         android:id="@+id/searchList"
         />
 
+    <Button
+        android:text="pelle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pelle"
+        android:layout_alignBaseline="@+id/SearchCoffeeShop"
+        android:layout_alignBottom="@+id/SearchCoffeeShop"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

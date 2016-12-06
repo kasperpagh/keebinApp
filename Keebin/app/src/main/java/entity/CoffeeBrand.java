@@ -9,12 +9,15 @@ import java.util.List;
 public class CoffeeBrand
 {
     private int id;
+
     private int dataBaseId;
+
     private String brandName;
     private int numberOfCoffeeNeeded;
     private String coffeeBrandCode;
     private List<CoffeeShop> branches;
     private int totalCoffeeStampsFromAllBranches;
+
 
     //For mange input? Brand har ikke coffeeBrandCode, det er kun coffeeshop?
     public CoffeeBrand(int databaseId, String brandName, int numberOfCoffeeNeeded, String coffeeBrandCode, int totalCoffeeStampsFromAllBranches)
@@ -25,6 +28,7 @@ public class CoffeeBrand
         this.coffeeBrandCode = coffeeBrandCode;
         this.totalCoffeeStampsFromAllBranches = totalCoffeeStampsFromAllBranches;
     }
+
 
     public CoffeeBrand(int id, String brandName, int numberOfCoffeeNeeded) {
         this.id = id;
