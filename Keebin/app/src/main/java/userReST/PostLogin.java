@@ -86,7 +86,7 @@ public class PostLogin extends AsyncTask<String, Void, String>
         Log.d("her er jo ", jo.toString());
         try
         {
-            URL url = new URL("http://82.211.198.31:3000/login");
+            URL url = new URL("http://192.168.0.11:3000/login");
             Log.d("full url: ", url.toString());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");

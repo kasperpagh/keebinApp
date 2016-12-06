@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
         currentUser = gson.fromJson(unparsedCurrentUser, User.class);
         if(savedInstanceState == null)
         {
-            getSupportFragmentManager().beginTransaction().add(R.id.fragment, SearchCoffeeShopsFragment.newInstance()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment, YourInfoFragment.newInstance()).commit();
         }
     }
 
@@ -126,9 +126,18 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
         return networkChecker;
     }
 
+    public void saveUser(View view){
+
+        PutUser putuser = new PutUser(MainActivity.currentUser, this);
+        putuser.execute();
+
+    }
     @Override
     public void processFinished(String output)
     {
+        Gson gson = new Gson();
+        User user = gson.fromJson(output, User.class);
+        MainActivity.currentUser = user;
 //        Log.d("i porc fin", "john");
 //        TextView textView = (TextView) this.findViewById(R.id.resText);
 //        textView.setText(output);
