@@ -50,8 +50,13 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
         currentUser = gson.fromJson(unparsedCurrentUser, User.class);
         if(savedInstanceState == null)
         {
+
             getSupportFragmentManager().beginTransaction().add(R.id.fragment, YourInfoFragment.newInstance()).commit();
+
         }
+        GetCoffeeBrandsAndSaveToDB yes = new GetCoffeeBrandsAndSaveToDB(getApplicationContext());
+        yes.getAllCoffeeBrands(getApplicationContext());
+
     }
 
     public void tester(View view)

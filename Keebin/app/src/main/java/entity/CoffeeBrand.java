@@ -9,28 +9,57 @@ import java.util.List;
 public class CoffeeBrand
 {
     private int id;
+
+    private int dataBaseId;
+
     private String brandName;
     private int numberOfCoffeeNeeded;
     private String coffeeBrandCode;
     private List<CoffeeShop> branches;
     private int totalCoffeeStampsFromAllBranches;
 
-    public CoffeeBrand(int id, String brandName, int numberOfCoffeeNeeded, String coffeeBrandCode, int totalCoffeeStampsFromAllBranches)
+
+    //For mange input? Brand har ikke coffeeBrandCode, det er kun coffeeshop?
+    public CoffeeBrand(int databaseId, String brandName, int numberOfCoffeeNeeded, String coffeeBrandCode, int totalCoffeeStampsFromAllBranches)
     {
-        this.id = id;
+        this.id = databaseId;
         this.brandName = brandName;
         this.numberOfCoffeeNeeded = numberOfCoffeeNeeded;
         this.coffeeBrandCode = coffeeBrandCode;
         this.totalCoffeeStampsFromAllBranches = totalCoffeeStampsFromAllBranches;
     }
 
-    public CoffeeBrand(int id, String brandName, int numberOfCoffeeNeeded)
-    {
+
+    public CoffeeBrand(int id, String brandName, int numberOfCoffeeNeeded) {
         this.id = id;
         this.brandName = brandName;
         this.numberOfCoffeeNeeded = numberOfCoffeeNeeded;
+
     }
 
+
+
+    public CoffeeBrand(int id, String brandName, int numberOfCoffeeNeeded, int dataBaseId) {
+        this.id = id;
+        this.brandName = brandName;
+        this.numberOfCoffeeNeeded = numberOfCoffeeNeeded;
+        this.dataBaseId = dataBaseId;
+    }
+
+    public CoffeeBrand(){
+        //Empty constructor
+    }
+
+
+
+
+    public int getDataBaseId() {
+        return dataBaseId;
+    }
+
+    public void setDataBaseId(int dataBaseId) {
+        this.dataBaseId = dataBaseId;
+    }
     public int getId()
     {
         return id;

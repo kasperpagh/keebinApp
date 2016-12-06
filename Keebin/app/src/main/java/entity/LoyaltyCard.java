@@ -12,9 +12,13 @@ public class LoyaltyCard
     private CoffeeBrand brand;
     private CoffeeShop coffeeShop; //If some brand wants to issue their loyalty cards to ONLY specific branches, otherwise null.
     private int numberOfCoffeesBought;
+    private String numberofBeans;
     private Date dateIssued;
     private boolean isValid;
     private boolean readyForFreeCoffee;
+    private int id;
+    private int brandName;
+    private String nameOfBrand;
 
     public LoyaltyCard(CoffeeBrand brand, CoffeeShop coffeeShop, Date dateIssued, boolean isValid, boolean readyForFreeCoffee, int numberOfCoffeesBought)
     {
@@ -26,15 +30,48 @@ public class LoyaltyCard
         this.numberOfCoffeesBought = numberOfCoffeesBought;
     }
 
-    public CoffeeBrand getBrand()
-    {
-        return brand;
+    public LoyaltyCard(int brandName, String numberofBeans){
+        this.brandName = brandName;
+        this.numberofBeans = numberofBeans;
     }
 
-    public void setBrand(CoffeeBrand brand)
-    {
-        this.brand = brand;
+    public LoyaltyCard(String nameOfBrand, String numberofBeans){
+        this.nameOfBrand = nameOfBrand;
+        this.numberofBeans = numberofBeans;
     }
+
+    public String getNameOfBrand() {
+        return nameOfBrand;
+    }
+
+    public void setNameOfBrand(String nameOfBrand) {
+        this.nameOfBrand = nameOfBrand;
+    }
+
+    public int getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(int brandName) {
+        this.brandName = brandName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNumberofBeans() {
+        return numberofBeans;
+    }
+
+    public void setNumberofBeans(String numberofBeans) {
+        this.numberofBeans = numberofBeans;
+    }
+
 
     public CoffeeShop getCoffeeShop()
     {
