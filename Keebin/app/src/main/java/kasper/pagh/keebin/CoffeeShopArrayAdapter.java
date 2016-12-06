@@ -35,7 +35,7 @@ public class CoffeeShopArrayAdapter extends ArrayAdapter<CoffeeShop>
         TextView coffeeShopName = (TextView) viewRow.findViewById(R.id.shopName);
         TextView coffeeShopAdress = (TextView) viewRow.findViewById(R.id.address);
 
-        coffeeShopName.setText(shops.get(position).getCoffeShopName());
+        coffeeShopName.setText(shops.get(position).getActualBrandName());
         coffeeShopAdress.setText(shops.get(position).getAddress());
         return viewRow;
     }

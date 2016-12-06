@@ -8,30 +8,37 @@ import java.util.List;
 
 public class CoffeeBrand
 {
-    private int databaseId;
+    private int id;
     private String brandName;
-    private int coffeesNeeded;
+    private int numberOfCoffeeNeeded;
     private String coffeeBrandCode;
     private List<CoffeeShop> branches;
     private int totalCoffeeStampsFromAllBranches;
 
-    public CoffeeBrand(int databaseId, String brandName, int coffeesNeeded, String coffeeBrandCode, int totalCoffeeStampsFromAllBranches)
+    public CoffeeBrand(int id, String brandName, int numberOfCoffeeNeeded, String coffeeBrandCode, int totalCoffeeStampsFromAllBranches)
     {
-        this.databaseId = databaseId;
+        this.id = id;
         this.brandName = brandName;
-        this.coffeesNeeded = coffeesNeeded;
+        this.numberOfCoffeeNeeded = numberOfCoffeeNeeded;
         this.coffeeBrandCode = coffeeBrandCode;
         this.totalCoffeeStampsFromAllBranches = totalCoffeeStampsFromAllBranches;
     }
 
-    public int getDatabaseId()
+    public CoffeeBrand(int id, String brandName, int numberOfCoffeeNeeded)
     {
-        return databaseId;
+        this.id = id;
+        this.brandName = brandName;
+        this.numberOfCoffeeNeeded = numberOfCoffeeNeeded;
     }
 
-    public void setDatabaseId(int databaseId)
+    public int getId()
     {
-        this.databaseId = databaseId;
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     public String getBrandName()
@@ -44,14 +51,14 @@ public class CoffeeBrand
         this.brandName = brandName;
     }
 
-    public int getCoffeesNeeded()
+    public int getNumberOfCoffeeNeeded()
     {
-        return coffeesNeeded;
+        return numberOfCoffeeNeeded;
     }
 
-    public void setCoffeesNeeded(int coffeesNeeded)
+    public void setNumberOfCoffeeNeeded(int numberOfCoffeeNeeded)
     {
-        this.coffeesNeeded = coffeesNeeded;
+        this.numberOfCoffeeNeeded = numberOfCoffeeNeeded;
     }
 
     public String getCoffeeBrandCode()

@@ -6,16 +6,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.lang.reflect.Type;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
+
 import org.w3c.dom.Text;
 
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import CoffeeRest.rest.GetAllShops;
+import CoffeeRest.rest.GetAllShopsWithBrandName;
 import entity.CoffeeShop;
 
 /**
@@ -25,9 +34,11 @@ import entity.CoffeeShop;
 public class SearchCoffeeShopsFragment extends Fragment implements AsyncResponse
 {
     private TextView textView;
+    private Gson gson = new Gson();
+    CoffeeShopArrayAdapter adapter;
 
-    private List<CoffeeShop> coffeeList = new ArrayList<CoffeeShop>();
-    private List<CoffeeShop> coffeeList2 = new ArrayList<CoffeeShop>();
+    private List<CoffeeShop> coffeeList = new ArrayList<>();
+
 
     public SearchCoffeeShopsFragment()
     {
@@ -47,34 +58,55 @@ public class SearchCoffeeShopsFragment extends Fragment implements AsyncResponse
         Log.d("her er curUsr ", MainActivity.currentUser.toString());
         final View view = inflater.inflate(R.layout.search_coffee_shops_fragment, container, false);
 
-        CoffeeShop coffee1 = new CoffeeShop("bob@bob.dk", "llamavej 12", "12345678", 1, "bubbers kaffebutik");
-        CoffeeShop coffee2 = new CoffeeShop("bob@bob.dk", "llamavej 13", "12345678", 1, "jimbos kaffebutik");
-        CoffeeShop coffee3 = new CoffeeShop("bob@bob.dk", "llamavej 14", "12345678", 1, "johnnys kaffebutik");
-        CoffeeShop coffee4 = new CoffeeShop("bob@bob.dk", "llamavej 15", "12345678", 1, "arnes kaffebutik");
-        CoffeeShop coffee5 = new CoffeeShop("bob@bob.dk", "llamavej 16", "12345678", 1, "llamas kaffebutik");
-        CoffeeShop coffee6 = new CoffeeShop("bob@bob.dk", "llamavej 17", "12345678", 1, "bobsons kaffebutik");
+        Button searchButton = (Button) view.findViewById(R.id.searchButton);
 
-        coffeeList.add(coffee1);
-        coffeeList.add(coffee2);
-        coffeeList.add(coffee3);
-        coffeeList.add(coffee4);
-        coffeeList.add(coffee5);
-        coffeeList.add(coffee6);
+        searchButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                EditText searchField = (EditText) view.findViewById(R.id.SearchCoffeeShop);
+                String searchString = searchField.getText().toString();
+                Log.d("klik m. strengen", searchString);
 
-        coffeeList2.add(coffee4);
-        coffeeList2.add(coffee5);
-        coffeeList2.add(coffee6);
-//        textView = (TextView) view.findViewById(R.id.resText);
-//        GetAllShops getAllShops = new GetAllShops(getResources().getString(R.string.baseUrl),this);
-//        getAllShops.execute();
+                List<CoffeeShop> resultList = new ArrayList<CoffeeShop>();
+                for (int i = 0; i < coffeeList.size(); i++)
+                {
+                    if (coffeeList.get(i).getActualBrandName().equalsIgnoreCase(searchString) || coffeeList.get(i).getAddress().equalsIgnoreCase(searchString) || coffeeList.get(i).getEmail().equalsIgnoreCase(searchString))
+                    {
+                        resultList.add(coffeeList.get(i));
+                    }
+
+                }
+                if (searchString.equalsIgnoreCase(""))
+                {
+                    adapter.clear();
+                    adapter.addAll(coffeeList);
+                    adapter.notifyDataSetChanged();
+                } else
+                {
+                    adapter.clear();
+                    adapter.addAll(resultList);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+        
+
+
+        GetAllShopsWithBrandName getAllShops = new GetAllShopsWithBrandName(getResources().getString(R.string.baseUrl), this);
+
+        getAllShops.execute();
+
+
+        adapter = new CoffeeShopArrayAdapter(getActivity(), coffeeList);
+
         ListView listView = (ListView) view.findViewById(R.id.searchList);
-        listView.setAdapter(new CoffeeShopArrayAdapter(getActivity(), coffeeList));
+        listView.setAdapter(adapter);
 
 
         return view;
     }
-
-//    public View
 
 
     public void searchTester(View view)
@@ -86,6 +118,11 @@ public class SearchCoffeeShopsFragment extends Fragment implements AsyncResponse
     @Override
     public void processFinished(String output)
     {
-        textView.setText(output);
+        CoffeeShop[] coffeeArray = gson.fromJson(output, CoffeeShop[].class);
+        coffeeList = (Arrays.asList(coffeeArray));
+        adapter.addAll(coffeeList);
+        adapter.notifyDataSetChanged();
+
     }
+
 }

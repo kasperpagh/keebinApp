@@ -3,6 +3,8 @@ package CoffeeRest.rest;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import kasper.pagh.keebin.AsyncResponse;
+import kasper.pagh.keebin.MainActivity;
 
 /**
  * Created by kaspe on 2016-10-29.
@@ -20,6 +23,7 @@ public class GetAllShops extends AsyncTask<String, Void, String>
 {
     public AsyncResponse delegate = null;
     private String baseUrl;
+    private Gson gson = new Gson();
 
     public GetAllShops(String baseUrl, AsyncResponse delegate)
     {
@@ -44,6 +48,8 @@ public class GetAllShops extends AsyncTask<String, Void, String>
             connection.setConnectTimeout(15000);
             connection.setDoInput(true);
             connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("accessToken", MainActivity.currentUser.getLoginData().getAccessToken());
+            connection.setRequestProperty("refreshToken", MainActivity.currentUser.getLoginData().getRefreshToken());
 
             connection.connect();
 

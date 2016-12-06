@@ -8,23 +8,61 @@ import java.util.List;
 
 public class CoffeeShop
 {
-    private String coffeShopName;
+
+    private int id;
     private String email;
     private String address;
-    private String telephone; //Needs to be a String since someone is gonna be dumb enough to give the number as: +45 whatever
-    private int coffeeBrandId;
-    private int stampsGiven; //The number of coffee stamps issued by this branch
-    private int subscriberCoffeesSold;
+    private String phone; //Needs to be a String since someone is gonna be dumb enough to give the number as: +45 whatever
+    private String coffeeCode;
+    private double longitude;
+    private double latitude;
+    private int brandName;
+    private String actualBrandName;
 
-    private List<User> coffeShopUsers;
 
-    public CoffeeShop(String email, String address, String telephone, int coffeeBrandId, String coffeShopName)
+
+    public CoffeeShop(String email, String address, String phone, String coffeeCode, double longitude, double latitude, int brandName)
     {
         this.email = email;
         this.address = address;
-        this.telephone = telephone;
-        this.coffeeBrandId = coffeeBrandId;
-        this.coffeShopName = coffeShopName;
+        this.phone = phone;
+        this.coffeeCode = coffeeCode;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.brandName = brandName;
+    }
+
+    public CoffeeShop(int id, String email, String address, String phone, String coffeeCode, double longitude, double latitude, String actualBrandName, int brandName)
+    {
+        this.id = id;
+        this.email = email;
+        this.address = address;
+        this.phone = phone;
+        this.coffeeCode = coffeeCode;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.actualBrandName = actualBrandName;
+        this.brandName = brandName;
+    }
+
+    public String getActualBrandName()
+    {
+        return actualBrandName;
+    }
+
+    public void setActualBrandName(String actualBrandName)
+    {
+        this.actualBrandName = actualBrandName;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     public String getEmail()
@@ -47,63 +85,68 @@ public class CoffeeShop
         this.address = address;
     }
 
-    public String getTelephone()
+    public String getPhone()
     {
-        return telephone;
+        return phone;
     }
 
-    public void setTelephone(String telephone)
+    public void setPhone(String phone)
     {
-        this.telephone = telephone;
+        this.phone = phone;
     }
 
-    public int getCoffeeBrandId()
+    public String getCoffeeCode()
     {
-        return coffeeBrandId;
+        return coffeeCode;
     }
 
-    public void setCoffeeBrandId(int coffeeBrandId)
+    public void setCoffeeCode(String coffeeCode)
     {
-        this.coffeeBrandId = coffeeBrandId;
+        this.coffeeCode = coffeeCode;
     }
 
-    public int getStampsGiven()
+    public double getLongitude()
     {
-        return stampsGiven;
+        return longitude;
     }
 
-    public void setStampsGiven(int stampsGiven)
+    public void setLongitude(double longitude)
     {
-        this.stampsGiven = stampsGiven;
+        this.longitude = longitude;
     }
 
-    public int getSubscriberCoffeesSold()
+    public double getLatitude()
     {
-        return subscriberCoffeesSold;
+        return latitude;
     }
 
-    public void setSubscriberCoffeesSold(int subscriberCoffeesSold)
+    public void setLatitude(double latitude)
     {
-        this.subscriberCoffeesSold = subscriberCoffeesSold;
+        this.latitude = latitude;
     }
 
-    public List<User> getCoffeShopUsers()
+    public int getBrandName()
     {
-        return coffeShopUsers;
+        return brandName;
     }
 
-    public void setCoffeShopUsers(List<User> coffeShopUsers)
+    public void setBrandName(int brandName)
     {
-        this.coffeShopUsers = coffeShopUsers;
+        this.brandName = brandName;
     }
 
-    public String getCoffeShopName()
+    @Override
+    public String toString()
     {
-        return coffeShopName;
-    }
-
-    public void setCoffeShopName(String coffeShopName)
-    {
-        this.coffeShopName = coffeShopName;
+        return "CoffeeShop{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", coffeeCode='" + coffeeCode + '\'' +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", brandName=" + brandName +
+                '}';
     }
 }
