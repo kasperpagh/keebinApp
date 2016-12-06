@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entity.CoffeeBrand;
+import entity.Token;
 
 /**
  * Created by mrlef on 12/4/2016.
@@ -27,12 +28,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // CoffeeBrands table name
     private static final String TABLE_COFFEEBRAND = "coffeeBrand";
+    private static final String TABLE_TOKENS = "tokens";
 
     // CoffeeBranch Table Columns names
-    private static final String KEY_ID = "brandId";
+    private static final String KEY_ID = "id";
     private static final String KEY_NAME = "brandName";
     private static final String KEY_DATABASEID = "dataBaseId";
     private static final String KEY_NUMBEROFCOFFEENEEDED = "numberOfCoffeeNeeded";
+    private static final String KEY_TOKENNAME = "tokenName";
+    private static final String KEY_TOKEN = "token";
+
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -44,10 +49,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String CREATE_COFFEEBRAND_TABLE = "CREATE TABLE " + TABLE_COFFEEBRAND + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT," + KEY_DATABASEID + " INTEGER,"
+                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_NAME + " TEXT,"
+                + KEY_DATABASEID + " INTEGER,"
                 + KEY_NUMBEROFCOFFEENEEDED + " INTEGER,"
                 + "UNIQUE(" + KEY_NAME + ") ON CONFLICT IGNORE);";
         //sat op så hvis der forsøges at tilføje et CoffeeBrand med samme navn så ignorerer den det.
+
+        String CREATE_TOKENS_TABLE = "CREATE TABLE " + TABLE_TOKENS + "("
+                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_TOKENNAME + " TEXT,"
+                + KEY_TOKEN + " TEXT" + ");";
+
+        db.execSQL(CREATE_TOKENS_TABLE);
         db.execSQL(CREATE_COFFEEBRAND_TABLE);
     }
 
@@ -55,6 +69,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COFFEEBRAND);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TOKENS);
 
         // Create tables again
         onCreate(db);
@@ -168,4 +183,92 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[] { String.valueOf(brandId) });
         db.close();
     }
+
+
+
+
+    //Tokens CRUD
+    // Adding new Token
+    public void addToken(Token token) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_TOKENNAME, token.getName());
+        values.put(KEY_TOKEN, token.getTokenData());
+
+
+        // Inserting Row
+        db.insert(TABLE_TOKENS, null, values);
+        db.close(); // Closing database connection
+    }
+
+    // Getting single CoffeeBrand on client DB ID
+    public Token getTokenByName(String name) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_TOKENS, new String[] { KEY_ID,
+                        KEY_TOKENNAME, KEY_TOKEN }, KEY_TOKENNAME + "=?",
+                new String[] { name }, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Token t = new Token(cursor.getInt(0),
+                cursor.getString(1), cursor.getString(2));
+        db.close();
+        // return contact
+        return t;
+    }
+
+
+    // Getting All CoffeeBrands
+    public List<Token> getAllTokens() {
+        List<Token> tokenList = new ArrayList<Token>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_TOKENS;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Token t = new Token();
+                t.setId(Integer.parseInt(cursor.getString(0)));
+                t.setName(cursor.getString(1));
+                t.setTokenData(cursor.getString(2));
+
+                // Adding contact to list
+                tokenList.add(t);
+            } while (cursor.moveToNext());
+        }
+
+        // return contact list
+        db.close();
+        return tokenList;
+    }
+
+
+    // Updating single CoffeeBrand
+    public int updateToken(String tokenName, String tokenData)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_TOKENNAME, tokenName);
+        values.put(KEY_TOKEN, tokenData);
+
+        // updating row
+        return db.update(TABLE_TOKENS, values, KEY_TOKENNAME + "=?",
+                new String[] { tokenName });}
+
+
+    // Deleting single CoffeeBrand
+    public void deleteToken(String tokenName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_TOKENS, KEY_TOKENNAME + "=?",
+                new String[] { tokenName });
+        db.close();
+    }
+
+
 }
