@@ -2,22 +2,21 @@ package kasper.pagh.keebin
 
 
 import CoffeeRest.rest.GetAllShopsWithBrandName
+import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.annotation.Nullable
-import android.support.v4.app.FragmentManager
-import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
-import android.view.SearchEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
-import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.maps.*
 
 import com.google.android.gms.maps.model.LatLng
@@ -27,14 +26,31 @@ import entity.CoffeeShop
 
 class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
 
+
+
     val mapinstance = this
     lateinit var searchtext: android.widget.SearchView
     val gson: Gson = Gson()
     lateinit var gmap: GoogleMap
     var searchbool = false
-    var initbool = true
+    var searchspecificbool = false
+    lateinit var bundle : Bundle
+
 
     companion object {
+        @JvmStatic
+        fun newInstance(shop: CoffeeShop): Map {
+            var bundle: Bundle = Bundle()
+            bundle.putDouble("lat", shop.latitude)
+            bundle.putDouble("long", shop.longitude)
+            bundle.putString("addr", shop.address)
+            bundle.putString("email", shop.email)
+            bundle.putString("name", shop.actualBrandName)
+            bundle.putString("phone", shop.phone)
+            val fragment: Map = Map()
+            fragment.arguments = bundle
+            return fragment
+        }
         @JvmStatic
         fun newInstance(): Map {
             var bundle: Bundle = Bundle()
@@ -44,6 +60,10 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
         }
     }
 
+
+
+
+
     private val MY_PERMISSIONS_REQUEST = 123
 
     override fun onCreateView(inflater: LayoutInflater?, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View? {
@@ -51,6 +71,14 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
         var view: View = inflater!!.inflate(R.layout.map_layout, container, false)
 
 
+        bundle = arguments
+
+        if(bundle.getDouble("long") != 0.0 && bundle.getDouble("lat") != 0.0) {
+
+                Toast.makeText(activity, "" + bundle.getDouble("long"),
+                        Toast.LENGTH_LONG).show();
+            searchspecificbool = true
+        }
 
         ActivityCompat.requestPermissions(activity,
                 arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION),
@@ -113,13 +141,7 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
           searchbool = false
       }
 
-        if(initbool)
-        {
 
-
-
-            initbool = false
-        }
 
 
 
@@ -133,6 +155,37 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
     override fun onMapReady(googleMap: GoogleMap) {
 
         gmap = googleMap
+
+        if(searchspecificbool)
+        {
+
+
+
+            val lat  = bundle.getDouble("lat")
+            val long = bundle.getDouble("long")
+            val addr = bundle.getString("addr")
+            val email = bundle.getString("email")
+            val name = bundle.getString("name")
+            val phone = bundle.getString("phone")
+
+            val shoploc = LatLng(lat, long)
+            gmap.addMarker(MarkerOptions().position(shoploc).title(name).snippet(addr + ", " + email + ", " +  phone))
+            gmap.moveCamera(CameraUpdateFactory.newLatLng(shoploc))
+            googleMap.setMinZoomPreference(11.0f);
+            googleMap.setMaxZoomPreference(20.0f);
+
+
+            searchspecificbool = false
+        }
+        else
+        {
+
+
+
+
+
+
+
         val cphbusiness = LatLng(55.770535, 12.511922)
         googleMap.addMarker(MarkerOptions().position(cphbusiness).title("Her"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(cphbusiness))
@@ -143,8 +196,19 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
         }
 
         googleMap.isMyLocationEnabled = true
+        }
     }
-}
+
+
+
+    }
+
+
+
+
+
+
+
 
 
 
