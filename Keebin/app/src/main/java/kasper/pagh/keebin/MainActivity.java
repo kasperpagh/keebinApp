@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import com.google.gson.Gson;
 
+import CoffeeRest.rest.GetAllShopsWithBrandName;
 import entity.User;
 import userReST.DeleteUser;
 import userReST.NetworkChecker;
@@ -104,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
     {
         getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, UsersLoyaltyCards.newInstance()).commit();
     }
+
+
 
     PopupMenu settingsPopup;
 
