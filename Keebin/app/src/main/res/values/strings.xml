@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Keebin</string>
+
+    <string name="baseUrl">http://192.168.0.100:3000/api/</string>
+
+    <string name="putUserUrl">users/user/</string>
+
+    <string name="deleteUserUrl">users/user/</string>
 </resources>

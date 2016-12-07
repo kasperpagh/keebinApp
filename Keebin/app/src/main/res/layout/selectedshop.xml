@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/selectedShop"
+    android:orientation="vertical"
+    android:baselineAligned="false"
+    android:weightSum="1"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="524dp"
+        android:id="@+id/selectedshopScrollView"
+        android:layout_weight="0.11">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:orientation="vertical"
+            android:id="@+id/RelativeLayout_selectedshop"
+            >
+
+
+            <ImageView
+                android:id="@+id/ShopPicture"
+                android:layout_width="wrap_content"
+
+
+                android:layout_alignParentEnd="true"
+                android:layout_height="200dp" />
+
+            <TextView
+                android:id="@+id/ShopPictureOverlay"
+                android:layout_width="wrap_content"
+                android:text="yolo swag"
+                android:gravity="center"
+                android:layout_alignLeft="@id/ShopPicture"
+                android:layout_alignTop="@id/ShopPicture"
+                android:layout_alignRight="@id/ShopPicture"
+                android:layout_alignBottom="@id/ShopPicture"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:textSize="26dp"/>
+
+
+
+            <TextView
+                android:text="TextView"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/InfoBox"
+                android:layout_weight="0.11"
+                android:layout_marginTop="15dp"
+                android:textSize="18dp"
+                android:layout_below="@+id/ShopPicture"
+                android:layout_alignParentStart="true" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>
