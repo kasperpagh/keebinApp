@@ -1,30 +1,42 @@
 package kasper.pagh.keebin
 
 
-
-
+import CoffeeRest.rest.GetAllShopsWithBrandName
 import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.FragmentManager
+import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
+import android.view.SearchEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.gson.Gson
+import entity.CoffeeShop
 
-class Map : Fragment(), OnMapReadyCallback {
+class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
 
-        companion object
-    {
+    val mapinstance = this
+    lateinit var searchtext: android.widget.SearchView
+    val gson: Gson = Gson()
+    lateinit var gmap: GoogleMap
+    var searchbool = false
+    var initbool = true
+
+    companion object {
         @JvmStatic
-        fun newInstance(): Map
-        {
+        fun newInstance(): Map {
             var bundle: Bundle = Bundle()
             val fragment: Map = Map()
             fragment.arguments = bundle
@@ -34,8 +46,7 @@ class Map : Fragment(), OnMapReadyCallback {
 
     private val MY_PERMISSIONS_REQUEST = 123
 
-    override fun onCreateView(inflater: LayoutInflater?, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View?
-    {
+    override fun onCreateView(inflater: LayoutInflater?, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
         var view: View = inflater!!.inflate(R.layout.map_layout, container, false)
 
@@ -48,34 +59,80 @@ class Map : Fragment(), OnMapReadyCallback {
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
-//
-//        val search =  view.findViewById(R.id.searchbutton_maps) as ImageButton
-//
-//        search.callOnClick
-//
-//                setOnClickListener(View.OnClickListener {
-//            val addCoffee = AddCoffee(resources.getString(R.string.baseUrl), MainActivity.currentUser, coffeeCode.getText().toString(), numberOfCoffeesBought.getText().toString(), this@AddCoffeeToLoyaltycard, context)
-//            addCoffee.execute()
-//        })
+
+        val search = view.findViewById(R.id.searchbutton_maps) as ImageButton
+
+
+         searchtext = view.findViewById(R.id.easyGGmofo) as android.widget.SearchView
+
+        search.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View): Unit {
+
+
+
+
+//                Toast.makeText(activity, "" + searchtext.query.toString(),
+//                        Toast.LENGTH_LONG).show();
+
+                searchbool = true
+                val getAllShops = GetAllShopsWithBrandName(resources.getString(R.string.baseUrl), mapinstance, activity)
+
+                getAllShops.execute()
+
+
+            }
+        })
 
         return view;
     }
 
 
+    override fun processFinished(output: String?) {
+        gmap.clear()
 
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    // geo fix 12,511922 55,770535
+
+
+        val coffeeArray = gson.fromJson(output, Array<CoffeeShop>::class.java)
+
+      if(searchbool) {
+          coffeeArray.forEach {
+              if (it.actualBrandName.contains(searchtext.query.toString(), ignoreCase = true)) {
+
+
+                  Toast.makeText(activity, "" + it.actualBrandName,
+                          Toast.LENGTH_LONG).show();
+
+                  val cphbusiness = LatLng(it.latitude, it.longitude)
+                  gmap.addMarker(MarkerOptions().position(cphbusiness).title(it.actualBrandName).snippet(it.address + ", " + it.email))
+              }
+
+
+          }
+          searchbool = false
+      }
+
+        if(initbool)
+        {
+
+
+
+            initbool = false
+        }
+
+
+
+
+
+    }
+
+
+
+
     override fun onMapReady(googleMap: GoogleMap) {
+
+        gmap = googleMap
         val cphbusiness = LatLng(55.770535, 12.511922)
         googleMap.addMarker(MarkerOptions().position(cphbusiness).title("Her"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(cphbusiness))
@@ -93,52 +150,3 @@ class Map : Fragment(), OnMapReadyCallback {
 
 
 
-
-/**
- * Created by kaspe on 2016-12-14.
- */
-//class Map : Fragment(), OnMapReadyCallback
-//{
-//
-//    companion object
-//    {
-//        @JvmStatic
-//        fun newInstance(): Map
-//        {
-//            var bundle: Bundle = Bundle()
-//            val fragment: Map = Map()
-//            fragment.arguments = bundle
-//            return fragment
-//        }
-//    }
-//
-//
-//    override fun onCreateView(inflater: LayoutInflater?, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View?
-//    {
-//        if (inflater != null)
-//        {
-//            var view: View = inflater.inflate(R.layout.map_layout, container, false)
-//        }
-//
-//
-//        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-//
-//        val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
-////        mapFragment.getMapAsync(this)
-//
-//        mapFragment.getMapAsync { activity }
-//        return view
-//    }
-//
-//    override fun onMapReady(googleMap: GoogleMap)
-//    {
-//        val cphbusiness = LatLng(55.770535, 12.511922)
-//        googleMap.addMarker(MarkerOptions().position(cphbusiness).title("Her"))
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(cphbusiness))
-//
-//
-//        googleMap.isMyLocationEnabled = true
-//    }
-//
-//
-//}
