@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Keebin</string>
 
-    <string name="baseUrl">http://82.211.198.31:3000/api/</string>
-    <string name="loginString">http://82.211.198.31:3000/</string>
+    <string name="baseUrl">http://192.168.0.100:3000/api/</string>
+    <string name="loginString">http://192.168.0.100:3000/</string>
 
     <string name="putUserUrl">users/user/</string>
 

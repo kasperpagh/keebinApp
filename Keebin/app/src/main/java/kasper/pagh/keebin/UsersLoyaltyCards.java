@@ -58,7 +58,7 @@ public class UsersLoyaltyCards extends Fragment implements AsyncResponse{
         loyaltyList = new ArrayList<>();
 
 
-        GetAllLoyaltyCards g = new GetAllLoyaltyCards(getResources().getString(R.string.baseUrl), this);
+        GetAllLoyaltyCards g = new GetAllLoyaltyCards(getResources().getString(R.string.baseUrl), this, getContext());
         g.execute();
 
 
