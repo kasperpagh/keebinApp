@@ -94,7 +94,7 @@ public class SearchCoffeeShopsFragment extends Fragment implements AsyncResponse
 
 
 
-        GetAllShopsWithBrandName getAllShops = new GetAllShopsWithBrandName(getResources().getString(R.string.baseUrl), this);
+        GetAllShopsWithBrandName getAllShops = new GetAllShopsWithBrandName(getResources().getString(R.string.baseUrl), this, getActivity());
 
         getAllShops.execute();
 

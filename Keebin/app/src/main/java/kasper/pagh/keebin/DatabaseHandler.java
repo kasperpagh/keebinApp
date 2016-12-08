@@ -59,7 +59,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_TOKENS_TABLE = "CREATE TABLE " + TABLE_TOKENS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_TOKENNAME + " TEXT,"
-                + KEY_TOKEN + " TEXT" + ");";
+                + KEY_TOKEN + " TEXT,"
+                + "UNIQUE(" + KEY_TOKENNAME + ") ON CONFLICT IGNORE);";
 
         db.execSQL(CREATE_TOKENS_TABLE);
         db.execSQL(CREATE_COFFEEBRAND_TABLE);

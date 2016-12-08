@@ -31,16 +31,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse
 
     public void login(View view)
     {
-//        JsonObject loginObject = new JsonObject();
-//        loginObject.addProperty("email", editTextEmail.getText().toString());
-//        loginObject.addProperty("password", editTextPassword.getText().toString());
-
-
-//        Intent intent = new Intent(this, MainActivity.class);
-        //intent.putExtra(); Her kan vi ligge den uder der er logget ind!!
-//        startActivity(intent);
-
-        PostLogin postLogin = new PostLogin(getResources().getString(R.string.baseUrl), editTextEmail.getText().toString(), editTextPassword.getText().toString(), this);
+        PostLogin postLogin = new PostLogin(getResources().getString(R.string.baseUrl), editTextEmail.getText().toString(), editTextPassword.getText().toString(), this, getApplicationContext());
         postLogin.execute();
     }
 

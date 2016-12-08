@@ -1,5 +1,6 @@
 package userReST;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -13,10 +14,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
+import entity.CoffeeBrand;
 import entity.LoginData;
+import entity.Token;
 import entity.User;
 import kasper.pagh.keebin.AsyncResponse;
+import kasper.pagh.keebin.DatabaseHandler;
 
 /**
  * Created by kaspe on 2016-11-30.
@@ -33,13 +38,16 @@ public class PostLogin extends AsyncTask<String, Void, String>
     private String userEmail;
     private String userPassword;
     private String rawUser;
+    private DatabaseHandler dbh;
+    private Context context;
 
-    public PostLogin(String baseUrl, String userEmail, String userPassword, AsyncResponse delegate)
+    public PostLogin(String baseUrl, String userEmail, String userPassword, AsyncResponse delegate, Context context)
     {
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.delegate = delegate;
         this.baseUrl = baseUrl;
+        this.context = context;
     }
 
     @Override
@@ -48,11 +56,25 @@ public class PostLogin extends AsyncTask<String, Void, String>
 
         try
         {
+            dbh = new DatabaseHandler(context);
             rawLoginData = postLogin();
             Log.d("her er rawLogin ", rawLoginData);
             loginData = gson.fromJson(rawLoginData, LoginData.class);
+            Token refreshToken = new Token("refreshToken", loginData.getRefreshToken());
+            Token accessToken = new Token("accessToken", loginData.getAccessToken());
+            dbh.addToken(refreshToken);
+            dbh.addToken(accessToken);
             rawUser = getUser();
             currentUser = gson.fromJson(rawUser, User.class);
+
+            List<Token> tokens = dbh.getAllTokens();
+            for (Token cb : tokens) {
+                String log = "Id: " + cb.getId() + " ,Name: " + cb.getName() + " ,tokenData: " + cb.getTokenData();
+                // Writing CoffeeBrands to log
+                Log.d("Name: ", log);
+            }
+
+            Log.d("her er usr: ", rawUser);
             currentUser.setLoginData(loginData);
 
 
@@ -86,7 +108,7 @@ public class PostLogin extends AsyncTask<String, Void, String>
         Log.d("her er jo ", jo.toString());
         try
         {
-            URL url = new URL("http://192.168.0.11:3000/login");
+            URL url = new URL("http://82.211.198.31:3000/" + "login");
             Log.d("full url: ", url.toString());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -138,12 +160,28 @@ public class PostLogin extends AsyncTask<String, Void, String>
             connection.setConnectTimeout(15000);
             connection.setDoInput(true);
             connection.setRequestProperty("Accept", "application/json");
-            connection.setRequestProperty("refreshToken", loginData.getRefreshToken());
-            connection.setRequestProperty("accessToken", loginData.getAccessToken());
+            connection.setRequestProperty("accessToken", dbh.getTokenByName("accessToken").getTokenData());
+            connection.setRequestProperty("refreshToken", dbh.getTokenByName("refreshToken").getTokenData());
+            Log.d("præ rToken ", dbh.getTokenByName("refreshToken").getTokenData());
+            Log.d("præ aToken ", dbh.getTokenByName("accessToken").getTokenData());
 
             connection.connect();
 
             input = connection.getInputStream();
+
+            String code = "" +connection.getResponseCode();
+            if(code.equalsIgnoreCase("200"));
+            {
+                String accessToken = connection.getHeaderField("accessToken");
+                Log.d("her er res aToken " , accessToken);
+                if(!dbh.getTokenByName("accessToken").getTokenData().equals(accessToken))
+                {
+                    dbh.updateToken("accessToken", accessToken);
+                    Log.d("accessToken", " er opdateret til " + accessToken);
+                }
+
+            }
+
             bufferedReader = new BufferedReader(new InputStreamReader(input));
             sb = new StringBuilder();
             String line;

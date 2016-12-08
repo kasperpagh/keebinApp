@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
         if(savedInstanceState == null)
         {
 
-            getSupportFragmentManager().beginTransaction().add(R.id.fragment, YourInfoFragment.newInstance()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment, SearchCoffeeShopsFragment.newInstance()).commit();
 
         }
         GetCoffeeBrandsAndSaveToDB yes = new GetCoffeeBrandsAndSaveToDB(getApplicationContext());
