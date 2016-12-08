@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse
 
     public void login(View view)
     {
-        PostLogin postLogin = new PostLogin(getResources().getString(R.string.baseUrl), editTextEmail.getText().toString(), editTextPassword.getText().toString(), this, getApplicationContext());
+        PostLogin postLogin = new PostLogin(getResources().getString(R.string.baseUrl), getResources().getString(R.string.loginString),editTextEmail.getText().toString(), editTextPassword.getText().toString(), this, getApplicationContext());
         postLogin.execute();
     }
 

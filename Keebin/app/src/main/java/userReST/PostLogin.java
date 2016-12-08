@@ -40,14 +40,16 @@ public class PostLogin extends AsyncTask<String, Void, String>
     private String rawUser;
     private DatabaseHandler dbh;
     private Context context;
+    String baseLoginUrl;
 
-    public PostLogin(String baseUrl, String userEmail, String userPassword, AsyncResponse delegate, Context context)
+    public PostLogin(String baseUrl, String baseLoginUrl, String userEmail, String userPassword, AsyncResponse delegate, Context context)
     {
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.delegate = delegate;
         this.baseUrl = baseUrl;
         this.context = context;
+        this.baseLoginUrl = baseLoginUrl;
     }
 
     @Override
@@ -58,26 +60,23 @@ public class PostLogin extends AsyncTask<String, Void, String>
         {
             dbh = new DatabaseHandler(context);
             rawLoginData = postLogin();
-            Log.d("her er rawLogin ", rawLoginData);
             loginData = gson.fromJson(rawLoginData, LoginData.class);
             Token refreshToken = new Token("refreshToken", loginData.getRefreshToken());
             Token accessToken = new Token("accessToken", loginData.getAccessToken());
-            dbh.addToken(refreshToken);
-            dbh.addToken(accessToken);
-            rawUser = getUser();
-            currentUser = gson.fromJson(rawUser, User.class);
-
-            List<Token> tokens = dbh.getAllTokens();
-            for (Token cb : tokens) {
-                String log = "Id: " + cb.getId() + " ,Name: " + cb.getName() + " ,tokenData: " + cb.getTokenData();
-                // Writing CoffeeBrands to log
-                Log.d("Name: ", log);
+            if(dbh.getTokenByName("refreshToken").getTokenData() != null)
+            {
+                dbh.updateToken("refreshToken", refreshToken.getTokenData());
+                dbh.updateToken("accessToken", accessToken.getTokenData());
+            }
+            else
+            {
+                dbh.addToken(refreshToken);
+                dbh.addToken(accessToken);
             }
 
-            Log.d("her er usr: ", rawUser);
+            rawUser = getUser();
+            currentUser = gson.fromJson(rawUser, User.class);
             currentUser.setLoginData(loginData);
-
-
             return gson.toJson(currentUser);
         }
         catch (IOException e)
@@ -105,10 +104,9 @@ public class PostLogin extends AsyncTask<String, Void, String>
         JsonObject jo = new JsonObject();
         jo.addProperty("email", userEmail);
         jo.addProperty("password", userPassword);
-        Log.d("her er jo ", jo.toString());
         try
         {
-            URL url = new URL("http://82.211.198.31:3000/" + "login");
+            URL url = new URL(baseLoginUrl + "login");
             Log.d("full url: ", url.toString());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -119,7 +117,6 @@ public class PostLogin extends AsyncTask<String, Void, String>
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
             output = connection.getOutputStream();
-            Log.d("her er jo igen ", jo.toString());
             output.write(gson.toJson(jo).getBytes("UTF-8"));
             output.close();
 
@@ -162,8 +159,6 @@ public class PostLogin extends AsyncTask<String, Void, String>
             connection.setRequestProperty("Accept", "application/json");
             connection.setRequestProperty("accessToken", dbh.getTokenByName("accessToken").getTokenData());
             connection.setRequestProperty("refreshToken", dbh.getTokenByName("refreshToken").getTokenData());
-            Log.d("præ rToken ", dbh.getTokenByName("refreshToken").getTokenData());
-            Log.d("præ aToken ", dbh.getTokenByName("accessToken").getTokenData());
 
             connection.connect();
 
