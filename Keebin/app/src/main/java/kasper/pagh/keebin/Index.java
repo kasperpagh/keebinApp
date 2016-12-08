@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -101,14 +102,15 @@ public class Index extends Fragment implements AsyncResponse
             iv.setImageDrawable(ContextCompat.getDrawable(getContext(), example));
 
 
-            LayoutParams lp = new LayoutParams(1000, 900);
-            lp.alignWithParent = true;
-            lp.setMargins(85, 30, 0, 0);
+            LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            lp.setMargins(0, 30, 0, 0);
 
             iv.setLayoutParams(lp);
 
             final Integer shopID = shop.getId();
             final String shopEMAIL = shop.getEmail();
+
+            iv.setBackgroundColor(Color.WHITE);
 
 
             iv.setOnClickListener(new View.OnClickListener()
@@ -126,7 +128,7 @@ public class Index extends Fragment implements AsyncResponse
             });
 
 
-            iv.setScaleType(ImageView.ScaleType.FIT_XY);
+
 
             rl.addView(iv);
 

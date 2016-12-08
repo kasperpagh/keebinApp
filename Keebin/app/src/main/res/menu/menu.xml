@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
-
-        <item android:title="Menu1"
+        <item android:title="Search"
             android:id="@+id/Menu1"
             app:showAsAction="always"
-             />
+            android:onClick="link_search" />
 
         <item android:title="Menu2"
-            android:id="@+id/Menu2" />
+            android:id="@+id/Menu2"
+            android:onClick="link_search" />
 
         <item android:title="Menu3"
-            android:id="@+id/Menu3"/>
-
+            android:id="@+id/Menu3"
+            android:onClick="link_loyaltycards" />
 </menu>

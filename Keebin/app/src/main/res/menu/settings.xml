@@ -3,16 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-
     <item android:title="Setting1"
         android:id="@+id/settings1"
-        app:showAsAction="always"/>
+        app:showAsAction="always"
+        android:onClick="link_maps" />
 
     <item android:title="Setting2"
-        android:id="@+id/settings2"/>
+        android:id="@+id/settings2"
+        android:onClick="link_home"/>
 
     <item android:title="Setting3"
-        android:id="@+id/Setting3"/>
+        android:id="@+id/Setting3"
+        android:onClick="link_home" />
 
 
 </menu>

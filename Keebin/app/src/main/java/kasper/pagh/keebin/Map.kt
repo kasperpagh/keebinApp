@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
 import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
 
 import com.google.android.gms.maps.model.LatLng
@@ -70,7 +71,6 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
         super.onCreate(savedInstanceState)
         var view: View = inflater!!.inflate(R.layout.map_layout, container, false)
 
-
         bundle = arguments
 
         if(bundle.getDouble("long") != 0.0 && bundle.getDouble("lat") != 0.0) {
@@ -96,9 +96,6 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
         search.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View): Unit {
 
-
-
-
 //                Toast.makeText(activity, "" + searchtext.query.toString(),
 //                        Toast.LENGTH_LONG).show();
 
@@ -117,6 +114,7 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
 
     override fun processFinished(output: String?) {
         gmap.clear()
+
 
 
 
@@ -159,8 +157,6 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
         if(searchspecificbool)
         {
 
-
-
             val lat  = bundle.getDouble("lat")
             val long = bundle.getDouble("long")
             val addr = bundle.getString("addr")
@@ -171,20 +167,13 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
             val shoploc = LatLng(lat, long)
             gmap.addMarker(MarkerOptions().position(shoploc).title(name).snippet(addr + ", " + email + ", " +  phone))
             gmap.moveCamera(CameraUpdateFactory.newLatLng(shoploc))
-            googleMap.setMinZoomPreference(11.0f);
-            googleMap.setMaxZoomPreference(20.0f);
-
+            googleMap.setMinZoomPreference(11.0f)
+            googleMap.setMaxZoomPreference(20.0f)
 
             searchspecificbool = false
         }
         else
         {
-
-
-
-
-
-
 
         val cphbusiness = LatLng(55.770535, 12.511922)
         googleMap.addMarker(MarkerOptions().position(cphbusiness).title("Her"))
@@ -196,21 +185,7 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
         }
 
         googleMap.isMyLocationEnabled = true
+
         }
     }
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
+}
