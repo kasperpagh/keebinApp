@@ -1,5 +1,6 @@
 package userReST;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import com.google.gson.Gson;
@@ -10,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import kasper.pagh.keebin.AsyncResponse;
+import kasper.pagh.keebin.DatabaseHandler;
 
 /**
  * Created by kaspe on 2016-10-29.
@@ -21,13 +23,15 @@ public class NewRole extends AsyncTask<String, Void, String>
     private String baseUrl;
     private Gson gson;
     private String roleName;
+    private DatabaseHandler dbh;
 
-    public NewRole(String baseUrl, String roleName, AsyncResponse delegate)
+    public NewRole(String baseUrl, String roleName, AsyncResponse delegate, Context context)
     {
         this.baseUrl = baseUrl;
         this.gson = new Gson();
         this.delegate = delegate;
         this.roleName = roleName;
+        dbh = new DatabaseHandler(context);
 
     }
     @Override
@@ -62,12 +66,30 @@ public class NewRole extends AsyncTask<String, Void, String>
         connection.setConnectTimeout(15000);
         connection.setDoOutput(true);
         connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("accessToken", dbh.getTokenByName("accessToken").getTokenData());
+        connection.setRequestProperty("refreshToken", dbh.getTokenByName("refreshToken").getTokenData());
         output = connection.getOutputStream();
         output.write(gson.toJson(jo).getBytes("UTF-8"));
         output.close();
 
         connection.connect();
         String responseCode = connection.getResponseCode()+"";
+
+        if(responseCode.equalsIgnoreCase("200"));
+        {
+            String refreshToken = connection.getHeaderField("refreshToken");
+            String accessToken = connection.getHeaderField("accessToken");
+
+            if(!dbh.getTokenByName("refreshToken").getTokenData().equals(refreshToken))
+            {
+                dbh.updateToken("refreshToken", refreshToken);
+            }
+            if(!dbh.getTokenByName("accessToken").getTokenData().equals(accessToken))
+            {
+                dbh.updateToken("accessToken", accessToken);
+            }
+
+        }
         return responseCode;
     }
 }
