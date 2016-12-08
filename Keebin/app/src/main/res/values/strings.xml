@@ -12,4 +12,6 @@
 
     <string name="menuheight">55dp</string>
 
+    <string name="mapsApiKey">AIzaSyCjmYykwdu5BrHuBJF8zh6lkwoOFTxlLVw</string>
+
 </resources>

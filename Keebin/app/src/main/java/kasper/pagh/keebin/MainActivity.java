@@ -8,8 +8,13 @@ import android.support.v7.widget.PopupMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 
+import CoffeeRest.rest.GetAllShopsWithBrandName;
 import entity.User;
 import userReST.DeleteUser;
 import userReST.NetworkChecker;
@@ -43,6 +48,10 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
@@ -92,7 +101,8 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 
     public void link_maps(View v)
     {
-        getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, Index.newInstance()).commit();
+
+        getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, Map.newInstance()).commit();
     }
 
     public void link_search(View v)
@@ -103,7 +113,14 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
     public void link_loyaltycards(View v)
     {
         getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, UsersLoyaltyCards.newInstance()).commit();
+
     }
+
+
+
+
+
+
 
     PopupMenu settingsPopup;
 
