@@ -1,6 +1,8 @@
 package userReST;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -63,6 +65,7 @@ public class PostLogin extends AsyncTask<String, Void, String>
             loginData = gson.fromJson(rawLoginData, LoginData.class);
             Token refreshToken = new Token("refreshToken", loginData.getRefreshToken());
             Token accessToken = new Token("accessToken", loginData.getAccessToken());
+
             if(dbh.hasObject("refreshToken"))
             {
                 dbh.updateToken("refreshToken", refreshToken.getTokenData());
@@ -70,6 +73,7 @@ public class PostLogin extends AsyncTask<String, Void, String>
             }
             else
             {
+                Log.d("", "YOLO" + refreshToken + "" + accessToken);
                 dbh.addToken(refreshToken);
                 dbh.addToken(accessToken);
             }

@@ -272,6 +272,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+
     public boolean hasObject(String id) {
         SQLiteDatabase db = getWritableDatabase();
         String selectString = "SELECT * FROM " + TABLE_TOKENS + " WHERE " + KEY_TOKENNAME + " =?";
