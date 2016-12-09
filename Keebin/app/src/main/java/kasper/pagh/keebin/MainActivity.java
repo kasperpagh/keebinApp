@@ -4,10 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -156,6 +161,8 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
     }
 
 
+
+
     public void link_home(View view)
     {
         getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, Index.newInstance()).commit();
@@ -165,6 +172,34 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
     {
         getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, SearchCoffeeShopsFragment.newInstance()).commit();
     }
+
+    PopupMenu settingsPopup;
+    public void SettingsPopup(View v) {
+        if(settingsPopup == null) {
+            settingsPopup = new PopupMenu(this, v);
+            MenuInflater inflater = settingsPopup.getMenuInflater();
+            inflater.inflate(R.menu.menu, settingsPopup.getMenu());
+        }
+
+        settingsPopup.show();
+}
+
+
+    PopupMenu MenuPopup;
+    public void MenuPopup(View v) {
+
+            Log.d("I am run ", " 2");
+            if(MenuPopup == null) {
+                MenuPopup = new PopupMenu(this, v);
+                MenuInflater inflater = MenuPopup.getMenuInflater();
+                inflater.inflate(R.menu.menu, MenuPopup.getMenu());
+            }
+        MenuPopup.show();
+
+
+    }
+
+
 
 
 }
