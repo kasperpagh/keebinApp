@@ -27,6 +27,8 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
@@ -46,110 +48,53 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import CoffeeRest.rest.GetAllShops;
+import CoffeeRest.rest.GetShopByEmail;
+import entity.CoffeeShop;
+import entity.LoyaltyCard;
 
 
-public class Index extends Fragment
+public class Index extends Fragment implements AsyncResponse
 {
 
+    private DatabaseHandler dbh;
 
 
     public Index()
     {
-      
+
     }
 
-//
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-//    {
-//
-//
-//
-//        final View view = inflater.inflate(R.layout.index, container, false);
-//        ArrayList<Integer> s = new ArrayList<>();
-//        Integer val = 1;
-//
-//        for(int x = 1; x<5; x++) {
-//
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        dbh = new DatabaseHandler(getActivity());
+        GetAllShops allshops = new GetAllShops(getResources().getString(R.string.baseUrl), this, getActivity());
+        allshops.execute();
+
+        final View view = inflater.inflate(R.layout.index, container, false);
+        ArrayList<Integer> s = new ArrayList<>();
+        Integer val = 1;
+
+ArrayList<Integer> listen = new ArrayList<Integer>();
+        listen.add(1);
+        listen.add(2);
+
+
+        for(int x = 0; x<listen.size(); x++) {
+
 //            Integer example = R.drawable.riccos ;
+
+            String name =   dbh.getBrandbyId(listen.get(x)).getBrandName().toLowerCase();
+
+
+
+     Integer example = getContext().getResources().getIdentifier(name, "drawable", "kasper.pagh.keebin");
+
+
+//            String strinsg = getString(R.string.hello_blank_fragment);
 //
-//
-//
-//
-////            String strinsg = getString(R.string.hello_blank_fragment);
-////
-////            Toast.makeText(getContext(), strinsg, Toast.LENGTH_SHORT).show();
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//            LinearLayout rl = (LinearLayout) view.findViewById(R.id.LinearLayout_Index);
-//
-//
-//
-//            ImageButton iv = new ImageButton(getContext());
-//
-//            iv.setImageDrawable(ContextCompat.getDrawable(getContext(), example));
-//
-//
-//            LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, 500);
-//
-//            lp.alignWithParent = true;
-//
-//            lp.setMargins(85, 30, 0, 0);
-//
-//            iv.setLayoutParams(lp);
-//
-//            final Integer value = example;
-//            s.add(example);
-//
-//            iv.setOnClickListener( new View.OnClickListener() {
-//
-//
-//                public void onClick(View v) {
-//
-//                    String name;
-//
-//
-//
-//                    getFragmentManager().beginTransaction().replace(R.id.fragment, Selectedshop.newInstance(1)).addToBackStack("A_B_TAG").commit();
-//
-//
-//
-//
-//                }
-//            });
-//
-//            if(++val == 5)
-//                val = 1;
-//
-//
-//            iv.setScaleType(ImageView.ScaleType.FIT_XY);
-//
-//            rl.addView(iv);
-//
-//
-//        }
-//
-//        Log.d("I am here!" + s, "--");
-//        Log.d("ssaa", "yooolo");
-//
-//
-//        return view;
-//    }
-//
-//    public static Index newInstance()
-//    {
-//        Bundle args = new Bundle();
-//        Index fragment = new Index();
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
+//            Toast.makeText(getContext(), strinsg, Toast.LENGTH_SHORT).show();
 
 
 
@@ -157,4 +102,85 @@ public class Index extends Fragment
 
 
 
+
+
+
+
+            LinearLayout rl = (LinearLayout) view.findViewById(R.id.LinearLayout_Index);
+
+
+
+            ImageButton iv = new ImageButton(getContext());
+
+            iv.setImageDrawable(ContextCompat.getDrawable(getContext(), example));
+
+
+            LayoutParams lp = new LayoutParams(1000, 900);
+
+            lp.alignWithParent = true;
+
+            lp.setMargins(85, 30, 0, 0);
+
+            iv.setLayoutParams(lp);
+
+            final Integer value = example;
+            s.add(example);
+
+            iv.setOnClickListener( new View.OnClickListener() {
+
+
+                public void onClick(View v) {
+
+                    String name;
+
+
+
+                    getFragmentManager().beginTransaction().replace(R.id.fragment, Selectedshop.newInstance(1)).addToBackStack("A_B_TAG").commit();
+
+
+
+
+                }
+            });
+
+            if(++val == 5)
+                val = 1;
+
+
+            iv.setScaleType(ImageView.ScaleType.FIT_XY);
+
+            rl.addView(iv);
+
+
+        }
+
+        Log.d("I am here!" + s, "--");
+        Log.d("ssaa", "yooolo");
+
+
+        return view;
+    }
+
+    public static Index newInstance()
+    {
+        Bundle args = new Bundle();
+        Index fragment = new Index();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    private Gson gson = new Gson();
+    CoffeeShop[] shops;
+
+    @Override
+    public void processFinished(String output) {
+
+       shops = gson.fromJson(output, CoffeeShop[].class);
+
+        for (CoffeeShop shop : shops) {
+            Log.d("her er mail: ", " "+ shop.getEmail());
+        }
+
+
+    }
 }

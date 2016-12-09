@@ -73,7 +73,6 @@ public class PostLogin extends AsyncTask<String, Void, String>
             }
             else
             {
-                Log.d("", "YOLO" + refreshToken + "" + accessToken);
                 dbh.addToken(refreshToken);
                 dbh.addToken(accessToken);
             }

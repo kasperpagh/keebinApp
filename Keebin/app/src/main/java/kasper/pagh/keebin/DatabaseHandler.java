@@ -277,11 +277,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         String selectString = "SELECT * FROM " + TABLE_TOKENS + " WHERE " + KEY_TOKENNAME + " =?";
 
+
+
         // Add the String you are searching by here.
         // Put it in an array to avoid an unrecognized token error
         Cursor cursor = db.rawQuery(selectString, new String[] {id});
 
-        boolean hasObject = false;
+                boolean hasObject = false;
         if(cursor.moveToFirst()){
             hasObject = true;
 
@@ -301,6 +303,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();          // Dont forget to close your cursor
         db.close();              //AND your Database!
         return hasObject;
+
+
+
     }
+
+//    public boolean isTableExists(String tableName, boolean openDb) {
+//        SQLiteDatabase db = getWritableDatabase();
+//        if(openDb) {
+//            if(db == null || !db.isOpen()) {
+//                db = getReadableDatabase();
+//            }
+//
+//            if(!db.isReadOnly()) {
+//                db.close();
+//                db = getReadableDatabase();
+//            }
+//        }
+//
+//        Cursor cursor = db.rawQuery("select DISTINCT " + TABLE_TOKENS +  " from KeebinDB  where " + TABLE_TOKENS + " = '"+TABLE_TOKENS+"'", null);
+//        if(cursor!=null) {
+//            if(cursor.getCount()>0) {
+//                cursor.close();
+//                return true;
+//            }
+//            cursor.close();
+//        }
+//        return false;
+//    }
 
 }

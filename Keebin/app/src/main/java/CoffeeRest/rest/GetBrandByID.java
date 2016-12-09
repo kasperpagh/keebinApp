@@ -1,5 +1,6 @@
 package CoffeeRest.rest;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -11,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import kasper.pagh.keebin.AsyncResponse;
+import kasper.pagh.keebin.DatabaseHandler;
 
 /**
  * Created by kaspe on 2016-10-29.
@@ -22,12 +24,13 @@ public class GetBrandByID extends AsyncTask<String, Void, String>
     private Integer brandID;
     public AsyncResponse delegate = null;
     private String baseUrl;
-
-    public GetBrandByID(String baseUrl, Integer brandID, AsyncResponse delegate)
+    private DatabaseHandler dbh;
+    public GetBrandByID(String baseUrl, Integer brandID, AsyncResponse delegate, Context context)
     {
         this.baseUrl = baseUrl;
         this.brandID = brandID;
         this.delegate = delegate;
+        dbh = new DatabaseHandler(context);
     }
 
 
@@ -47,10 +50,28 @@ public class GetBrandByID extends AsyncTask<String, Void, String>
             connection.setConnectTimeout(15000);
             connection.setDoInput(true);
             connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("accessToken", dbh.getTokenByName("accessToken").getTokenData());
+            connection.setRequestProperty("refreshToken", dbh.getTokenByName("refreshToken").getTokenData());
 
             connection.connect();
 
             input = connection.getInputStream();
+
+            String code = "" +connection.getResponseCode();
+
+            if(code.equalsIgnoreCase("200"));
+            {
+
+                String accessToken = connection.getHeaderField("accessToken");
+
+
+                if(!dbh.getTokenByName("accessToken").getTokenData().equals(accessToken))
+                {
+                    dbh.updateToken("accessToken", accessToken);
+                }
+
+            }
+
             bufferedReader = new BufferedReader(new InputStreamReader(input));
             sb = new StringBuilder();
             String line;
