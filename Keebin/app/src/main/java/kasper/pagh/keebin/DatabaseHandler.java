@@ -203,7 +203,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-    // Getting single CoffeeBrand on client DB ID
+    // Getting single Token on client DB ID
     public Token getTokenByName(String name) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -271,5 +271,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+
+    public boolean hasObject(String id) {
+        SQLiteDatabase db = getWritableDatabase();
+        String selectString = "SELECT * FROM " + TABLE_TOKENS + " WHERE " + KEY_TOKENNAME + " =?";
+
+        // Add the String you are searching by here.
+        // Put it in an array to avoid an unrecognized token error
+        Cursor cursor = db.rawQuery(selectString, new String[] {id});
+
+        boolean hasObject = false;
+        if(cursor.moveToFirst()){
+            hasObject = true;
+
+            //region if you had multiple records to check for, use this region.
+
+            int count = 0;
+            while(cursor.moveToNext()){
+                count++;
+            }
+            //here, count is records found
+            Log.d("", String.format("%d records found", count));
+
+            //endregion
+
+        }
+
+        cursor.close();          // Dont forget to close your cursor
+        db.close();              //AND your Database!
+        return hasObject;
+    }
 
 }

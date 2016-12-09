@@ -63,7 +63,7 @@ public class PostLogin extends AsyncTask<String, Void, String>
             loginData = gson.fromJson(rawLoginData, LoginData.class);
             Token refreshToken = new Token("refreshToken", loginData.getRefreshToken());
             Token accessToken = new Token("accessToken", loginData.getAccessToken());
-            if(dbh.getTokenByName("refreshToken").getTokenData() != null)
+            if(dbh.hasObject("refreshToken"))
             {
                 dbh.updateToken("refreshToken", refreshToken.getTokenData());
                 dbh.updateToken("accessToken", accessToken.getTokenData());

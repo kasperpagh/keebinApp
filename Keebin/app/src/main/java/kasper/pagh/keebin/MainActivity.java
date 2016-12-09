@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 
     public void saveUser(View view){
 
-        PutUser putuser = new PutUser(MainActivity.currentUser, this);
+        PutUser putuser = new PutUser(MainActivity.currentUser, this, getApplication());
         putuser.execute();
 
     }
