@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
         
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         networkChecker = new NetworkChecker(this);
         Intent intent = getIntent();
         String unparsedCurrentUser = intent.getStringExtra("unparsedCurrentUser");
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
     public void tester(View view)
     {
 
-// KASPERS 
+// KASPERS
         User postUsr = new User("nyBruger", "numer 1", "new@gmail.com", "2010-09-08 22:00:00", "male", 1, "asdf");
 //        String jsonUsr = gson.toJson(putusr, User.class);
 //        Log.d("her er json user: ", jsonUsr);
@@ -126,6 +128,9 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
     }
 
 
+
+
+
     public static NetworkChecker getNetworkChecker()
     {
         return networkChecker;
@@ -149,4 +154,17 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 //        TextView textView = (TextView) this.findViewById(R.id.resText);
 //        textView.setText(output);
     }
+
+
+    public void link_home(View view)
+    {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, Index.newInstance()).commit();
+    }
+
+    public void link_search(View view)
+    {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, SearchCoffeeShopsFragment.newInstance()).commit();
+    }
+
+
 }
