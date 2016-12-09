@@ -158,12 +158,12 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 
     public void link_home(View view)
     {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, Index.newInstance()).commit();
+        getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, Index.newInstance()).commit();
     }
 
     public void link_search(View view)
     {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, SearchCoffeeShopsFragment.newInstance()).commit();
+        getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, SearchCoffeeShopsFragment.newInstance()).commit();
     }
 
 
