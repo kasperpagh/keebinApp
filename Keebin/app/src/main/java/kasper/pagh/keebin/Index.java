@@ -65,6 +65,7 @@ public class Index extends Fragment implements AsyncResponse
 
     }
 
+    View globalview;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -73,89 +74,91 @@ public class Index extends Fragment implements AsyncResponse
         allshops.execute();
 
         final View view = inflater.inflate(R.layout.index, container, false);
-        ArrayList<Integer> s = new ArrayList<>();
-        Integer val = 1;
-
-ArrayList<Integer> listen = new ArrayList<Integer>();
-        listen.add(1);
-        listen.add(2);
 
 
-        for(int x = 0; x<listen.size(); x++) {
+        globalview = view;
 
-//            Integer example = R.drawable.riccos ;
-
-            String name =   dbh.getBrandbyId(listen.get(x)).getBrandName().toLowerCase();
-
-
-
-     Integer example = getContext().getResources().getIdentifier(name, "drawable", "kasper.pagh.keebin");
-
-
-//            String strinsg = getString(R.string.hello_blank_fragment);
 //
-//            Toast.makeText(getContext(), strinsg, Toast.LENGTH_SHORT).show();
-
-
-
-
-
-
-
-
-
-
-
-            LinearLayout rl = (LinearLayout) view.findViewById(R.id.LinearLayout_Index);
-
-
-
-            ImageButton iv = new ImageButton(getContext());
-
-            iv.setImageDrawable(ContextCompat.getDrawable(getContext(), example));
-
-
-            LayoutParams lp = new LayoutParams(1000, 900);
-
-            lp.alignWithParent = true;
-
-            lp.setMargins(85, 30, 0, 0);
-
-            iv.setLayoutParams(lp);
-
-            final Integer value = example;
-            s.add(example);
-
-            iv.setOnClickListener( new View.OnClickListener() {
-
-
-                public void onClick(View v) {
-
-                    String name;
-
-
-
-                    getFragmentManager().beginTransaction().replace(R.id.fragment, Selectedshop.newInstance(1)).addToBackStack("A_B_TAG").commit();
-
-
-
-
-                }
-            });
-
-            if(++val == 5)
-                val = 1;
-
-
-            iv.setScaleType(ImageView.ScaleType.FIT_XY);
-
-            rl.addView(iv);
-
-
-        }
-
-        Log.d("I am here!" + s, "--");
-        Log.d("ssaa", "yooolo");
+//ArrayList<Integer> listen = new ArrayList<Integer>();
+//        listen.add(1);
+//        listen.add(2);
+//
+//
+//        for(int x = 0; x<listen.size(); x++) {
+//
+////            Integer example = R.drawable.riccos ;
+//
+//            String name =   dbh.getBrandbyId(listen.get(x)).getBrandName().toLowerCase();
+//
+//
+//
+//     Integer example = getContext().getResources().getIdentifier(name, "drawable", "kasper.pagh.keebin");
+//
+//
+////            String strinsg = getString(R.string.hello_blank_fragment);
+////
+////            Toast.makeText(getContext(), strinsg, Toast.LENGTH_SHORT).show();
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//            LinearLayout rl = (LinearLayout) view.findViewById(R.id.LinearLayout_Index);
+//
+//
+//
+//            ImageButton iv = new ImageButton(getContext());
+//
+//            iv.setImageDrawable(ContextCompat.getDrawable(getContext(), example));
+//
+//
+//            LayoutParams lp = new LayoutParams(1000, 900);
+//
+//            lp.alignWithParent = true;
+//
+//            lp.setMargins(85, 30, 0, 0);
+//
+//            iv.setLayoutParams(lp);
+//
+//            final Integer value = example;
+//            s.add(example);
+//
+//            iv.setOnClickListener( new View.OnClickListener() {
+//
+//
+//                public void onClick(View v) {
+//
+//                    String name;
+//
+//
+//
+//                    getFragmentManager().beginTransaction().replace(R.id.fragment, Selectedshop.newInstance(1)).addToBackStack("A_B_TAG").commit();
+//
+//
+//
+//
+//                }
+//            });
+//
+//            if(++val == 5)
+//                val = 1;
+//
+//
+//            iv.setScaleType(ImageView.ScaleType.FIT_XY);
+//
+//            rl.addView(iv);
+//
+//
+//        }
+//
+//        Log.d("I am here!" + s, "--");
+//        Log.d("ssaa", "yooolo");
 
 
         return view;
@@ -177,9 +180,64 @@ ArrayList<Integer> listen = new ArrayList<Integer>();
 
        shops = gson.fromJson(output, CoffeeShop[].class);
 
-        for (CoffeeShop shop : shops) {
-            Log.d("her er mail: ", " "+ shop.getEmail());
+
+
+
+
+
+
+
+
+
+    for (CoffeeShop shop : shops) {
+
+
+
+
+        String name =   dbh.getBrandbyId(shop.getId()).getBrandName().toLowerCase();
+     Integer example = getContext().getResources().getIdentifier(name, "drawable", "kasper.pagh.keebin");
+            LinearLayout rl = (LinearLayout) globalview.findViewById(R.id.LinearLayout_Index);
+            ImageButton iv = new ImageButton(getContext());
+            iv.setImageDrawable(ContextCompat.getDrawable(getContext(), example));
+
+
+            LayoutParams lp = new LayoutParams(1000, 900);
+            lp.alignWithParent = true;
+            lp.setMargins(85, 30, 0, 0);
+
+            iv.setLayoutParams(lp);
+
+            final Integer shopID = shop.getId();
+
+
+            iv.setOnClickListener( new View.OnClickListener() {
+
+
+                public void onClick(View v) {
+
+                    String name;
+
+
+
+                    getFragmentManager().beginTransaction().replace(R.id.fragment, Selectedshop.newInstance(shopID)).addToBackStack("A_B_TAG").commit();
+
+
+
+
+                }
+            });
+
+
+
+
+            iv.setScaleType(ImageView.ScaleType.FIT_XY);
+
+            rl.addView(iv);
+
+
         }
+
+        Log.d("ssaa", "yooolo");
 
 
     }

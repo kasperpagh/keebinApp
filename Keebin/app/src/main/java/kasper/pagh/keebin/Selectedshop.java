@@ -46,6 +46,8 @@ public class Selectedshop extends Fragment implements AsyncResponse
 
     }
 
+    DatabaseHandler dbh;
+
     View View;
 
     TextView InfoBox;
@@ -68,7 +70,7 @@ public class Selectedshop extends Fragment implements AsyncResponse
 
 
 
-        Integer example = R.drawable.riccos;
+//        Integer example = R.drawable.riccos;
 
 
         GetShopByEmail s = new GetShopByEmail(getResources().getString(R.string.baseUrl), mail, this, getActivity());
@@ -82,9 +84,14 @@ public class Selectedshop extends Fragment implements AsyncResponse
         InfoBox = (TextView) view.findViewById(R.id.InfoBox);
 
 
+        dbh = new DatabaseHandler(getActivity());
+        String name =   dbh.getBrandbyId(ID).getBrandName().toLowerCase();
+
+        Integer example = getContext().getResources().getIdentifier(name, "drawable", "kasper.pagh.keebin");
+
         shopPic.setImageDrawable(ContextCompat.getDrawable(getContext(), example));
 
-        //     shopPicOverlay.setText("Måske bare fjern tekst?. " + val);
+             shopPicOverlay.setText(""); // writes over the picture!
         shopPicOverlay.setTextColor(Color.parseColor("#400D12"));
 
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
