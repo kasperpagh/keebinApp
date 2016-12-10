@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         networkChecker = new NetworkChecker(this);
         Intent intent = getIntent();
         String unparsedCurrentUser = intent.getStringExtra("unparsedCurrentUser");
@@ -178,10 +179,11 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
         if(settingsPopup == null) {
             settingsPopup = new PopupMenu(this, v);
             MenuInflater inflater = settingsPopup.getMenuInflater();
-            inflater.inflate(R.menu.menu, settingsPopup.getMenu());
+            inflater.inflate(R.menu.settings, settingsPopup.getMenu());
         }
-
         settingsPopup.show();
+
+
 }
 
 
@@ -193,12 +195,20 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
                 MenuPopup = new PopupMenu(this, v);
                 MenuInflater inflater = MenuPopup.getMenuInflater();
                 inflater.inflate(R.menu.menu, MenuPopup.getMenu());
-            }
-        MenuPopup.show();
 
+            }
+
+        MenuPopup.show();
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+
+        Log.d("", "Item id her -- " + item.getItemId());
+                return super.onOptionsItemSelected(item);
+        }
 
 
 

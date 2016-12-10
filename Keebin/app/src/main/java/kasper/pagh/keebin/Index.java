@@ -208,6 +208,7 @@ public class Index extends Fragment implements AsyncResponse
             iv.setLayoutParams(lp);
 
             final Integer shopID = shop.getId();
+            final String shopEMAIL = shop.getEmail();
 
 
             iv.setOnClickListener( new View.OnClickListener() {
@@ -219,7 +220,7 @@ public class Index extends Fragment implements AsyncResponse
 
 
 
-                    getFragmentManager().beginTransaction().replace(R.id.fragment, Selectedshop.newInstance(shopID)).addToBackStack("A_B_TAG").commit();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment, Selectedshop.newInstance(shopID, shopEMAIL)).addToBackStack("A_B_TAG").commit();
 
 
 

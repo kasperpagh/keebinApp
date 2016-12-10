@@ -9,4 +9,7 @@
     <string name="putUserUrl">users/user/</string>
 
     <string name="deleteUserUrl">users/user/</string>
+
+    <string name="menuheight">55dp</string>
+
 </resources>
