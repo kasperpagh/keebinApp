@@ -117,6 +117,19 @@ public class GetAllShopsWithBrandName extends AsyncTask<String, Void, String>
             connection.connect();
 
             input = connection.getInputStream();
+
+            String code = "" +connection.getResponseCode();
+            if(code.equalsIgnoreCase("200"));
+            {
+                String accessToken = connection.getHeaderField("accessToken");
+                Log.d("her er res aToken " , accessToken);
+                if(!dbh.getTokenByName("accessToken").getTokenData().equals(accessToken))
+                {
+                    dbh.updateToken("accessToken", accessToken);
+                    Log.d("accessToken", " er opdateret til " + accessToken);
+                }
+
+            }
             bufferedReader = new BufferedReader(new InputStreamReader(input));
             sb = new StringBuilder();
             String line;

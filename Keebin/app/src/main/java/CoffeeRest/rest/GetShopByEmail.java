@@ -51,20 +51,23 @@ public class GetShopByEmail extends AsyncTask<String, Void, String>
             connection.setConnectTimeout(15000);
             connection.setDoInput(true);
             connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("accessToken", dbh.getTokenByName("accessToken").getTokenData());
+            connection.setRequestProperty("refreshToken", dbh.getTokenByName("refreshToken").getTokenData());
 
             connection.connect();
 
             input = connection.getInputStream();
 
             String code = "" +connection.getResponseCode();
+
             if(code.equalsIgnoreCase("200"));
             {
                 String accessToken = connection.getHeaderField("accessToken");
-                Log.d("her er res aToken " , accessToken);
+
                 if(!dbh.getTokenByName("accessToken").getTokenData().equals(accessToken))
                 {
                     dbh.updateToken("accessToken", accessToken);
-                    Log.d("accessToken", " er opdateret til " + accessToken);
+
                 }
 
             }

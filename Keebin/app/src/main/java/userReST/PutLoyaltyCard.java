@@ -1,5 +1,6 @@
 package userReST;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -15,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import kasper.pagh.keebin.AsyncResponse;
+import kasper.pagh.keebin.DatabaseHandler;
 
 /**
  * Created by kaspe on 2016-10-29.
@@ -30,8 +32,9 @@ public class PutLoyaltyCard  extends AsyncTask<String, Void, String>
     public AsyncResponse delegate = null;
     private String baseUrl;
     private Gson gson;
+    private DatabaseHandler dbh;
 
-    public PutLoyaltyCard(String baseUrl, int userId,int loyaltyCardId, int brandId,int numberOfCoffeesBought, AsyncResponse delegate)
+    public PutLoyaltyCard(String baseUrl, int userId,int loyaltyCardId, int brandId,int numberOfCoffeesBought, AsyncResponse delegate, Context context)
     {
         this.userId = userId;
         this.loyaltyCardId = loyaltyCardId;
@@ -40,6 +43,7 @@ public class PutLoyaltyCard  extends AsyncTask<String, Void, String>
         this.delegate = delegate;
         this.baseUrl = baseUrl;
         gson = new Gson();
+        dbh = new DatabaseHandler(context);
     }
 
 
@@ -66,6 +70,8 @@ public class PutLoyaltyCard  extends AsyncTask<String, Void, String>
             connection.setDoInput(true);
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("accessToken", dbh.getTokenByName("accessToken").getTokenData());
+            connection.setRequestProperty("refreshToken", dbh.getTokenByName("refreshToken").getTokenData());
             output = connection.getOutputStream();
             output.write(gson.toJson(jo).getBytes("UTF-8"));
             output.close();
@@ -73,6 +79,24 @@ public class PutLoyaltyCard  extends AsyncTask<String, Void, String>
             connection.connect();
 
             input = connection.getInputStream();
+
+            String code = "" +connection.getResponseCode();
+
+            if(code.equalsIgnoreCase("200"));
+            {
+                String refreshToken = connection.getHeaderField("refreshToken");
+                String accessToken = connection.getHeaderField("accessToken");
+
+                if(!dbh.getTokenByName("refreshToken").getTokenData().equals(refreshToken))
+                {
+                    dbh.updateToken("refreshToken", refreshToken);
+                }
+                if(!dbh.getTokenByName("accessToken").getTokenData().equals(accessToken))
+                {
+                    dbh.updateToken("accessToken", accessToken);
+                }
+
+            }
             bufferedReader = new BufferedReader(new InputStreamReader(input));
             sb = new StringBuilder();
             String line;

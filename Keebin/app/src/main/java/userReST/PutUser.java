@@ -1,4 +1,5 @@
 package userReST;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -15,6 +16,7 @@ import java.net.URL;
 
 import entity.User;
 import kasper.pagh.keebin.AsyncResponse;
+import kasper.pagh.keebin.DatabaseHandler;
 
 
 public class PutUser extends AsyncTask<String, Void, String>
@@ -24,8 +26,9 @@ public class PutUser extends AsyncTask<String, Void, String>
     public AsyncResponse delegate = null;
     private String baseUrl;
     private Gson gson;
+    private DatabaseHandler dbh;
 
-    public PutUser(User user, AsyncResponse delegate)
+    public PutUser(User user, AsyncResponse delegate, Context context)
     {
 
         Log.d("hej fra user og user:", user.toString());
@@ -33,6 +36,7 @@ public class PutUser extends AsyncTask<String, Void, String>
         this.delegate = delegate;
         this.baseUrl = baseUrl;
         gson = new Gson();
+        dbh = new DatabaseHandler(context);
     }
 
 
@@ -65,7 +69,8 @@ public class PutUser extends AsyncTask<String, Void, String>
             connection.setDoInput(true);
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
-            connection.setRequestProperty("refreshToken", user.getRefreshToken());
+            connection.setRequestProperty("accessToken", dbh.getTokenByName("accessToken").getTokenData());
+            connection.setRequestProperty("refreshToken", dbh.getTokenByName("refreshToken").getTokenData());
             output = connection.getOutputStream();
             output.write(gson.toJson(jo).getBytes("UTF-8"));
             output.close();
@@ -73,6 +78,23 @@ public class PutUser extends AsyncTask<String, Void, String>
             connection.connect();
             Log.d("connecter og hvad så?", user.toString());
             input = connection.getInputStream();
+
+            String code = "" +connection.getResponseCode();
+            if(code.equalsIgnoreCase("200"));
+            {
+                String refreshToken = connection.getHeaderField("refreshToken");
+                String accessToken = connection.getHeaderField("accessToken");
+
+                if(!dbh.getTokenByName("refreshToken").getTokenData().equals(refreshToken))
+                {
+                    dbh.updateToken("refreshToken", refreshToken);
+                }
+                if(!dbh.getTokenByName("accessToken").getTokenData().equals(accessToken))
+                {
+                    dbh.updateToken("accessToken", accessToken);
+                }
+
+            }
             Log.d("hvad med her?", user.toString());
             bufferedReader = new BufferedReader(new InputStreamReader(input));
             sb = new StringBuilder();

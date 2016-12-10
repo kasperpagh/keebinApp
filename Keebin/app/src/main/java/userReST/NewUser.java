@@ -1,5 +1,6 @@
 package userReST;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -12,6 +13,7 @@ import java.net.URL;
 
 import entity.User;
 import kasper.pagh.keebin.AsyncResponse;
+import kasper.pagh.keebin.DatabaseHandler;
 
 /**
  * Created by kaspe on 2016-10-29.
@@ -23,14 +25,15 @@ public class NewUser extends AsyncTask<String, Void, String>
     private String baseUrl;
     private String userToCreate = null;
     private Gson gson;
+    private DatabaseHandler dbh;
 
-    public NewUser(String baseUrl, User newUser, AsyncResponse delegate)
+    public NewUser(String baseUrl, User newUser, AsyncResponse delegate, Context context)
     {
         this.baseUrl = baseUrl;
         this.gson = new Gson();
         this.userToCreate = gson.toJson(newUser, User.class);
         this.delegate = delegate;
-
+        dbh = new DatabaseHandler(context);
     }
     @Override
     protected String doInBackground(String... params)
@@ -62,12 +65,30 @@ public class NewUser extends AsyncTask<String, Void, String>
         connection.setConnectTimeout(15000);
         connection.setDoOutput(true);
         connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("accessToken", dbh.getTokenByName("accessToken").getTokenData());
+        connection.setRequestProperty("refreshToken", dbh.getTokenByName("refreshToken").getTokenData());
         output = connection.getOutputStream();
         output.write(userToCreate.getBytes("UTF-8"));
         output.close();
 
         connection.connect();
         String responseCode = connection.getResponseCode()+"";
+
+        if(responseCode.equalsIgnoreCase("200"));
+        {
+            String refreshToken = connection.getHeaderField("refreshToken");
+            String accessToken = connection.getHeaderField("accessToken");
+
+            if(!dbh.getTokenByName("refreshToken").getTokenData().equals(refreshToken))
+            {
+                dbh.updateToken("refreshToken", refreshToken);
+            }
+            if(!dbh.getTokenByName("accessToken").getTokenData().equals(accessToken))
+            {
+                dbh.updateToken("accessToken", accessToken);
+            }
+
+        }
         return responseCode;
     }
 }

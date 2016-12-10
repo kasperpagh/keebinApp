@@ -52,12 +52,13 @@ public class GetAllShops extends AsyncTask<String, Void, String>
             connection.setConnectTimeout(15000);
             connection.setDoInput(true);
             connection.setRequestProperty("Accept", "application/json");
-            connection.setRequestProperty("accessToken", MainActivity.currentUser.getLoginData().getAccessToken());
-            connection.setRequestProperty("refreshToken", MainActivity.currentUser.getLoginData().getRefreshToken());
+            connection.setRequestProperty("accessToken", dbh.getTokenByName("accessToken").getTokenData());
+            connection.setRequestProperty("refreshToken", dbh.getTokenByName("refreshToken").getTokenData());
 
             connection.connect();
 
             input = connection.getInputStream();
+
             String code = "" +connection.getResponseCode();
             if(code.equalsIgnoreCase("200"));
             {
@@ -70,6 +71,7 @@ public class GetAllShops extends AsyncTask<String, Void, String>
                 }
 
             }
+
             bufferedReader = new BufferedReader(new InputStreamReader(input));
             sb = new StringBuilder();
             String line;
