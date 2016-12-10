@@ -1,5 +1,6 @@
 package CoffeeRest.rest;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -15,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import kasper.pagh.keebin.AsyncResponse;
+import kasper.pagh.keebin.DatabaseHandler;
 
 /**
  * Created by kaspe on 2016-10-29.
@@ -32,8 +34,9 @@ public class PutShopByEmail extends AsyncTask<String, Void, String>
     private String baseUrl;
     private Gson gson;
 
+    private DatabaseHandler dbh;
     public PutShopByEmail(String baseUrl, String coffeeShopEmail, String email,
-                          int brandID, String address, int phone, AsyncResponse delegate)
+                          int brandID, String address, int phone, AsyncResponse delegate, Context context)
     {
         this.coffeeShopEmail = coffeeShopEmail;
         this.email = email;
@@ -43,6 +46,7 @@ public class PutShopByEmail extends AsyncTask<String, Void, String>
         this.delegate = delegate;
         this.baseUrl = baseUrl;
         gson = new Gson();
+        dbh = new DatabaseHandler(context);
     }
 
 
@@ -78,6 +82,18 @@ public class PutShopByEmail extends AsyncTask<String, Void, String>
             connection.connect();
 
             input = connection.getInputStream();
+            String code = "" +connection.getResponseCode();
+            if(code.equalsIgnoreCase("200"));
+            {
+                String accessToken = connection.getHeaderField("accessToken");
+                Log.d("her er res aToken " , accessToken);
+                if(!dbh.getTokenByName("accessToken").getTokenData().equals(accessToken))
+                {
+                    dbh.updateToken("accessToken", accessToken);
+                    Log.d("accessToken", " er opdateret til " + accessToken);
+                }
+
+            }
             bufferedReader = new BufferedReader(new InputStreamReader(input));
             sb = new StringBuilder();
             String line;

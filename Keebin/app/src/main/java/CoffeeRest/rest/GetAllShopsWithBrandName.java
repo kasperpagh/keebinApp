@@ -36,6 +36,7 @@ public class GetAllShopsWithBrandName extends AsyncTask<String, Void, String>
         this.baseUrl = baseUrl;
         this.delegate = delegate;
         dbh = new DatabaseHandler(context);
+
     }
 
     private String getBrands() throws IOException

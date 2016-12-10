@@ -1,5 +1,6 @@
 package CoffeeRest.rest;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -13,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import kasper.pagh.keebin.AsyncResponse;
+import kasper.pagh.keebin.DatabaseHandler;
 import kasper.pagh.keebin.MainActivity;
 
 /**
@@ -24,11 +26,13 @@ public class GetAllShops extends AsyncTask<String, Void, String>
     public AsyncResponse delegate = null;
     private String baseUrl;
     private Gson gson = new Gson();
+    private DatabaseHandler dbh;
 
-    public GetAllShops(String baseUrl, AsyncResponse delegate)
+    public GetAllShops(String baseUrl, AsyncResponse delegate, Context context)
     {
         this.baseUrl = baseUrl;
         this.delegate = delegate;
+        dbh = new DatabaseHandler(context);
     }
 
 
@@ -54,6 +58,18 @@ public class GetAllShops extends AsyncTask<String, Void, String>
             connection.connect();
 
             input = connection.getInputStream();
+            String code = "" +connection.getResponseCode();
+            if(code.equalsIgnoreCase("200"));
+            {
+                String accessToken = connection.getHeaderField("accessToken");
+                Log.d("her er res aToken " , accessToken);
+                if(!dbh.getTokenByName("accessToken").getTokenData().equals(accessToken))
+                {
+                    dbh.updateToken("accessToken", accessToken);
+                    Log.d("accessToken", " er opdateret til " + accessToken);
+                }
+
+            }
             bufferedReader = new BufferedReader(new InputStreamReader(input));
             sb = new StringBuilder();
             String line;
