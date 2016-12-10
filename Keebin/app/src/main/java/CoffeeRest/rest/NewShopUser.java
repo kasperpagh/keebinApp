@@ -1,5 +1,6 @@
 package CoffeeRest.rest;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -13,6 +14,7 @@ import java.net.URL;
 
 import entity.User;
 import kasper.pagh.keebin.AsyncResponse;
+import kasper.pagh.keebin.DatabaseHandler;
 
 /**
  * Created by kaspe on 2016-10-29.
@@ -25,14 +27,16 @@ public class NewShopUser extends AsyncTask<String, Void, String>
     private String userEmail;
     private String coffeeShopEmail;
     private Gson gson;
+    private DatabaseHandler dbh;
 
-    public NewShopUser(String baseUrl, String userEmail, String coffeeShopEmail, AsyncResponse delegate)
+    public NewShopUser(String baseUrl, String userEmail, String coffeeShopEmail, AsyncResponse delegate, Context context)
     {
         this.baseUrl = baseUrl;
         this.gson = new Gson();
         this.userEmail = userEmail;
         this.coffeeShopEmail = coffeeShopEmail;
         this.delegate = delegate;
+        dbh = new DatabaseHandler(context);
 
     }
     @Override
@@ -72,7 +76,18 @@ public class NewShopUser extends AsyncTask<String, Void, String>
         output.close();
 
         connection.connect();
-        String responseCode = connection.getResponseCode() + "";
-        return responseCode;
+        String code = "" +connection.getResponseCode();
+        if(code.equalsIgnoreCase("200"));
+        {
+            String accessToken = connection.getHeaderField("accessToken");
+            Log.d("her er res aToken " , accessToken);
+            if(!dbh.getTokenByName("accessToken").getTokenData().equals(accessToken))
+            {
+                dbh.updateToken("accessToken", accessToken);
+                Log.d("accessToken", " er opdateret til " + accessToken);
+            }
+
+        }
+        return code;
     }
 }
