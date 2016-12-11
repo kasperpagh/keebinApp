@@ -176,26 +176,18 @@ public class Index extends Fragment implements AsyncResponse
     CoffeeShop[] shops;
 
     @Override
-    public void processFinished(String output) {
+    public void processFinished(String output)
+    {
 
-       shops = gson.fromJson(output, CoffeeShop[].class);
-
-
-
+        shops = gson.fromJson(output, CoffeeShop[].class);
 
 
+        for (CoffeeShop shop : shops)
+        {
 
 
-
-
-
-    for (CoffeeShop shop : shops) {
-
-
-
-
-        String name =   dbh.getBrandbyId(shop.getId()).getBrandName().toLowerCase();
-     Integer example = getContext().getResources().getIdentifier(name, "drawable", "kasper.pagh.keebin");
+            String name = dbh.getBrandbyId(shop.getId()).getBrandName().toLowerCase();
+            Integer example = getContext().getResources().getIdentifier(name, "drawable", "kasper.pagh.keebin");
             LinearLayout rl = (LinearLayout) globalview.findViewById(R.id.LinearLayout_Index);
             ImageButton iv = new ImageButton(getContext());
             iv.setImageDrawable(ContextCompat.getDrawable(getContext(), example));
@@ -210,24 +202,21 @@ public class Index extends Fragment implements AsyncResponse
             final Integer shopID = shop.getId();
 
 
-            iv.setOnClickListener( new View.OnClickListener() {
+            iv.setOnClickListener(new View.OnClickListener()
+            {
 
 
-                public void onClick(View v) {
+                public void onClick(View v)
+                {
 
                     String name;
-
 
 
                     getFragmentManager().beginTransaction().replace(R.id.fragment, Selectedshop.newInstance(shopID)).addToBackStack("A_B_TAG").commit();
 
 
-
-
                 }
             });
-
-
 
 
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
