@@ -2,11 +2,13 @@ package kasper.pagh.keebin;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -46,7 +48,7 @@ public class UsersLoyaltyCardsArrayAdapter extends ArrayAdapter<LoyaltyCard>{
 
         int cardBrand = context.getResources().getIdentifier(coffeeBrand, "drawable", "kasper.pagh.keebin");
         int cardNumber = context.getResources().getIdentifier(number, "drawable", "kasper.pagh.keebin");
-        //Find billede dynamisk slut.
+        Log.d("", "");
 
         ImageView viewLogo = (ImageView) viewRow.findViewById(R.id.logo);
         ImageView viewBean = (ImageView) viewRow.findViewById(R.id.beancounter);

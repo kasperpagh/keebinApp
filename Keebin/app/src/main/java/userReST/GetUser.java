@@ -61,23 +61,19 @@ public class GetUser extends AsyncTask<String, Void, String>
             input = connection.getInputStream();
 
             String code = "" +connection.getResponseCode();
+
             if(code.equalsIgnoreCase("200"));
             {
-                String refreshToken = connection.getHeaderField("refreshToken");
                 String accessToken = connection.getHeaderField("accessToken");
 
-                if(!dbh.getTokenByName("refreshToken").getTokenData().equals(refreshToken))
-                {
-                    dbh.updateToken("refreshToken", refreshToken);
-                    Log.d("refreshToken", " er opdateret til " + refreshToken);
-                }
+
                 if(!dbh.getTokenByName("accessToken").getTokenData().equals(accessToken))
                 {
                     dbh.updateToken("accessToken", accessToken);
-                    Log.d("accessToken", " er opdateret til " + accessToken);
                 }
 
             }
+
             bufferedReader = new BufferedReader(new InputStreamReader(input));
             sb = new StringBuilder();
             String line;

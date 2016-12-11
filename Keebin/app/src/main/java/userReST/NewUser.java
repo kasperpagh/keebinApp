@@ -15,6 +15,8 @@ import entity.User;
 import kasper.pagh.keebin.AsyncResponse;
 import kasper.pagh.keebin.DatabaseHandler;
 
+import static kasper.pagh.keebin.R.string.loginString;
+
 /**
  * Created by kaspe on 2016-10-29.
  */
@@ -57,7 +59,7 @@ public class NewUser extends AsyncTask<String, Void, String>
     {
         OutputStream output = null;
 
-        URL url = new URL(baseUrl + "users/user/new");
+        URL url = new URL(loginString + "login/user/new");
         Log.d("full url: ", url.toString());
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -65,8 +67,6 @@ public class NewUser extends AsyncTask<String, Void, String>
         connection.setConnectTimeout(15000);
         connection.setDoOutput(true);
         connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("accessToken", dbh.getTokenByName("accessToken").getTokenData());
-        connection.setRequestProperty("refreshToken", dbh.getTokenByName("refreshToken").getTokenData());
         output = connection.getOutputStream();
         output.write(userToCreate.getBytes("UTF-8"));
         output.close();
@@ -74,21 +74,8 @@ public class NewUser extends AsyncTask<String, Void, String>
         connection.connect();
         String responseCode = connection.getResponseCode()+"";
 
-        if(responseCode.equalsIgnoreCase("200"));
-        {
-            String refreshToken = connection.getHeaderField("refreshToken");
-            String accessToken = connection.getHeaderField("accessToken");
 
-            if(!dbh.getTokenByName("refreshToken").getTokenData().equals(refreshToken))
-            {
-                dbh.updateToken("refreshToken", refreshToken);
-            }
-            if(!dbh.getTokenByName("accessToken").getTokenData().equals(accessToken))
-            {
-                dbh.updateToken("accessToken", accessToken);
-            }
-
-        }
         return responseCode;
+
     }
 }

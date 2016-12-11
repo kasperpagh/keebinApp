@@ -20,36 +20,24 @@ import userReST.GetAllLoyaltyCards;
 
 
 public class UsersLoyaltyCards extends Fragment implements AsyncResponse{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+
+
     List<LoyaltyCard> loyaltyList;
-
     private Gson gson = new Gson();
-
+    UsersLoyaltyCardsArrayAdapter adapter;
 
     public UsersLoyaltyCards() {
-        // Required empty public constructor
     }
 
-
-    // TODO: Rename and change types and number of parameters
     public static UsersLoyaltyCards newInstance() {
         UsersLoyaltyCards fragment = new UsersLoyaltyCards();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }
 
-
-
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,7 +57,10 @@ public class UsersLoyaltyCards extends Fragment implements AsyncResponse{
         ListView listview = (ListView) view.findViewById(R.id.listOfUsersLoyaltyCards);
 
 
-        listview.setAdapter(new UsersLoyaltyCardsArrayAdapter(getActivity(), loyaltyList));
+
+        adapter = new UsersLoyaltyCardsArrayAdapter(getActivity(), loyaltyList);
+
+        listview.setAdapter(adapter);
 
        return view;
     }
@@ -89,43 +80,9 @@ public class UsersLoyaltyCards extends Fragment implements AsyncResponse{
                 Log.d("her er cardForRow: ", " " + cardForRow.getNameOfBrand() + " and the number: " + cardForRow.getNumberofBeans());
                 loyaltyList.add(cardForRow);
         }
+        adapter.notifyDataSetChanged();
 
-
-        //hent brandName og beancount(husk at parse to string) og lav nyt loyaltycard på de 2 variabler
-        //add til list.
 
     }
 
-
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
 }
