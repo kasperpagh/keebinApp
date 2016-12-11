@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_main"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    tools:context="kasper.pagh.keebin.MainActivity"
-    android:orientation="vertical"
-    android:weightSum="1">
-
-
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/activity_main"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:weightSum="1"
+              tools:context="kasper.pagh.keebin.MainActivity">
 
 
     <android.support.v7.widget.Toolbar
@@ -17,69 +15,85 @@
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:background="@color/colorToolbar"
+        android:gravity="left"
         android:minHeight="?attr/actionBarSize"
         android:titleTextColor="#ffffff"
-        android:gravity="left"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="MenuPopup"
             android:layout_gravity="left"
-            android:background="@drawable/ic_menu_black_24dp" />
+            android:background="@drawable/ic_menu_black_24dp"
+            android:onClick="MenuPopup"/>
 
         <Button
-            android:text="Home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/Home"
-            android:layout_weight="1"
-            android:onClick="link_home" android:layout_gravity="center" />
-
-        <Button
-            android:text="@android:string/search_go"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:onClick="link_home"
+            android:text="Home"/>
+
+        <Button
             android:id="@+id/Second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:onClick="link_search"
-            android:layout_gravity="center"
+            android:text="@android:string/search_go"
             />
 
         <Button
-            android:text="Home2.."
+            android:id="@+id/Home2"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:id="@+id/Home2"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:onClick="link_home" android:layout_gravity="center" />
+            android:onClick="link_home"
+            android:text="Home2.."/>
 
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="SettingsPopup"
-            android:background="@drawable/ic_more_vert_black_24dp"
             android:layout_gravity="right"
+            android:background="@drawable/ic_more_vert_black_24dp"
+            android:onClick="SettingsPopup"
 
-       />
+            />
 
     </android.support.v7.widget.Toolbar>
 
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="31dp"></RelativeLayout>-->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="31dp"></RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="348dp"
+    <android.support.design.widget.CoordinatorLayout
         android:id="@+id/fragment"
-        android:layout_weight="0.80">
+        android:layout_width="363dp"
+        android:layout_height="match_parent"
+        >
 
-    </RelativeLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right|end"
+            android:layout_margin="16dp"
+            android:paddingRight="16dp"
+            android:src="@drawable/ic_free_breakfast_black_24dp"
+            app:layout_anchorGravity="bottom|right|end"
+            app:backgroundTint="#FF0000"/>
+
+
+
+
+    </android.support.design.widget.CoordinatorLayout>
 
 
 </LinearLayout>

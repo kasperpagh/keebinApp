@@ -59,7 +59,7 @@ public class PutUser extends AsyncTask<String, Void, String>
         try
         {
             Log.d("vi har prøvet noget :O", user.toString());
-            URL url = new URL("http://192.168.0.11:3000/api/" + "users/user/" + user.getEmail());
+            URL url = new URL(baseUrl + "users/user/" + user.getEmail());
             Log.d("full url: ", url.toString());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("PUT");
