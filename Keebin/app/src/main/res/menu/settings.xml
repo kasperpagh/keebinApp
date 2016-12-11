@@ -5,16 +5,13 @@
 
     <item android:title="Setting1"
         android:id="@+id/settings1"
-        app:showAsAction="always"
-        android:onClick="link_maps" />
+        app:showAsAction="always" />
 
     <item android:title="Setting2"
-        android:id="@+id/settings2"
-        android:onClick="link_home"/>
+        android:id="@+id/settings2" />
 
     <item android:title="Setting3"
-        android:id="@+id/Setting3"
-        android:onClick="link_home" />
+        android:id="@+id/Setting3" />
 
 
 </menu>
