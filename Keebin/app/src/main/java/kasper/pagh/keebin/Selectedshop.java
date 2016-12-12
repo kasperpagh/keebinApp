@@ -3,6 +3,7 @@ package kasper.pagh.keebin;
 /**
  * Created by dino on 08-12-2016.
  */
+
 import android.app.Activity;
 import android.app.WallpaperManager;
 import android.graphics.Color;
@@ -56,7 +57,6 @@ public class Selectedshop extends Fragment implements AsyncResponse
     {
 
 
-
         final View view = inflater.inflate(R.layout.selectedshop, container, false);
         View = view;
         Bundle bundle = getArguments();
@@ -69,14 +69,11 @@ public class Selectedshop extends Fragment implements AsyncResponse
 
 
 
-
 //        Integer example = R.drawable.riccos;
 
 
         GetShopByEmail s = new GetShopByEmail(getResources().getString(R.string.baseUrl), email, this, getActivity());
         s.execute();
-
-
 
 
         ImageView shopPic = (ImageView) view.findViewById(R.id.ShopPicture);
@@ -85,13 +82,13 @@ public class Selectedshop extends Fragment implements AsyncResponse
 
 
         dbh = new DatabaseHandler(getActivity());
-        String name =   dbh.getBrandbyId(ID).getBrandName().toLowerCase();
+        String name = dbh.getBrandbyId(ID).getBrandName().toLowerCase();
 
         Integer example = getContext().getResources().getIdentifier(name, "drawable", "kasper.pagh.keebin");
 
         shopPic.setImageDrawable(ContextCompat.getDrawable(getContext(), example));
 
-             shopPicOverlay.setText(""); // writes over the picture!
+        shopPicOverlay.setText(""); // writes over the picture!
         shopPicOverlay.setTextColor(Color.parseColor("#400D12"));
 
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -102,15 +99,8 @@ public class Selectedshop extends Fragment implements AsyncResponse
         InfoBox.setTextColor(Color.BLACK);
 
 
-
-
-
-
         return view;
     }
-
-
-
 
     public static Selectedshop newInstance(Integer shopID, String shopMail)
     {
@@ -125,7 +115,8 @@ public class Selectedshop extends Fragment implements AsyncResponse
 
     CoffeeBrand brand;
 
-    public class GetBrandName implements AsyncResponse  {
+    public class GetBrandName implements AsyncResponse
+    {
 
         public void getfromID(int ShopID)
         {
@@ -136,7 +127,8 @@ public class Selectedshop extends Fragment implements AsyncResponse
         }
 
         @Override
-        public void processFinished(String output) {
+        public void processFinished(String output)
+        {
 
             Log.d("her skulle vi finde bn ", "" + output);
             String s = output.replaceAll("brandId", "brandName");
@@ -151,19 +143,19 @@ public class Selectedshop extends Fragment implements AsyncResponse
     private Gson gson = new Gson();
 
     @Override
-    public void processFinished(String output) {
-
-
-
+    public void processFinished(String output)
+    {
 
 
         String s = output.replaceAll("brandId", "brandName"); // gør kun det her fordig cba at lave det om i serveren's respons eller hente det nye ned lol
 
         CoffeeShop shop = gson.fromJson(s, CoffeeShop.class);
 
+
         String phone = shop.getPhone();
         if(shop.getPhone().length() == 8) // if the shop length is equal to 8 characters, split it up.
             phone = shop.getPhone().substring(0,2) + " " + shop.getPhone().substring(2,4)  + " " +  shop.getPhone().substring(4,6) + " " + shop.getPhone().substring(6,8);
+
 
 
         Log.d("here is the output!. - ", s);
@@ -172,9 +164,9 @@ public class Selectedshop extends Fragment implements AsyncResponse
                 brand.getBrandName() + "\n" + "\n" +
                 shop.getAddress() + "\n" +
                 "\n" +
-                "Telefon: +45 " + phone +  "\n" +
+                "Telefon: +45 " + phone + "\n" +
                 "\n" +
-                "Mail: " + shop.getEmail() +  "(for alle henvendelser) \n");
+                "Mail: " + shop.getEmail() + "(for alle henvendelser) \n");
 
     }
 }
