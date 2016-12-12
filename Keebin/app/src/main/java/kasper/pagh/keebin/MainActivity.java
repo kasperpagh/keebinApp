@@ -48,32 +48,20 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
     }
 
 
-//    public void bob(View view)
-//    {
-//        Toast.makeText(this, "Du har klikket på den fabulous FAB!!",Toast.LENGTH_LONG).show();
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-
-
-        ///////////////Dette er click lytteren for vores addCoffee floating button thingy
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-                //Logik såsom nyt fragment og eventuelle restcalls skal være i denne metode (altså i stedet for toasten)!
-                Toast.makeText(getApplicationContext(), "Du har klikket på den fabulous FAB!!", Toast.LENGTH_LONG).show();
+
+                getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, AddCoffeeToLoyaltycard.newInstance()).commit();
             }
         });
-//////////////////////
-
 
         networkChecker = new NetworkChecker(this);
         Intent intent = getIntent();
@@ -82,15 +70,11 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 
         if (savedInstanceState == null)
         {
-
             getSupportFragmentManager().beginTransaction().add(R.id.fragment, Index.newInstance()).commit();
-
         }
         GetCoffeeBrandsAndSaveToDB yes = new GetCoffeeBrandsAndSaveToDB(getApplicationContext());
         yes.getAllCoffeeBrands(getApplicationContext());
-
     }
-
 
     public static NetworkChecker getNetworkChecker()
     {
@@ -99,12 +83,8 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 
     public void saveUser(View view)
     {
-
-
         PutUser putuser = new PutUser(MainActivity.currentUser, this, getApplication());
-
         putuser.execute();
-
     }
 
     @Override
@@ -114,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
         User user = gson.fromJson(output, User.class);
         MainActivity.currentUser = user;
     }
-
 
     public void link_home(View v)
     {
