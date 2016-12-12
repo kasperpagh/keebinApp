@@ -1,13 +1,12 @@
 package kasper.pagh.keebin;
 
 import android.app.Activity;
-import android.content.Intent;
+
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,6 @@ public class AddCoffeeToLoyaltycard extends Fragment implements AsyncResponse
 {
     EditText coffeeCode;
     EditText numberOfCoffeesBought;
-    FragmentActivity myFragmentAct;
 
     public static AddCoffeeToLoyaltycard newInstance()
     {
@@ -59,20 +57,11 @@ public class AddCoffeeToLoyaltycard extends Fragment implements AsyncResponse
 
     }
 
-    @Override
-    public void onAttach(Activity activity)
-    {
-        myFragmentAct = (FragmentActivity) activity;
-        super.onAttach(activity);
-    }
 
     @Override
     public void processFinished(String output)
     {
-        myFragmentAct.getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, UsersLoyaltyCards.newInstance()).commit();
-//        Log.d("her er data fra login", output);
-//        Intent intent = new Intent(this, MainActivity.class);
-//        intent.putExtra("unparsedCurrentUser", this.currentUser.toString());
-//        startActivity(intent);
+        getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, UsersLoyaltyCards.newInstance()).commit();
+
     }
 }
