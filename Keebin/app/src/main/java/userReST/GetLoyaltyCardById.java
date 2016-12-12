@@ -61,13 +61,9 @@ public class GetLoyaltyCardById  extends AsyncTask<String, Void, String>
             String code = "" +connection.getResponseCode();
             if(code.equalsIgnoreCase("200"));
             {
-                String refreshToken = connection.getHeaderField("refreshToken");
                 String accessToken = connection.getHeaderField("accessToken");
 
-                if(!dbh.getTokenByName("refreshToken").getTokenData().equals(refreshToken))
-                {
-                    dbh.updateToken("refreshToken", refreshToken);
-                }
+
                 if(!dbh.getTokenByName("accessToken").getTokenData().equals(accessToken))
                 {
                     dbh.updateToken("accessToken", accessToken);

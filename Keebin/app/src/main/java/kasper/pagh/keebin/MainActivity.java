@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 
 import CoffeeRest.rest.PutBrandByID;
 import CoffeeRest.rest.PutShopByEmail;
+import entity.LoyaltyCard;
 import entity.User;
 import userReST.DeleteUser;
 import userReST.NetworkChecker;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
     private NewUser newUser;
     private Gson gson = new Gson();
     public static User currentUser;
+    PopupMenu MenuPopup;
     //You need to declare this for each of the ReST classes you want to use in this activity
 
 
@@ -59,17 +61,19 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 
         setContentView(R.layout.activity_main);
 
-     ///////////////Dette er click lytteren for vores addCoffee floating button thingy   
+
+        ///////////////Dette er click lytteren for vores addCoffee floating button thingy
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 //Logik såsom nyt fragment og eventuelle restcalls skal være i denne metode (altså i stedet for toasten)!
-                Toast.makeText(getApplicationContext(), "Du har klikket på den fabulous FAB!!",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Du har klikket på den fabulous FAB!!", Toast.LENGTH_LONG).show();
             }
         });
 //////////////////////
+
 
         networkChecker = new NetworkChecker(this);
         Intent intent = getIntent();
@@ -112,14 +116,24 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
     }
 
 
-    public void link_home(View view)
+    public void link_home(View v)
     {
         getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, Index.newInstance()).commit();
     }
 
-    public void link_search(View view)
+    public void link_maps(View v)
+    {
+        getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, Index.newInstance()).commit();
+    }
+
+    public void link_search(View v)
     {
         getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, SearchCoffeeShopsFragment.newInstance()).commit();
+    }
+
+    public void link_loyaltycards(View v)
+    {
+        getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, UsersLoyaltyCards.newInstance()).commit();
     }
 
     PopupMenu settingsPopup;
@@ -130,19 +144,14 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
         {
             settingsPopup = new PopupMenu(this, v);
             MenuInflater inflater = settingsPopup.getMenuInflater();
-            inflater.inflate(R.menu.menu, settingsPopup.getMenu());
+            inflater.inflate(R.menu.settings, settingsPopup.getMenu());
         }
-
         settingsPopup.show();
     }
 
 
-    PopupMenu MenuPopup;
-
     public void MenuPopup(View v)
     {
-
-        Log.d("I am run ", " 2");
         if (MenuPopup == null)
         {
             MenuPopup = new PopupMenu(this, v);
@@ -151,8 +160,14 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
         }
         MenuPopup.show();
 
-
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Handle item selection
+
+        return super.onOptionsItemSelected(item);
+    }
 
 }

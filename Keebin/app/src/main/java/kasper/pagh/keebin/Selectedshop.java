@@ -62,17 +62,17 @@ public class Selectedshop extends Fragment implements AsyncResponse
         Bundle bundle = getArguments();
 
         int ID = bundle.getInt("shopIDs");
+        String email = bundle.getString("shopMail");
 
         GetBrandName bn = new GetBrandName();
         bn.getfromID(ID);
 
-        String mail = "bar@esso.com"; // set this to what i get from selected page.
 
 
 //        Integer example = R.drawable.riccos;
 
 
-        GetShopByEmail s = new GetShopByEmail(getResources().getString(R.string.baseUrl), mail, this, getActivity());
+        GetShopByEmail s = new GetShopByEmail(getResources().getString(R.string.baseUrl), email, this, getActivity());
         s.execute();
 
 
@@ -102,11 +102,11 @@ public class Selectedshop extends Fragment implements AsyncResponse
         return view;
     }
 
-
-    public static Selectedshop newInstance(Integer shopID)
+    public static Selectedshop newInstance(Integer shopID, String shopMail)
     {
         Bundle args = new Bundle();
         args.putInt("shopIDs", shopID);
+        args.putString("shopMail", shopMail);
         Log.d("", "her er shop ID " + shopID);
         Selectedshop fragment = new Selectedshop();
         fragment.setArguments(args);
@@ -151,7 +151,11 @@ public class Selectedshop extends Fragment implements AsyncResponse
 
         CoffeeShop shop = gson.fromJson(s, CoffeeShop.class);
 
-        String phone = shop.getPhone().substring(0, 2) + " " + shop.getPhone().substring(2, 4) + " " + shop.getPhone().substring(4, 6) + " " + shop.getPhone().substring(6, 8);
+
+        String phone = shop.getPhone();
+        if(shop.getPhone().length() == 8) // if the shop length is equal to 8 characters, split it up.
+            phone = shop.getPhone().substring(0,2) + " " + shop.getPhone().substring(2,4)  + " " +  shop.getPhone().substring(4,6) + " " + shop.getPhone().substring(6,8);
+
 
 
         Log.d("here is the output!. - ", s);

@@ -56,15 +56,14 @@ public class GetAllLoyaltyCards extends AsyncTask<String, Void, String>
 
             input = connection.getInputStream();
             String code = "" +connection.getResponseCode();
+
+
+
             if(code.equalsIgnoreCase("200"));
             {
-                String refreshToken = connection.getHeaderField("refreshToken");
                 String accessToken = connection.getHeaderField("accessToken");
 
-                if(!dbh.getTokenByName("refreshToken").getTokenData().equals(refreshToken))
-                {
-                    dbh.updateToken("refreshToken", refreshToken);
-                }
+
                 if(!dbh.getTokenByName("accessToken").getTokenData().equals(accessToken))
                 {
                     dbh.updateToken("accessToken", accessToken);
