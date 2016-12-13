@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Keebin_dev_v0.1</string>
+    <string name="app_name">Keebin_dev_v0.11</string>
 
 
     <string name="baseUrl">http://keebintest-pagh.rhcloud.com/api/</string>
