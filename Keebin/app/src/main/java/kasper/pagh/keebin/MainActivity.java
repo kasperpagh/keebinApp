@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 
     public void link_maps(View v)
     {
-        getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, Index.newInstance()).commit();
+        getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, Map.newInstance()).commit();
     }
 
     public void link_search(View v)
