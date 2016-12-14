@@ -9,11 +9,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.CameraPosition
 
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
@@ -23,6 +21,11 @@ import com.google.android.gms.maps.model.MarkerOptions
  */
 class Map : Fragment(), OnMapReadyCallback
 {
+
+
+    lateinit var mMapView: MapView
+    var mapView: MapView? = null
+    lateinit var googleMap: GoogleMap
 
     companion object
     {
@@ -39,17 +42,47 @@ class Map : Fragment(), OnMapReadyCallback
 
     override fun onCreateView(inflater: LayoutInflater?, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View?
     {
-        if (inflater != null)
+
+        val rootView = inflater!!.inflate(R.layout.map_layout, container, false)
+
+        mMapView = rootView.findViewById(R.id.mapFragment) as MapView
+        mMapView.onCreate(savedInstanceState)
+
+        mMapView.onResume() // needed to get the map to display immediately
+
+        try
         {
-            var view: View = inflater.inflate(R.layout.map_layout, container, false)
+            MapsInitializer.initialize(activity.applicationContext)
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
         }
 
-        val mapFrag = activity.supportFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
+        mMapView.getMapAsync { this }
+//        mMapView.getMapAsync(OnMapReadyCallback { mMap ->
+//            googleMap = mMap
+//
+//            if (ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+//            {
+//                return@OnMapReadyCallback
+//            }
+//            googleMap.isMyLocationEnabled = true
+//
+//            Log.d("ligefør latLng", " lige før sidney")
+//            val sydney = LatLng(-34.0, 151.0)
+//            Log.d("her er john ", sydney.toString())
+//
+//            googleMap.addMarker(MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"))
+//
+////            val cameraPosition = CameraPosition.Builder().target(sydney).zoom(12f).build()
+//            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+////            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+//        })
 
-        mapFrag.getMapAsync { activity }
-
-        return view
+        return rootView
     }
+
 
     override fun onMapReady(googleMap: GoogleMap)
     {
@@ -64,5 +97,29 @@ class Map : Fragment(), OnMapReadyCallback
         googleMap.isMyLocationEnabled = true
     }
 
+
+    override fun onResume()
+    {
+        super.onResume()
+        mMapView.onResume()
+    }
+
+    override fun onPause()
+    {
+        super.onPause()
+        mMapView.onPause()
+    }
+
+    override fun onDestroy()
+    {
+        super.onDestroy()
+        mMapView.onDestroy()
+    }
+
+    override fun onLowMemory()
+    {
+        super.onLowMemory()
+        mMapView.onLowMemory()
+    }
 
 }
