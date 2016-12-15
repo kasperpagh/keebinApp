@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="kasper.pagh.keebin.MainActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:background="#ffffff"
+        android:gravity="left"
+        android:minHeight="?attr/actionBarSize"
+        android:titleTextColor="#000000"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_search_black_24dp"
+            android:id="@+id/searchbutton_maps"
+            />
+
+        <SearchView
+            android:id="@+id/easyGGmofo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            tools:context="kasper.pagh.keebin.MainActivity"
+           />
+
+
+
+    </android.support.v7.widget.Toolbar>
+
+
+
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:map="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/mapFragment"
+android:name="com.google.android.gms.maps.SupportMapFragment"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="MainActivity" />
+
+</LinearLayout>

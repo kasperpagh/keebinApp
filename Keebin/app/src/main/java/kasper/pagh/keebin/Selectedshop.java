@@ -61,6 +61,7 @@ public class Selectedshop extends Fragment implements AsyncResponse
         View = view;
         Bundle bundle = getArguments();
 
+
         int ID = bundle.getInt("shopIDs");
         String email = bundle.getString("shopMail");
 

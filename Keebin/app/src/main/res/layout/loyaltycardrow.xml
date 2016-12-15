@@ -5,14 +5,38 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
+    </LinearLayout>
     <ImageView
         android:id="@+id/logo"
         android:layout_width="127dp"
         android:layout_height="158dp" />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/beancounter"
         android:layout_height="158dp"
         android:layout_width="250dp" />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
+    </LinearLayout>
 
 </LinearLayout>
