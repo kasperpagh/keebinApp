@@ -1,7 +1,12 @@
 package kasper.pagh.keebin;
 
+import android.*;
+import android.Manifest;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
@@ -10,9 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
+
+import java.lang.reflect.Array;
 
 import CoffeeRest.rest.GetAllShopsWithBrandName;
 import entity.User;
@@ -28,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 
     private static NetworkChecker networkChecker;
 
+    private int MY_PERMISSION_REQUEST = 123;
     private PutUser putUser;
     private DeleteUser deleteUser;
     private NewUser newUser;
@@ -48,10 +57,11 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-
+        String[] permissions = new String[2];
+        permissions[0]=Manifest.permission.ACCESS_FINE_LOCATION;
+        permissions[1]=Manifest.permission.ACCESS_COARSE_LOCATION;
+        ActivityCompat.requestPermissions(this,permissions,
+                MY_PERMISSION_REQUEST);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
@@ -155,5 +165,6 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

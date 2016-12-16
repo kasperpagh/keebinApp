@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
+import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
@@ -24,11 +25,17 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
 import entity.CoffeeShop
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.maps.MapFragment
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.location.LocationServices.FusedLocationApi
 
-class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
 
 
 
+class Map : Fragment(), OnMapReadyCallback, AsyncResponse,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+
+    lateinit var mGoogleApiClient :GoogleApiClient
     val mapinstance = this
     lateinit var searchtext: android.widget.SearchView
     val gson: Gson = Gson()
@@ -36,7 +43,6 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
     var searchbool = false
     var searchspecificbool = false
     lateinit var bundle : Bundle
-
 
     companion object {
         @JvmStatic
@@ -70,8 +76,14 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
     override fun onCreateView(inflater: LayoutInflater?, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
         var view: View = inflater!!.inflate(R.layout.map_layout, container, false)
-
         bundle = arguments
+        if(ActivityCompat.checkSelfPermission(activity,android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                BuildApiGoogle()
+
+                mGoogleApiClient.connect()
+
+        }
 
         if(bundle.getDouble("long") != 0.0 && bundle.getDouble("lat") != 0.0) {
 
@@ -80,13 +92,14 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
             searchspecificbool = true
         }
 
-        ActivityCompat.requestPermissions(activity,
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION),
-                MY_PERMISSIONS_REQUEST)
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+//        val mapFragment = getFragmentManager().findFragmentById(R.id.mapFragment) as MapFragment
+//        mapFragment.getMapAsync(this)
 
         val search = view.findViewById(R.id.searchbutton_maps) as ImageButton
 
@@ -115,11 +128,6 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
     override fun processFinished(output: String?) {
         gmap.clear()
 
-
-
-
-
-
         val coffeeArray = gson.fromJson(output, Array<CoffeeShop>::class.java)
 
       if(searchbool) {
@@ -130,29 +138,32 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
                   Toast.makeText(activity, "" + it.actualBrandName,
                           Toast.LENGTH_LONG).show();
 
-                  val cphbusiness = LatLng(it.latitude, it.longitude)
-                  gmap.addMarker(MarkerOptions().position(cphbusiness).title(it.actualBrandName).snippet(it.address + ", " + it.email))
+                  val tempLatLng = LatLng(it.latitude, it.longitude)
+                  gmap.addMarker(MarkerOptions().position(tempLatLng).title(it.actualBrandName).snippet(it.address + ", " + it.email))
               }
 
 
           }
           searchbool = false
       }
-
-
-
-
-
-
-
     }
 
 
 
 
     override fun onMapReady(googleMap: GoogleMap) {
-
         gmap = googleMap
+
+        gmap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+//        gmap.setMyLocationEnabled(true);
+        gmap.setTrafficEnabled(true);
+        gmap.setIndoorEnabled(true);
+        gmap.setBuildingsEnabled(true);
+        gmap.getUiSettings().setZoomControlsEnabled(true);
+        Toast.makeText(context,"halløj vi sidder med loc " + gmap.isMyLocationEnabled,Toast.LENGTH_SHORT)
+
+
+
 
         if(searchspecificbool)
         {
@@ -167,8 +178,8 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
             val shoploc = LatLng(lat, long)
             gmap.addMarker(MarkerOptions().position(shoploc).title(name).snippet(addr + ", " + email + ", " +  phone))
             gmap.moveCamera(CameraUpdateFactory.newLatLng(shoploc))
-            googleMap.setMinZoomPreference(11.0f)
-            googleMap.setMaxZoomPreference(20.0f)
+            gmap.setMinZoomPreference(11.0f)
+            gmap.setMaxZoomPreference(20.0f)
 
             searchspecificbool = false
         }
@@ -176,16 +187,49 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse {
         {
 
         val cphbusiness = LatLng(55.770535, 12.511922)
-        googleMap.addMarker(MarkerOptions().position(cphbusiness).title("Her"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(cphbusiness))
-        googleMap.setMinZoomPreference(11.0f);
-        googleMap.setMaxZoomPreference(20.0f);
+            gmap.addMarker(MarkerOptions().position(cphbusiness).title("Her"))
+            gmap.moveCamera(CameraUpdateFactory.newLatLng(cphbusiness))
+            gmap.setMinZoomPreference(11.0f);
+            gmap.setMaxZoomPreference(20.0f);
+
         if (ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
         }
 
-        googleMap.isMyLocationEnabled = true
+            gmap.isMyLocationEnabled = true
 
         }
     }
+
+        fun BuildApiGoogle() : Unit{
+            mGoogleApiClient = GoogleApiClient.Builder(context)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build()
+        }
+
+    override fun onConnectionSuspended(p0: Int) {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onConnected(p0: Bundle?) {
+        val mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient)
+if(mLastLocation == null){
+    println("kasper prøver")
+    Toast.makeText(context,"123",Toast.LENGTH_LONG)
+}else {
+    val latLng = LatLng(mLastLocation.latitude, mLastLocation.longitude)
+    gmap.addMarker(MarkerOptions().position(latLng).title("vi ser vores loc"))
+    gmap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+    gmap.setMinZoomPreference(11.0f);
+    gmap.setMaxZoomPreference(20.0f);
+}
+    }
+
+    override fun onConnectionFailed(p0: ConnectionResult) {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }
