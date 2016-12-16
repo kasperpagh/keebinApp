@@ -160,7 +160,6 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse,GoogleApiClient.Connec
         gmap.setIndoorEnabled(true);
         gmap.setBuildingsEnabled(true);
         gmap.getUiSettings().setZoomControlsEnabled(true);
-        Toast.makeText(context,"halløj vi sidder med loc " + gmap.isMyLocationEnabled,Toast.LENGTH_SHORT)
 
 
 
@@ -179,7 +178,7 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse,GoogleApiClient.Connec
             gmap.addMarker(MarkerOptions().position(shoploc).title(name).snippet(addr + ", " + email + ", " +  phone))
             gmap.moveCamera(CameraUpdateFactory.newLatLng(shoploc))
             gmap.setMinZoomPreference(11.0f)
-            gmap.setMaxZoomPreference(20.0f)
+//            gmap.setMaxZoomPreference(20.0f)
 
             searchspecificbool = false
         }
@@ -190,7 +189,7 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse,GoogleApiClient.Connec
             gmap.addMarker(MarkerOptions().position(cphbusiness).title("Her"))
             gmap.moveCamera(CameraUpdateFactory.newLatLng(cphbusiness))
             gmap.setMinZoomPreference(11.0f);
-            gmap.setMaxZoomPreference(20.0f);
+//            gmap.setMaxZoomPreference(20.0f);
 
         if (ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
@@ -224,7 +223,7 @@ if(mLastLocation == null){
     gmap.addMarker(MarkerOptions().position(latLng).title("vi ser vores loc"))
     gmap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
     gmap.setMinZoomPreference(11.0f);
-    gmap.setMaxZoomPreference(20.0f);
+//    gmap.setMaxZoomPreference(20.0f);
 }
     }
 
