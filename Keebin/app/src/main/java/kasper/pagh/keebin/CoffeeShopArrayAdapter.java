@@ -42,7 +42,8 @@ public class CoffeeShopArrayAdapter extends ArrayAdapter<CoffeeShop>
         final int pos = position;
         button.setOnClickListener(new View.OnClickListener() {
                                       public void onClick(View v) {
-
+                                            //Da dette ikke er et Activity er vi nødt til at caste til FragmentActivity for at
+                                          //kunnebruge supportFragmentManager
                                           ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, Map.newInstance(shops.get(pos))).commit();
                                       }
                                   });
