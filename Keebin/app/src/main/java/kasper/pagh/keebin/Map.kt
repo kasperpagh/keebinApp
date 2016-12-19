@@ -95,9 +95,9 @@ class Map : Fragment(), OnMapReadyCallback, AsyncResponse, GoogleApiClient.Conne
 
         search.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View): Unit {
-                searchbool = true
-                val getAllShops = GetAllShopsWithBrandName(resources.getString(R.string.baseUrl), mapinstance, activity)
-                getAllShops.execute()
+                    searchbool = true
+                    val getAllShops = GetAllShopsWithBrandName(resources.getString(R.string.baseUrl), mapinstance, activity)
+                    getAllShops.execute()
             }
         })
         return view;
