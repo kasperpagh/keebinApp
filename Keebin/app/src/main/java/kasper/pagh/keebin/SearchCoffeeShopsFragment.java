@@ -11,20 +11,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.lang.reflect.Type;
-
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.reflect.TypeToken;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import CoffeeRest.rest.GetAllShops;
-import CoffeeRest.rest.GetAllShopsWithBrandName;
+import rest.coffeeRest.GetAllShopsWithBrandName;
+import adapters.CoffeeShopArrayAdapter;
 import entity.CoffeeShop;
 
 /**
@@ -33,7 +27,6 @@ import entity.CoffeeShop;
 
 public class SearchCoffeeShopsFragment extends Fragment implements AsyncResponse
 {
-    private TextView textView;
     private Gson gson = new Gson();
     CoffeeShopArrayAdapter adapter;
 
@@ -56,6 +49,7 @@ public class SearchCoffeeShopsFragment extends Fragment implements AsyncResponse
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         Log.d("her er curUsr ", MainActivity.currentUser.toString());
+
         final View view = inflater.inflate(R.layout.search_coffee_shops_fragment, container, false);
 
         Button searchButton = (Button) view.findViewById(R.id.searchButton);

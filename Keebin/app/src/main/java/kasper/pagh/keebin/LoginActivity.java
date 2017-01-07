@@ -1,7 +1,6 @@
 package kasper.pagh.keebin;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,10 +8,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
-import entity.User;
-import userReST.PostLogin;
+import rest.userReST.PostLogin;
 
 public class LoginActivity extends AppCompatActivity implements AsyncResponse
 {

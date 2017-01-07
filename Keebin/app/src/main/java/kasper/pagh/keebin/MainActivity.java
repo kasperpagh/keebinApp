@@ -1,10 +1,7 @@
 package kasper.pagh.keebin;
 
-import android.*;
 import android.Manifest;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,21 +10,15 @@ import android.support.v7.widget.PopupMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 
-import java.lang.reflect.Array;
-
-import CoffeeRest.rest.GetAllShopsWithBrandName;
+import DB.GetCoffeeBrandsAndSaveToDB;
 import entity.User;
-import userReST.DeleteUser;
-import userReST.NetworkChecker;
-import userReST.NewUser;
-import userReST.PutUser;
+import rest.userReST.DeleteUser;
+import rest.userReST.NetworkChecker;
+import rest.userReST.NewUser;
+import rest.userReST.PutUser;
 
 
 //All activities that deal with network MUST implement the AsyncResponse interface to get the data from the request. See: http://stackoverflow.com/questions/12575068/how-to-get-the-result-of-onpostexecute-to-main-activity-because-asynctask-is-a
@@ -67,8 +58,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
         {
             public void onClick(View v)
             {
-
-                getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, AddCoffeeToLoyaltycard.newInstance()).commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, AddCoffeeToLoyaltycardFragment.newInstance()).commit();
             }
         });
 
@@ -79,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 
         if (savedInstanceState == null)
         {
-            getSupportFragmentManager().beginTransaction().add(R.id.fragment, Index.newInstance()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment, IndexFragment.newInstance()).commit();
         }
         GetCoffeeBrandsAndSaveToDB yes = new GetCoffeeBrandsAndSaveToDB(getApplicationContext());
         yes.getAllCoffeeBrands(getApplicationContext());
@@ -106,13 +96,13 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 
     public void link_home(View v)
     {
-        getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, Index.newInstance()).commit();
+        getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, IndexFragment.newInstance()).commit();
     }
 
     public void link_maps(View v)
     {
 
-        getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, Map.newInstance()).commit();
+        getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, MapFragment.newInstance()).commit();
     }
 
     public void link_search(View v)
@@ -122,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 
     public void link_loyaltycards(View v)
     {
-        getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, UsersLoyaltyCards.newInstance()).commit();
+        getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, UsersLoyaltyCardsFragment.newInstance()).commit();
 
     }
 

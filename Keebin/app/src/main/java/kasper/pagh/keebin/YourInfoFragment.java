@@ -10,21 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import entity.CoffeeShop;
 import entity.User;
-import userReST.PutUser;
-
-import static kasper.pagh.keebin.R.id.birthday;
-import static kasper.pagh.keebin.R.id.email;
-import static kasper.pagh.keebin.R.id.firstName;
-import static kasper.pagh.keebin.R.id.lastName;
-import static kasper.pagh.keebin.R.id.textView;
 
 /**
  * Created by pelle on 12/6/2016.
