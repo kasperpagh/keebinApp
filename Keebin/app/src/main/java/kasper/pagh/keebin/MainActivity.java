@@ -62,7 +62,9 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
         {
             public void onClick(View v)
             {
+                fab.setEnabled(false);
                 getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, AddCoffeeToLoyaltycardFragment.newInstance()).commit();
+                fab.setEnabled(true);
             }
         });
 

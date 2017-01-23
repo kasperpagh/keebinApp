@@ -37,13 +37,16 @@ public class AddCoffeeToLoyaltycardFragment extends Fragment implements AsyncRes
         final View view = inflater.inflate(R.layout.coffee_add, container, false);
         coffeeCode = (EditText) view.findViewById(R.id.coffeeCode);
         numberOfCoffeesBought = (EditText) view.findViewById(R.id.numberOfCoffeesBought);
-        Button button = (Button) view.findViewById(R.id.addCoffee);
+        final Button button = (Button) view.findViewById(R.id.addCoffee);
         button.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
+                button.setEnabled(false);
                 AddCoffee addCoffee = new AddCoffee(getResources().getString(R.string.baseUrl), MainActivity.currentUser, coffeeCode.getText().toString(), numberOfCoffeesBought.getText().toString(), AddCoffeeToLoyaltycardFragment.this, getContext());
+                button.setEnabled(true);
                 addCoffee.execute();
+
             }
         });
 
