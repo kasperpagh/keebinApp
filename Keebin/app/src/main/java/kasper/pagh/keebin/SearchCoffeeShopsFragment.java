@@ -66,7 +66,7 @@ public class SearchCoffeeShopsFragment extends Fragment implements AsyncResponse
                 List<CoffeeShop> resultList = new ArrayList<CoffeeShop>();
                 for (int i = 0; i < coffeeList.size(); i++)
                 {
-                    if (coffeeList.get(i).getActualBrandName().equalsIgnoreCase(searchString) || coffeeList.get(i).getAddress().equalsIgnoreCase(searchString) || coffeeList.get(i).getEmail().equalsIgnoreCase(searchString))
+                    if (coffeeList.get(i).getActualBrandName().toLowerCase().contains(searchString.toLowerCase()) || coffeeList.get(i).getAddress().toLowerCase().contains(searchString.toLowerCase()) || coffeeList.get(i).getEmail().toLowerCase().contains(searchString.toLowerCase()))
                     {
                         resultList.add(coffeeList.get(i));
                     }
@@ -85,7 +85,6 @@ public class SearchCoffeeShopsFragment extends Fragment implements AsyncResponse
                 }
             }
         });
-
 
 
         GetAllShopsWithBrandName getAllShops = new GetAllShopsWithBrandName(getResources().getString(R.string.baseUrl), this, getActivity());
