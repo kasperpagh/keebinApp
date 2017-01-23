@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
@@ -28,7 +29,10 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse
 
     public void login(View view)
     {
+        Button button = (Button) findViewById(R.id.button_login);
+        button.setEnabled(false);
         PostLogin postLogin = new PostLogin(getResources().getString(R.string.baseUrl), getResources().getString(R.string.loginString),editTextEmail.getText().toString(), editTextPassword.getText().toString(), this, getApplicationContext());
+       button.setEnabled(true);
         postLogin.execute();
     }
 

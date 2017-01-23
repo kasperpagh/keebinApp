@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -36,6 +37,8 @@ public class IndexFragment extends Fragment implements AsyncResponse
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+
+
         dbh = new DatabaseHandler(getActivity());
         GetAllShops allshops = new GetAllShops(getResources().getString(R.string.baseUrl), this, getActivity());
         allshops.execute();

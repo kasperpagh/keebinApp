@@ -2,14 +2,17 @@ package kasper.pagh.keebin;
 
 import android.Manifest;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
     private Gson gson = new Gson();
     public static User currentUser;
     PopupMenu MenuPopup;
+    FloatingActionButton fab;
     //You need to declare this for each of the ReST classes you want to use in this activity
 
 
@@ -53,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
         permissions[1]=Manifest.permission.ACCESS_COARSE_LOCATION;
         ActivityCompat.requestPermissions(this,permissions,
                 MY_PERMISSION_REQUEST);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -96,24 +100,39 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse
 
     public void link_home(View v)
     {
+
+        ImageButton button = (ImageButton) findViewById(R.id.home_menu);
+        button.setEnabled(false);
         getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, IndexFragment.newInstance()).commit();
+        button.setEnabled(true);
+        fab.setVisibility(View.VISIBLE);
     }
 
     public void link_maps(View v)
     {
-
+        ImageButton button = (ImageButton) findViewById(R.id.maps_menu);
+        button.setEnabled(false);
         getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, MapFragment.newInstance()).commit();
+        button.setEnabled(true);
+        fab.setVisibility(View.GONE);
     }
 
     public void link_search(View v)
     {
+        ImageButton button = (ImageButton) findViewById(R.id.search_menu);
+        button.setEnabled(false);
         getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, SearchCoffeeShopsFragment.newInstance()).commit();
+        button.setEnabled(true);
+        fab.setVisibility(View.VISIBLE);
     }
 
     public void link_loyaltycards(View v)
     {
+        ImageButton button = (ImageButton) findViewById(R.id.loyaltycards_menu);
+        button.setEnabled(false);
         getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, UsersLoyaltyCardsFragment.newInstance()).commit();
-
+        button.setEnabled(true);
+        fab.setVisibility(View.VISIBLE);
     }
 
 
