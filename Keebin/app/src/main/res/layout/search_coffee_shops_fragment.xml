@@ -4,14 +4,14 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <Button
-        android:text="Søg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/searchButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+    <!--<Button-->
+        <!--android:text="Søg"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/searchButton"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true"/>-->
 
     <EditText
         android:layout_width="274dp"
@@ -20,15 +20,17 @@
         android:ems="10"
         android:id="@+id/SearchCoffeeShop"
         android:background="#CDFFFF"
-        android:layout_alignBaseline="@+id/searchButton"
-        android:layout_alignBottom="@+id/searchButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:hint="søg på navn, addresse eller email"
+        android:layout_centerHorizontal="true"/>
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_alignParentStart="true"-->
+    <!--android:layout_alignBaseline="@+id/searchButton"-->
+    <!--android:layout_alignBottom="@+id/searchButton"-->
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/searchButton"
+        android:layout_below="@id/SearchCoffeeShop"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/searchList"

@@ -2,6 +2,8 @@ package kasper.pagh.keebin;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,25 +54,27 @@ public class SearchCoffeeShopsFragment extends Fragment implements AsyncResponse
 
         final View view = inflater.inflate(R.layout.search_coffee_shops_fragment, container, false);
 
-        Button searchButton = (Button) view.findViewById(R.id.searchButton);
+        final EditText searchField = (EditText) view.findViewById(R.id.SearchCoffeeShop);
 
-        searchButton.setOnClickListener(new View.OnClickListener()
+        searchField.addTextChangedListener(new TextWatcher()
         {
             @Override
-            public void onClick(View v)
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-                EditText searchField = (EditText) view.findViewById(R.id.SearchCoffeeShop);
-                String searchString = searchField.getText().toString();
-                Log.d("klik m. strengen", searchString);
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+                String searchString = charSequence.toString();
                 List<CoffeeShop> resultList = new ArrayList<CoffeeShop>();
-                for (int i = 0; i < coffeeList.size(); i++)
+                for (int iterator = 0; iterator < coffeeList.size(); iterator++)
                 {
-                    if (coffeeList.get(i).getActualBrandName().equalsIgnoreCase(searchString) || coffeeList.get(i).getAddress().equalsIgnoreCase(searchString) || coffeeList.get(i).getEmail().equalsIgnoreCase(searchString))
+                    if (coffeeList.get(iterator).getActualBrandName().toLowerCase().contains(searchString.toLowerCase()) || coffeeList.get(iterator).getAddress().toLowerCase().contains(searchString.toLowerCase()) || coffeeList.get(iterator).getEmail().toLowerCase().contains(searchString.toLowerCase()))
                     {
-                        resultList.add(coffeeList.get(i));
+                        resultList.add(coffeeList.get(iterator));
                     }
-
                 }
                 if (searchString.equalsIgnoreCase(""))
                 {
@@ -83,10 +87,15 @@ public class SearchCoffeeShopsFragment extends Fragment implements AsyncResponse
                     adapter.addAll(resultList);
                     adapter.notifyDataSetChanged();
                 }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+
             }
         });
-
-
 
         GetAllShopsWithBrandName getAllShops = new GetAllShopsWithBrandName(getResources().getString(R.string.baseUrl), this, getActivity());
 
