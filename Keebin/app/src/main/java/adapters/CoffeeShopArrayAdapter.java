@@ -2,13 +2,11 @@ package adapters;
 
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -40,24 +38,19 @@ public class CoffeeShopArrayAdapter extends ArrayAdapter<CoffeeShop>
 
         TextView coffeeShopName = (TextView) viewRow.findViewById(R.id.shopName);
         TextView coffeeShopAdress = (TextView) viewRow.findViewById(R.id.address);
-        final Button button = (Button) viewRow.findViewById(R.id.mapsButton);
-        ImageView image = (ImageView) viewRow.findViewById(R.id.SearchLogo);
+        Button button = (Button) viewRow.findViewById(R.id.mapsButton);
 
         final int pos = position;
         button.setOnClickListener(new View.OnClickListener() {
                                       public void onClick(View v) {
                                             //Da dette ikke er et Activity er vi nødt til at caste til FragmentActivity for at
                                           //kunnebruge supportFragmentManager
-                                          button.setEnabled(false);
                                           ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, MapFragment.newInstance(shops.get(pos))).commit();
-                                          button.setEnabled(true);
                                       }
                                   });
 
         coffeeShopName.setText(shops.get(position).getActualBrandName());
         coffeeShopAdress.setText(shops.get(position).getAddress());
-        int cardBrand = context.getResources().getIdentifier(shops.get(position).getActualBrandName().toLowerCase(), "drawable", "kasper.pagh.keebin");
-        image.setImageDrawable(ContextCompat.getDrawable(context, cardBrand));
 
 
         return viewRow;
