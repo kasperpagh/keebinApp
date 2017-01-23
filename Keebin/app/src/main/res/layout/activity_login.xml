@@ -90,15 +90,15 @@
         android:layout_below="@+id/loginPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp"
-        android:id="@+id/button"
+        android:id="@+id/button_login"
         android:onClick="login"/>
 
     <Button
         android:text="Ny bruger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
-        android:layout_below="@+id/button"
+        android:id="@+id/button_new_user"
+        android:layout_below="@+id/button_login"
         android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

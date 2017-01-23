@@ -87,6 +87,7 @@
             </LinearLayout>
 
             <ImageButton
+                android:id="@+id/home_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_home_white_24dp"
@@ -118,6 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_loyalty_white_24dp"
+                android:id="@+id/loyaltycards_menu"
                 android:onClick="link_loyaltycards"
                 />
 
@@ -146,6 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_search_white_24dp"
+                android:id="@+id/search_menu"
                 android:onClick="link_search"
                 />
 
@@ -173,6 +176,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_place_white_24dp"
+                android:id="@+id/maps_menu"
                 android:onClick="link_maps"
 
                 />
