@@ -40,7 +40,7 @@ public class CoffeeShopArrayAdapter extends ArrayAdapter<CoffeeShop>
 
         TextView coffeeShopName = (TextView) viewRow.findViewById(R.id.shopName);
         TextView coffeeShopAdress = (TextView) viewRow.findViewById(R.id.address);
-        Button button = (Button) viewRow.findViewById(R.id.mapsButton);
+        final Button button = (Button) viewRow.findViewById(R.id.mapsButton);
         ImageView image = (ImageView) viewRow.findViewById(R.id.SearchLogo);
 
         final int pos = position;
@@ -48,7 +48,9 @@ public class CoffeeShopArrayAdapter extends ArrayAdapter<CoffeeShop>
                                       public void onClick(View v) {
                                             //Da dette ikke er et Activity er vi nødt til at caste til FragmentActivity for at
                                           //kunnebruge supportFragmentManager
+                                          button.setEnabled(false);
                                           ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment, MapFragment.newInstance(shops.get(pos))).commit();
+                                          button.setEnabled(true);
                                       }
                                   });
 
